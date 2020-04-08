@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+  <div class="col-10 offset-3">
+    <a class="btn btn-outline-primary" href="..">Back to Product List</a>
+    <div class="card mt-5">
+      <div class="card-header">
+        Product Name: {{ product.name }}
+      </div>
+      <div class="card-body">
+        <p>Catogory: {{ product.category }}</p>
+        <p>Description: {{ product.description }}</p>
+        <p>Price: {{ product.price }}</p>
+      </div>
+      <div class="card-footer">
+        <a href="./update" class="btn btn-outline-primary">Update this product</a>
+        <a href="./delete" class="btn btn-outline-primary">delete this product</a>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

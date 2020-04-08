@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+  <div class="col-4 offset-4">
+    <h4>Create a Product</h4> <br />
+    <form method="POST">
+      {% csrf_token %}
+      {{ form.as_ul }}
+      <button class="btn btn-outline-primary" type="submit">Submit</button><br />
+    </form>
+  </div>
+
+{% endblock %}

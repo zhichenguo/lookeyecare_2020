@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
-from .models import Product, Cart
+
 from .forms import ProductForm
+from .models import Product
 
 
 def product_list(request):
@@ -10,6 +10,7 @@ def product_list(request):
         'products': products
     }
     return render(request, 'products_list.html', context)
+
 
 # CRUD - Create, Retrieve, Update, Delete or List
 
@@ -55,5 +56,3 @@ def product_delete(request, id):
     product = Product.objects.get(id=id)
     product.delete()
     return redirect('/products/')
-
-

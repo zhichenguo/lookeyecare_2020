@@ -16,9 +16,12 @@
         <p>Price: $ {{ product.price|intcomma }}</p>
         <img src="{{ product.image.url }}"/>
       </div>
-      <div class="card-footer">
-        <a href="./update" class="btn btn-outline-primary">Update this product</a>
-        <a href="./delete" class="btn btn-outline-primary">delete this product</a>
+      <div class="card-body">
+        <form method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <button class="btn btn-outline-primary" type="submit">Are you SURE?</button>
+        </form>
       </div>
     </div>
   </div>

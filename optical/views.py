@@ -1,9 +1,59 @@
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import DeleteView, UpdateView, CreateView
-
-from .forms import ProductForm
+from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from .forms import ProductForm, UserRegisterForm, UserLoginForm
 from .models import Product
+
+
+def register_view(request):
+    form = UserRegisterForm(request.POST or None)
+    if request.method == "POST":
+        if form.is_valid():
+            user = form.save(commit=False)
+            password = form.cleaned_data.get('password')
+            # password = request.POST.get('password')  # above is more sucured
+            user.set_password(password)
+            user.save()
+            auth_user = authenticate(username=user.username, password=password)
+            login(request, auth_user)
+            messages.info(request, 'Successfully Registered')
+            return redirect('/products/')
+    context = {
+        'form': form
+    }
+    return render(request, 'register.html', context)
+
+
+def login_view(request):
+    # login required next url which is the 'back' url after login
+    next_back_url = request.GET.get('next')
+    form = UserLoginForm(request.POST or None)
+    if request.method == "POST":
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            # username = request.POST.get('username')
+            # password = request.POST.get('password')
+            auth_user = authenticate(username=username, password=password)
+            login(request, auth_user)
+            messages.info(request, 'Successfully Logged In')
+            if next_back_url:
+                return redirect(next_back_url)
+            return redirect('/products/')
+    context = {
+        'form': form
+    }
+    return render(request, 'login.html', context)
+
+
+def logout_view(request):
+    logout(request)
+    messages.info(request, 'Successfully Logged Out')
+    return redirect('/products/')
 
 
 class ProductListView(ListView):
@@ -49,16 +99,16 @@ class ProductDetailView(DetailView):
         return obj
 
 
-def product_detail(request, id):
+def product_detail(request, product_id):
     # same as ProductDetailView
-    product = Product.objects.get(id=id)
+    product = Product.objects.get(id=product_id)
     context = {
         "product": product
     }
     return render(request, 'product_detail.html', context)
 
 
-class ProductCreateView(CreateView):
+class ProductCreateView(LoginRequiredMixin, CreateView):
     template_name = 'product_create.html'
     model = Product
     fields = ['name', 'category', 'description', 'price', 'inventory', 'image']
@@ -82,6 +132,7 @@ class ProductCreateView(CreateView):
 #         return super().form_valid(form)
 
 
+@login_required
 def product_create(request):
     # same as ProductCreateView
     form = ProductForm(request.POST or None, request.FILES or None)
@@ -100,7 +151,7 @@ def product_create(request):
     return render(request, 'product_create.html', context)
 
 
-class ProductUpdateView(UpdateView):
+class ProductUpdateView(LoginRequiredMixin, UpdateView):
     template_name = 'product_update.html'
     model = Product
     fields = ['name', 'category', 'description', 'price', 'inventory', 'image']
@@ -130,9 +181,10 @@ class ProductUpdateView(UpdateView):
 #         return super().form_valid(form)
 
 
-def product_update(request, id):
+@login_required
+def product_update(request, product_id):
     # same as ProductUpdateView
-    product = Product.objects.get(id=id)
+    product = Product.objects.get(id=product_id)
     # instance put the old info into the form
     form = ProductForm(request.POST or None, request.FILES or None, instance=product)
     if form.is_valid():
@@ -143,15 +195,16 @@ def product_update(request, id):
     return render(request, 'product_update.html', context)
 
 
-class ProductDeleteView(DeleteView):
+class ProductDeleteView(LoginRequiredMixin, DeleteView):
     template_name = 'product_confirm_delete.html'
     model = Product
     success_url = '/products/'
 
 
-def product_delete(request, id):
+@login_required
+def product_delete(request, product_id):
     # same as ProductDeleteView
-    product = Product.objects.get(id=id)
+    product = Product.objects.get(id=product_id)
     product.delete()
     # return redirect('/products/')  # same below
     return redirect('optical:product_list')

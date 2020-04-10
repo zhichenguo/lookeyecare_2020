@@ -1,1 +1,2 @@
+django
 Pillow==7.1.1

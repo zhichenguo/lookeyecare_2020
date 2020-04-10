@@ -5,13 +5,15 @@
 {% block content %}
 
   <div class="text-center">
-    <a class="btn btn-outline-primary" href="./create">Create a Product</a>
+    <a class="btn btn-outline-primary mt=3" href="./create">Create a Product</a>
   </div>
-  <div class="col-10 offset-2">
+  <div class="col-16">
     {% for product in products %}
       <div class="card mt-3">
         <div class="card-header">
           <a href="./{{ product.id }}"><h4>{{ product.name }}</h4></a>
+          <h4>In Stock {{ product.inventory }}</h4>
+          <img src="{{ product.image.url }}" height="50" , width="50"/>
         </div>
         <div class="card-body">
           <h4>$ {{ product.price|intcomma }}</h4>

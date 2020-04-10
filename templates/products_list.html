@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% load humanize %}
+
 {% block content %}
 
   <div class="text-center">
@@ -12,7 +14,7 @@
           <a href="./{{ product.id }}"><h4>{{ product.name }}</h4></a>
         </div>
         <div class="card-body">
-          <h4>$ {{ product.price }}</h4>
+          <h4>$ {{ product.price|intcomma }}</h4>
         </div>
       </div>
     {% endfor %}

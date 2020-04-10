@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% load humanize %}
+
 {% block content %}
 
   <div class="col-10 offset-3">
@@ -11,7 +13,7 @@
       <div class="card-body">
         <p>Catogory: {{ product.category }}</p>
         <p>Description: {{ product.description }}</p>
-        <p>Price: {{ product.price }}</p>
+        <p>Price: $ {{ product.price|intcomma }}</p>
       </div>
       <div class="card-footer">
         <a href="./update" class="btn btn-outline-primary">Update this product</a>
@@ -19,5 +21,7 @@
       </div>
     </div>
   </div>
+
+
 
 {% endblock %}

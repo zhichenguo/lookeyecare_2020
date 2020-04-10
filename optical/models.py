@@ -33,6 +33,7 @@ class Product(models.Model):
     description = models.TextField(default='', blank=True)
     price = models.DecimalField(max_digits=8, decimal_places=2, blank=True)
     inventory = models.IntegerField(default=0, blank=True)
+    image = models.ImageField(blank=True, null=True)
 
     def __str__(self):
         return self.name

@@ -36,6 +36,18 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
+
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    # 'allauth.socialaccount.providers.google',
+    # 'allauth.socialaccount.providers.facebook',
+    # 'allauth.socialaccount.providers.twitter',
+    # 'allauth.socialaccount.providers.instagram',
+
+    'crispy_forms',
+
     'optical.apps.OpticalConfig',
 ]
 
@@ -155,3 +167,34 @@ LOGIN_URL = '/login/'
 #     DEFAULT_FILE_STORAGE = 'demo.storage_backends.PublicMediaStorage'
 #
 #     STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
+
+# # sendgrid settings
+# SEND_GRID_API_KEY = ''
+# EMAIL_HOST = 'smtp.sendgrid.net'
+# EMAIL_HOST_USER = ''
+# EMAIL_HOST_PASSWORD = ''
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+# DEFAULT_FROM_EMAIL = ''
+# ACCOUNT_EMAIL_SUBJECT_PREFIX = ''
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+#
+# # Error Email for Live
+# SERVER_EMAIL = ''
+# ADMINS = [('admin', 'admin@zhichenguo.com')]
+
+# Django allauth
+AUTHENTICATION_BACKENDS = (
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
+SITE_ID = 1
+# let django know the auth user
+AUTH_USER_MODEL = 'optical.User'
+LOGIN_REDIRECT_URL = '/products/'
+ACCOUNT_LOGOUT_REDIRECT_URL = '/products/'
+
+# Crispy forms
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

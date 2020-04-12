@@ -1,6 +1,13 @@
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.db.models.signals import post_save
+
+
+class User(AbstractUser):
+    pass
+
+    def __str__(self):
+        return self.username
 
 
 # GENDER_CHOICES = (
@@ -60,6 +67,7 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=8, decimal_places=2, blank=True)
     inventory = models.IntegerField(default=0, blank=True)
     image = models.ImageField(blank=True, null=True)
+    # slug = models.SlugField()
 
     objects = ProductManager()
 
@@ -71,6 +79,10 @@ class Product(models.Model):
             return True
         else:
             return False
+
+    @property
+    def get_carts_count(self):
+        return self.carts.all().count()
 
 
 class Cart(models.Model):

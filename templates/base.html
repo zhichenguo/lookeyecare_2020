@@ -6,7 +6,16 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-  <title>Optical</title>
+  <script src="https://kit.fontawesome.com/90ebfade12.js" crossorigin="anonymous"></script>
+  {#  <title>Optical</title>#}
+
+  <title>
+    {% block head_title %}
+    {% endblock head_title %}
+  </title>
+
+  {% block extra_head %}
+  {% endblock extra_head %}
 </head>
 <body>
 
@@ -15,20 +24,75 @@
     <h5 class="text-center">
       {% if messages %}
         {% for message in messages %}
-          <p {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+          <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
         {% endfor %}
       {% endif %}
+
+      {#      {% if messages %}#}
+      {#        {% for message in messages %}#}
+      {#          <p {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>#}
+      {#        {% endfor %}#}
+      {#      {% endif %}#}
+
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Navbar</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Link1</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                 aria-haspopup="true" aria-expanded="false">
+                Dropdown
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="/products/">Products</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Something else here</a>
+              </div>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+            </li>
+          </ul>
+          <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          </form>
+
+
+        </div>
+      </nav>
+
 
       {% if request.user.is_authenticated %}
         Hello {{ request.user.username }}
         <div class="text-center">
-          <a class="btn btn-outline-primary" href="/logout/">Logout</a>
+          {#          <a class="btn btn-outline-primary" href="/logout/">Logout</a>#}
+          <a class="btn btn-outline-primary" href="{% url 'account_logout' %}">Logout</a>
         </div>
       {% else %}
         Welcome !
-        <div class="text-center">
-          <a class="btn btn-outline-primary" href="/register/">Signup</a>
-          <a class="btn btn-outline-primary" href="/login/">Login</a>
+        <div class=" text-center">
+          {#          <a class="btn btn-outline-primary" href="/register/">Signup</a>#}
+          {#          <a class="btn btn-outline-primary" href="/login/">Login</a>#}
+          <a class="btn btn-outline-primary" href="{% url 'account_signup' %}">Signup</a>
+          <a class="btn btn-outline-primary" href="{% url 'account_login' %}">Login</a>
         </div>
       {% endif %}
     </h5>
@@ -39,6 +103,10 @@
   <hr/>
   {% block content %}
   {% endblock content %}
+
+  {% block extra_body %}
+  {% endblock extra_body %}
+
 </div>
 
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"

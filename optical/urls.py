@@ -18,6 +18,7 @@ urlpatterns = [
     # id is the django default id, if model has other pk_name should use it
     # add '/' at the end! without / still work. If don't add '/' at the end, without / doesn't work
 
+    # path('products/<slug>/', ProductDetailView.as_view(), name='product_detail'),
     path('products/<int:pk>/', ProductDetailView.as_view(), name='product_detail'),
     # path('products/<int:id>/', product_detail),
 

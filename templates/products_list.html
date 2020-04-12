@@ -2,6 +2,10 @@
 
 {% load humanize %}
 
+{% block head_title %}
+  Products List
+{% endblock head_title %}
+
 {% block content %}
 
   <div class="text-center">
@@ -22,4 +26,4 @@
     {% endfor %}
   </div>
 
-{% endblock %}
+{% endblock content %}

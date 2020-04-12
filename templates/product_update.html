@@ -1,5 +1,11 @@
 {% extends "base.html" %}
 
+{% load crispy_forms_tags %}
+
+{% block head_title %}
+  Products Update
+{% endblock head_title %}
+
 {% block content %}
 
   <div class="col-16">
@@ -11,11 +17,10 @@
       <div class="card-body">
         <form method="POST" enctype="multipart/form-data">
           {% csrf_token %}
-          {{ form.as_p }}
+          {{ form|crispy }}
           <button class="btn btn-outline-primary" type="submit">Submit</button>
         </form>
       </div>
-
     </div>
   </div>
 

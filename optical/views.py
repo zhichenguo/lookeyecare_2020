@@ -111,7 +111,8 @@ def product_detail(request, product_id):
 class ProductCreateView(LoginRequiredMixin, CreateView):
     template_name = 'product_create.html'
     model = Product
-    fields = ['name', 'category', 'description', 'price', 'inventory', 'image']
+    form_class = ProductForm
+    # fields = ['name', 'category', 'description', 'price', 'inventory', 'image']
     success_url = '/products/'
 
     def form_valid(self, form):
@@ -154,7 +155,8 @@ def product_create(request):
 class ProductUpdateView(LoginRequiredMixin, UpdateView):
     template_name = 'product_update.html'
     model = Product
-    fields = ['name', 'category', 'description', 'price', 'inventory', 'image']
+    form_class = ProductForm
+    # fields = ['name', 'category', 'description', 'price', 'inventory', 'image']
     success_url = '..'
 
     def form_valid(self, form):

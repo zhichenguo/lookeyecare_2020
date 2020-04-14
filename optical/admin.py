@@ -4,9 +4,9 @@ from .models import Product, Cart, User
 
 
 class ProductAdmin(admin.ModelAdmin):
-    # can define functions with actions and methods to mulipulated price
-    fields = ['name', 'category', 'description', 'price', 'inventory', 'image', 'get_carts_count']
-    list_display = ['name', 'category', 'description', 'price', 'inventory', 'image', 'get_carts_count']
+    # can define functions with actions and methods to mulipulated price here, like on sale / discount
+    fields = ['name', 'category', 'description', 'price', 'inventory', 'image']
+    list_display = ['name', 'slug', 'category', 'price', 'inventory', 'image', 'get_carts_count']
     list_display_links = ['name', 'image']
     list_editable = ['category', 'price', 'inventory']
     list_filter = ['category']
@@ -15,9 +15,17 @@ class ProductAdmin(admin.ModelAdmin):
 
 
 class CartAdmin(admin.ModelAdmin):
-    list_display = ('owner', 'productId', 'number')
+    list_display = ['user', 'get_carts']
+
+    def get_carts(self, obj):
+        return "\n".join([c.name for c in obj.products.all()])
+
+
+class UserAdmin(admin.ModelAdmin):
+    list_display = ['username', 'first_name', 'last_name']
+    list_display_links = ['username', 'first_name', 'last_name']
 
 
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Cart, CartAdmin)
-admin.site.register(User)
+admin.site.register(User, UserAdmin)

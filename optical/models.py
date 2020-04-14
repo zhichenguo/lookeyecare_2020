@@ -1,5 +1,8 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.shortcuts import redirect, reverse
+from django.conf import settings
+from autoslug import AutoSlugField
 from django.db.models.signals import post_save
 
 
@@ -8,6 +11,7 @@ class User(AbstractUser):
 
     def __str__(self):
         return self.username
+        # return f"{self.first_name} {self.last_name}"
 
 
 # GENDER_CHOICES = (
@@ -17,23 +21,6 @@ class User(AbstractUser):
 #     ('O', 'Other'),
 #     ('N', 'Not Available')
 # )
-
-
-# class UserOF(models.Model):
-#     username = models.CharField(max_length=150, unique=True)
-#     password = models.CharField(max_length=128)
-#     first_name = models.CharField(max_length=30, blank=True)
-#     last_name = models.CharField(max_length=150, blank=True)
-#     email = models.EmailField(max_length=254, blank=True)
-#     gender = models.CharField(choices=GENDER_CHOICES, max_length=1, blank=True)
-#
-#     # birth_date = models.DateField()
-#     def __str__(self):
-#         return self.username
-#
-#     @property
-#     def full_name(self):  # call without ()
-#         return f"{self.first_name} {self.last_name}"
 
 
 class ProductQueryset(models.QuerySet):
@@ -46,6 +33,7 @@ class ProductQueryset(models.QuerySet):
 
 
 class ProductManager(models.Manager):
+    # add a property for admin use
 
     # def get_queryset(self):  # required
     #     return super().get_queryset()
@@ -68,6 +56,7 @@ class Product(models.Model):
     inventory = models.IntegerField(default=0, blank=True)
     image = models.ImageField(blank=True, null=True)
     # slug = models.SlugField()
+    slug = AutoSlugField(populate_from='name', always_update=True)
 
     objects = ProductManager()
 
@@ -80,18 +69,36 @@ class Product(models.Model):
         else:
             return False
 
+    def get_absolute_url(self):
+        return reverse("optical:product_detail", kwargs={
+            'slug': self.slug
+        })
+
     @property
     def get_carts_count(self):
-        return self.carts.all().count()
+        return self.cart.all().count()
 
 
 class Cart(models.Model):
-    # on_delete=CASCADE: product bei shan le, zhe tiao zi dong shan
-    # null=True: ru guo you, productId shi kong ye bu hui bao cuo
-    productId = models.ForeignKey(Product, related_name='carts', on_delete=models.CASCADE)
-    number = models.IntegerField(default=1)
-    owner = models.ForeignKey(User, related_name='carts', on_delete=models.CASCADE, null=True)
-    create_time = models.DateTimeField(auto_now=True)
+    products = models.ManyToManyField(Product, related_name='cart')
+    user = models.OneToOneField(User, related_name='carts', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.user.username
+
+    def products_list(self):
+        return self.products.all()
 
     class Meta:
-        ordering = ['create_time']
+        verbose_name = 'Cart'
+        verbose_name_plural = 'Carts'
+
+
+def post_user_signup_receiver(sender, instance, created, *args, **kwargs):
+    # after User signup, a cart and shopping list will be created automatically
+    if created:
+        Cart.objects.get_or_create(user=instance)
+
+
+# connect the signup with the actions by signal receiver
+post_save.connect(post_user_signup_receiver, sender=User)

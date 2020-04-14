@@ -7,23 +7,33 @@
 {% endblock head_title %}
 
 {% block content %}
-
-  <div class="text-center">
-    <a class="btn btn-outline-primary mt=3" href="./create">Create a Product</a>
-  </div>
-  <div class="col-16">
+  <div class="container col-16">
     {% for product in products %}
-      <div class="card mt-3">
+      <div class="card mt-3" style="width: 15rem;">
         <div class="card-header">
-          <a href="./{{ product.id }}"><h4>{{ product.name }}</h4></a>
-          <h4>In Stock {{ product.inventory }}</h4>
-          <img src="{{ product.image.url }}" height="50" , width="50"/>
+          <a href="{{ product.get_absolute_url }}"><h4>{{ product.name }}</h4></a>
+          {#          <a href="./{{ product.slug }}"><h4>{{ product.name }}</h4></a>#}
         </div>
+        <img class="card-img-top" src="{{ product.image.url }}"/>
         <div class="card-body">
-          <h4>$ {{ product.price|intcomma }}</h4>
+          <p class="card-text">{{ product.description }}</p>
+        </div>
+        <div class="card-footer">
+          <h4 class="card-text">$ {{ product.price|intcomma }}</h4>
+          <p class="card-text">In Stock {{ product.inventory }}</p>
         </div>
       </div>
     {% endfor %}
   </div>
-
 {% endblock content %}
+
+{% block extra_body %}
+  {% if request.user.is_superuser %}
+    <div class="text-center">
+      <a class="btn btn-outline-primary mt=3" href="{% url 'optical:product_create' %}" href="./create">
+        Create a Product
+      </a>
+      {#    <a class="btn btn-outline-primary mt=3" href="./create">Create a Product</a>#}
+    </div>
+  {% endif %}
+{% endblock extra_body %}

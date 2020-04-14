@@ -7,7 +7,6 @@
 {% endblock head_title %}
 
 {% block content %}
-
   <div class="col-16">
     <a class="btn btn-outline-primary" href="..">Back to Product List</a>
     <div class="card mt-5">
@@ -18,12 +17,16 @@
         <p>Catogory: {{ product.category }}</p>
         <p>Description: {{ product.description }}</p>
         <p>Price: $ {{ product.price|intcomma }}</p>
-        <img src="{{ product.image.url }}" height="200" , width="200"/>
+        <img src="{{ product.image.url }}" height="300"/>
       </div>
-      <div class="card-footer">
-        <a href="./update" class="btn btn-outline-primary">Update this product</a>
-        <a href="./delete" class="btn btn-outline-primary">delete this product</a>
-      </div>
+
+      {% if request.user.is_superuser %}
+        <div class="card-footer">
+          <a href="./update" class="btn btn-outline-primary">Update this product</a>
+          <a href="./delete" class="btn btn-outline-primary">delete this product</a>
+        </div>
+      {% endif %}
+
     </div>
   </div>
 

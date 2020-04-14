@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.humanize',
 
+    # packages
     'django.contrib.sites',
     'allauth',
     'allauth.account',
@@ -48,6 +49,7 @@ INSTALLED_APPS = [
 
     'crispy_forms',
 
+    # own apps
     'optical.apps.OpticalConfig',
 ]
 
@@ -127,12 +129,42 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-STATIC_ROOT = os.path.join(BASE_DIR, 'static_root')
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media_root')
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static/')]
+STATIC_ROOT = os.path.join(BASE_DIR, 'static_root/')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media_root/')
 
-# for @login required redirect url
-LOGIN_URL = '/login/'
+# Django allauth
+AUTHENTICATION_BACKENDS = (
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
+SITE_ID = 1
+# let django know the auth user
+AUTH_USER_MODEL = 'optical.User'
+LOGIN_REDIRECT_URL = '/products/'
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+ACCOUNT_LOGOUT_REDIRECT_URL = '/products/'
+
+# Crispy forms
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+# # sendgrid settings
+# SEND_GRID_API_KEY = ''
+# EMAIL_HOST = 'smtp.sendgrid.net'
+# EMAIL_HOST_USER = ''
+# EMAIL_HOST_PASSWORD = ''
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+# DEFAULT_FROM_EMAIL = ''
+# ACCOUNT_EMAIL_SUBJECT_PREFIX = ''
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+#
+# # Error Email for Live
+# SERVER_EMAIL = ''
+# ADMINS = [('admin', 'admin@zhichenguo.com')]
+
 
 # if DEBUG is False:
 #     SESSION_COOKIE_SECURE = True
@@ -167,34 +199,3 @@ LOGIN_URL = '/login/'
 #     DEFAULT_FILE_STORAGE = 'demo.storage_backends.PublicMediaStorage'
 #
 #     STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
-
-# # sendgrid settings
-# SEND_GRID_API_KEY = ''
-# EMAIL_HOST = 'smtp.sendgrid.net'
-# EMAIL_HOST_USER = ''
-# EMAIL_HOST_PASSWORD = ''
-# EMAIL_PORT = 587
-# EMAIL_USE_TLS = True
-# DEFAULT_FROM_EMAIL = ''
-# ACCOUNT_EMAIL_SUBJECT_PREFIX = ''
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-#
-# # Error Email for Live
-# SERVER_EMAIL = ''
-# ADMINS = [('admin', 'admin@zhichenguo.com')]
-
-# Django allauth
-AUTHENTICATION_BACKENDS = (
-    # Needed to login by username in Django admin, regardless of `allauth`
-    'django.contrib.auth.backends.ModelBackend',
-    # `allauth` specific authentication methods, such as login by e-mail
-    'allauth.account.auth_backends.AuthenticationBackend',
-)
-SITE_ID = 1
-# let django know the auth user
-AUTH_USER_MODEL = 'optical.User'
-LOGIN_REDIRECT_URL = '/products/'
-ACCOUNT_LOGOUT_REDIRECT_URL = '/products/'
-
-# Crispy forms
-CRISPY_TEMPLATE_PACK = 'bootstrap4'

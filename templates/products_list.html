@@ -30,7 +30,7 @@
 {% block extra_body %}
   {% if request.user.is_superuser %}
     <div class="text-center">
-      <a class="btn btn-outline-primary mt=3" href="{% url 'optical:product_create' %}" href="./create">
+      <a class="btn btn-outline-primary mt=3" href="{% url 'product:product_create' %}" href="./create">
         Create a Product
       </a>
       {#    <a class="btn btn-outline-primary mt=3" href="./create">Create a Product</a>#}

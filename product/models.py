@@ -70,35 +70,11 @@ class Product(models.Model):
             return False
 
     def get_absolute_url(self):
-        return reverse("optical:product_detail", kwargs={
+        return reverse("product:product_detail", kwargs={
             'slug': self.slug
         })
 
-    @property
-    def get_carts_count(self):
-        return self.cart.all().count()
-
-
-class Cart(models.Model):
-    products = models.ManyToManyField(Product, related_name='cart')
-    user = models.OneToOneField(User, related_name='carts', on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.user.username
-
-    def products_list(self):
-        return self.products.all()
-
-    class Meta:
-        verbose_name = 'Cart'
-        verbose_name_plural = 'Carts'
-
-
-def post_user_signup_receiver(sender, instance, created, *args, **kwargs):
-    # after User signup, a cart and shopping list will be created automatically
-    if created:
-        Cart.objects.get_or_create(user=instance)
-
-
-# connect the signup with the actions by signal receiver
-post_save.connect(post_user_signup_receiver, sender=User)
+#     @property
+#     def get_carts_count(self):
+#         return self.cart.all().count()
+#

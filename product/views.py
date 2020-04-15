@@ -17,7 +17,7 @@ class ProductListView(ListView):
     context_object_name = 'products'
     template_name = 'products_list.html'
 
-    # auto html file is 'app_name (which is optical)' / 'model_name'(product) _list
+    # auto html file is 'app_name (product)' / 'model_name'(product) _list
     # the context passed in will be "object_list"
     def get_context_data(self, *, object_list=None, **kwargs):
         # for adding onther data pass to html
@@ -77,7 +77,7 @@ class ProductDeleteView(LoginRequiredMixin, DeleteView):
     model = Product
     success_url = '/products/'
 
-# Register and Login Form are took care of by django-allauth
+# Register and Login Form are handled by django-allauth
 
 # from django.contrib.auth import authenticate, login, logout
 # from django.contrib.auth.decorators import login_required

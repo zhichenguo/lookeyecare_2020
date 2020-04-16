@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Product, User
+from .models import Product
 
 
 class ProductAdmin(admin.ModelAdmin):
@@ -14,10 +14,4 @@ class ProductAdmin(admin.ModelAdmin):
     search_fields = ['name', 'category', 'description']
 
 
-class UserAdmin(admin.ModelAdmin):
-    list_display = ['username', 'first_name', 'last_name']
-    list_display_links = ['username', 'first_name', 'last_name']
-
-
 admin.site.register(Product, ProductAdmin)
-admin.site.register(User, UserAdmin)

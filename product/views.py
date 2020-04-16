@@ -1,15 +1,9 @@
 from django.shortcuts import render, redirect
-from django.views.generic import ListView, DetailView, TemplateView
+from django.views.generic import ListView, DetailView
 from django.views.generic.edit import DeleteView, UpdateView, CreateView
-from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import ProductForm
 from .models import Product
-
-
-class HomeView(TemplateView):
-    # View for home page of site.
-    template_name = 'home.html'
 
 
 class ProductListView(ListView):
@@ -52,7 +46,7 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
     template_name = 'product_create.html'
     model = Product
     form_class = ProductForm
-    success_url = '/products/'
+    success_url = '/product/'
 
     def form_valid(self, form):
         form.save()
@@ -75,13 +69,14 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
 class ProductDeleteView(LoginRequiredMixin, DeleteView):
     template_name = 'product_confirm_delete.html'
     model = Product
-    success_url = '/products/'
+    success_url = '/product/'
 
 # Register and Login Form are handled by django-allauth
 
 # from django.contrib.auth import authenticate, login, logout
 # from django.contrib.auth.decorators import login_required
 # from .forms import UserRegisterForm, UserLoginForm
+# from django.contrib import messages
 
 
 # def register_view(request):

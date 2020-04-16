@@ -14,8 +14,8 @@
           <a href="{{ product.get_absolute_url }}"><h4>{{ product.name }}</h4></a>
           {#          <a href="./{{ product.slug }}"><h4>{{ product.name }}</h4></a>#}
         </div>
-        <img class="card-img-top" src="{{ product.image.url }}"/>
         <div class="card-body">
+          <img class="card-img-top" src="{{ product.image.url }}"/>
           <p class="card-text">{{ product.description }}</p>
         </div>
         <div class="card-footer">

@@ -53,9 +53,10 @@ class OrderItem(models.Model):
 class Order(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='order', on_delete=models.CASCADE)
     is_shipped = models.BooleanField(default=False)
-    ref_code = models.CharField(max_length=22)
+    ref_code = models.CharField(max_length=22, unique=True)
     create_time = models.DateTimeField(auto_now_add=True)
     items = models.ManyToManyField(OrderItem)
+    slug = AutoSlugField(populate_from='ref_code', always_update=True)
 
     def __str__(self):
         return self.user.username

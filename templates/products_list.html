@@ -12,7 +12,6 @@
       <div class="card mt-3" style="width: 15rem;">
         <div class="card-header">
           <a href="{{ product.get_absolute_url }}"><h4>{{ product.name }}</h4></a>
-          {#          <a href="./{{ product.slug }}"><h4>{{ product.name }}</h4></a>#}
         </div>
         <div class="card-body">
           <img class="card-img-top" src="{{ product.image.url }}"/>
@@ -30,10 +29,9 @@
 {% block extra_body %}
   {% if request.user.is_superuser %}
     <div class="text-center">
-      <a class="btn btn-outline-primary mt=3" href="{% url 'product:product_create' %}" href="./create">
+      <a class="btn btn-outline-primary mt=3" href="{% url 'product:product_create' %}">
         Create a Product
       </a>
-      {#    <a class="btn btn-outline-primary mt=3" href="./create">Create a Product</a>#}
     </div>
   {% endif %}
 {% endblock extra_body %}

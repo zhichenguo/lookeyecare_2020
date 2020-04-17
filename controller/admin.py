@@ -23,7 +23,8 @@ class OrderItemAdmin(admin.ModelAdmin):
 
 
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ['user', 'is_shipped', 'ref_code', 'create_time']
+    list_display = ['user', 'is_shipped', 'ref_code', 'create_time', 'slug']
+    list_display_links = ['ref_code']
 
 
 admin.site.register(User, UserAdmin)

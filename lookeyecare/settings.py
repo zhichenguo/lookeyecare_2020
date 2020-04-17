@@ -151,6 +151,10 @@ ACCOUNT_LOGOUT_REDIRECT_URL = '/home/'
 # Crispy forms
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
+# Stripe settings
+STRIPE_PUBLISH_KEY = 'pk_test_1RE9q7BFBBM1iEU9MWkg3cZK00nNu0ayiI'
+STRIPE_SECRET_KEY = 'sk_test_SKktFmWaYgS0mrFef32TnRxi00ik1lNr36'
+
 # # sendgrid settings
 # SEND_GRID_API_KEY = ''
 # EMAIL_HOST = 'smtp.sendgrid.net'

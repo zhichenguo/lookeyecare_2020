@@ -13,18 +13,20 @@
       <th>Product Name</th>
       <th>Price</th>
     </tr>
-    {% for item in order.items.all %}
+    {% for item in cart.items.all %}
       <tr>
         <td>
           {{ forloop.counter }}
           <span>
             <a class="text-danger"
-               href="{% url 'controller:remove_from_cart' item.product.slug %}">
+               href="{% url 'controller:remove_from_cart' item.slug %}">
             <i class="fas fa-trash "></i>
             </a>
           </span>
         </td>
-        <td class="text-left">{{ item.product.name }}</td>
+        <td class="text-left">
+          <a href="{% url 'product:product_detail' item.product.slug %}">{{ item.product.name }}</a>
+        </td>
         <td>$ {{ item.product.price|intcomma }}</td>
       </tr>
     {% empty %}
@@ -34,23 +36,34 @@
         </td>
       </tr>
     {% endfor %}
+    {% if cart.get_total %}
+      <tr>
+        <td colspan="2">
+          <strong class="pull-right">Order total: </strong>
+        </td>
+        <td colspan="1">
+          <strong>$ {{ cart.get_total|intcomma|floatformat:-2 }}</strong>
+        </td>
+      </tr>
+    {% endif %}
     <tr>
-      <td colspan="2">
-        <strong class="pull-right">Order total: </strong>
-      </td>
-      <td colspan="1">
-        <strong>$ {{ order.get_total|intcomma|floatformat:-2 }}</strong>
+      <td colspan="3">
+        <a href="{% url 'product:product_list' %}" class="btn btn-warning">
+          {% if cart.get_total %}
+            Continue Shopping
+          {% else %}
+            Add items to your cart
+          {% endif %}
+        </a>
       </td>
     </tr>
+    {% if cart.get_total %}
+      <tr>
+        <td colspan="3">
+          <a class="btn btn-outline-primary pull-left"
+             href="{% url 'controller:checkout' %}">Checkout</a>
+        </td>
+      </tr>
+    {% endif %}
   </table>
 {% endblock content %}
-
-{% block extra_body %}
-  {% if request.user.is_superuser %}
-    <div class="text-center">
-      <a class="btn btn-outline-primary mt=3" href="{% url 'product:product_create' %}">
-        Create a Product
-      </a>
-    </div>
-  {% endif %}
-{% endblock extra_body %}

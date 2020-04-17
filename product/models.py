@@ -46,8 +46,7 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=8, decimal_places=2, blank=True)
     inventory = models.IntegerField(default=0, blank=True)
     image = models.ImageField(default=0, blank=True, null=True)
-    # slug = models.SlugField()
-    slug = AutoSlugField(populate_from='name', always_update=True)
+    slug = AutoSlugField(populate_from='name')
 
     objects = ProductManager()
 

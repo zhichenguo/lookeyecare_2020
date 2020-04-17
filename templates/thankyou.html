@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block head_title %}
+  Thank You!
+{% endblock head_title %}
+
+{% block content %}
+
+  <div class="text-center mb-2">
+    <h4>Thank you for your shopping!</h4>
+    <a href="{% url 'product:product_list' %}" class="btn btn-warning">Continue Shopping</a>
+  </div>
+
+
+{% endblock content %}
+
+
+
+
+

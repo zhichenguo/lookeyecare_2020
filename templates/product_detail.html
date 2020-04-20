@@ -20,7 +20,7 @@
         <img src="{{ product.image.url }}" height="300"/>
       </div>
       <div class="card-footer">
-        <a href="{% url 'controller:add_to_cart' product.slug %}" class="btn btn-warning btn-block">Add to cart</a>
+        <a href="{% url 'controller:add_to_cart' product.slug %}" class="btn btn-warning btn-block mb-2">Add to cart</a>
         {% if request.user.is_superuser %}
           <a href="./update" class="btn btn-outline-primary">Update this product</a>
           <a href="./delete" class="btn btn-outline-primary">delete this product</a>

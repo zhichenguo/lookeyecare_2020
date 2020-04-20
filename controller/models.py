@@ -6,6 +6,14 @@ from autoslug import AutoSlugField
 from product.models import Product
 
 
+# GENDER_CHOICES = (
+#     # max length = 1, use get_status_display() to return the display value
+#     ('M', 'Male'),
+#     ('F', 'Female'),
+#     ('O', 'Other'),
+#     ('N', 'Not Available')
+# )
+
 class User(AbstractUser):
     pass
 

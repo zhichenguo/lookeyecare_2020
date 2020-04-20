@@ -7,28 +7,35 @@
 {% endblock head_title %}
 
 {% block content %}
-  <div class="container col-16">
-    {% for product in products %}
-      <div class="card mt-3" style="width: 15rem;">
-        <div class="card-header">
-          <a href="{{ product.get_absolute_url }}"><h4>{{ product.name }}</h4></a>
-        </div>
-        <div class="card-body">
-          <img class="card-img-top" src="{{ product.image.url }}"/>
-          <p class="card-text">{{ product.description }}</p>
-        </div>
-        <div class="card-footer">
-          <h4 class="card-text">$ {{ product.price|intcomma }}</h4>
-          <p class="card-text">In Stock {{ product.inventory }}</p>
-        </div>
+  {% for product in products %}
+    {% if forloop.counter0 == 0 %}
+      <div class="card-deck">
+        {% elif forloop.counter0|divisibleby:"3" %}
       </div>
-    {% endfor %}
-  </div>
+      <div class="card-deck">
+    {% endif %}
+    <div class="card mt-3 col-lg-3" style="width: 15rem;">
+      <div class="card-header">
+        <a href="{{ product.get_absolute_url }}"><h4>{{ product.name }}</h4></a>
+      </div>
+      <div class="card-body">
+        <a href="{{ product.get_absolute_url }}">
+          <img class="card-img-top" src="{{ product.image.url }}"/>
+        </a>
+        <p class="card-text">{{ product.description }}</p>
+      </div>
+      <div class="card-footer">
+        <h4 class="card-text">$ {{ product.price|intcomma }}</h4>
+        <p class="card-text">In Stock {{ product.inventory }}</p>
+      </div>
+    </div>
+  {% endfor %}
+</div>
 {% endblock content %}
 
 {% block extra_body %}
   {% if request.user.is_superuser %}
-    <div class="text-center">
+    <div class="text-left mt-5">
       <a class="btn btn-outline-primary mt=3" href="{% url 'product:product_create' %}">
         Create a Product
       </a>

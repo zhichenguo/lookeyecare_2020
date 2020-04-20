@@ -46,8 +46,8 @@ INSTALLED_APPS = [
     # 'allauth.socialaccount.providers.facebook',
     # 'allauth.socialaccount.providers.twitter',
     # 'allauth.socialaccount.providers.instagram',
-
     'crispy_forms',
+    'rest_framework',
 
     # own apps
     'product.apps.ProductConfig',
@@ -154,6 +154,15 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 # Stripe settings
 STRIPE_PUBLISH_KEY = 'pk_test_1RE9q7BFBBM1iEU9MWkg3cZK00nNu0ayiI'
 STRIPE_SECRET_KEY = 'sk_test_SKktFmWaYgS0mrFef32TnRxi00ik1lNr36'
+
+# Django REST Framework
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
+}
 
 # # sendgrid settings
 # SEND_GRID_API_KEY = ''

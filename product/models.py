@@ -5,15 +5,6 @@ from autoslug import AutoSlugField
 from django.db.models.signals import post_save
 
 
-# GENDER_CHOICES = (
-#     # max length = 1, use get_status_display() to return the display value
-#     ('M', 'Male'),
-#     ('F', 'Female'),
-#     ('O', 'Other'),
-#     ('N', 'Not Available')
-# )
-
-
 class ProductQueryset(models.QuerySet):
 
     def instock(self):

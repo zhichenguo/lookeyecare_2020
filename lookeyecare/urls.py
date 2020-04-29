@@ -23,7 +23,6 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('product/', include('product.urls', namespace='product')),
     path('', include('controller.urls', namespace='controller')),
-    path('api-auth/', include('rest_framework.urls'))
 ]
 
 if settings.DEBUG:

@@ -5,21 +5,26 @@ from django.contrib.auth.models import AbstractUser
 from autoslug import AutoSlugField
 from product.models import Product
 
+GENDER_CHOICES = (
+    # max length = 1, use get_status_display() to return the display value
+    ('M', 'Male'),
+    ('F', 'Female'),
+    ('O', 'Other'),
+    ('N', 'Not Available')
+)
 
-# GENDER_CHOICES = (
-#     # max length = 1, use get_status_display() to return the display value
-#     ('M', 'Male'),
-#     ('F', 'Female'),
-#     ('O', 'Other'),
-#     ('N', 'Not Available')
-# )
+ADDRESS_CHOICES = (
+    ('B', 'Billing'),
+    ('S', 'Shipping'),
+)
+
 
 class User(AbstractUser):
     pass
 
     def __str__(self):
         return self.username
-        # return f"{self.first_name} {self.last_name}"
+        # return self.get_full_name()
 
 
 class CartItem(models.Model):
@@ -82,12 +87,45 @@ class Payment(models.Model):
     def __str__(self):
         return self.stripe_charge_id
 
+
+class Coupon(models.Model):
+    code = models.CharField(max_length=15)
+    amount = models.FloatField()
+
+    def __str__(self):
+        return self.code
+
+
+class Refund(models.Model):
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    reason = models.TextField()
+    accepted = models.BooleanField(default=False)
+    email = models.EmailField()
+
+    def __str__(self):
+        return f"{self.pk}"
+
+# # Below is for create something(Cart) right after signup
+# class Cart(models.Model):
+#     products = models.ManyToManyField(Product, related_name='cart')
+#     user = models.OneToOneField(settings.AUTH_USER_MODEL, related_name='carts', on_delete=models.CASCADE)
 #
-# # after User signup, a cart and shopping list will be created automatically
+#     def __str__(self):
+#         return self.user.username
+#
+#     def products_list(self):
+#         return self.products.all()
+#
+#     class Meta:
+#         verbose_name = 'Cart'
+#         verbose_name_plural = 'Carts'
+#
+#
 # def post_user_signup_receiver(sender, instance, created, *args, **kwargs):
+#     # after User signup, a cart and shopping list will be created automatically
 #     if created:
 #         Cart.objects.get_or_create(user=instance)
 #
 #
 # # connect the signup with the actions by signal receiver
-# post_save.connect(post_user_signup_receiver, sender=User)
+# post_save.connect(post_user_signup_receiver, sender=settings.AUTH_USER_MODEL)

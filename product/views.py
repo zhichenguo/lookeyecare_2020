@@ -5,26 +5,13 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import ProductForm
 from .models import Product
 
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework.permissions import AllowAny
-from .serializers import ProductSerializer
-
-
-class ProductAPIView(APIView):
-    permission_classes = (AllowAny,)
-
-    def get(self, request, *args, **kwargs):
-        queryset = Product.objects.all()
-        serializer = ProductSerializer(queryset, many=True)
-        # if serializer.is_valid():
-        return Response(serializer.data)
-
 
 class ProductListView(ListView):
     model = Product
     context_object_name = 'products'
     template_name = 'products_list.html'
+
+    # paginate_by = 12
 
     # auto html file is 'app_name (product)' / 'model_name'(product) _list
     # the context passed in will be "object_list"

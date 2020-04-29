@@ -3,13 +3,14 @@
 
 <div class="fixed-top">
   <nav class="navbar navbar-expand-lg navbar-light bg-white">
-    <img class="navbar-brand" src="{% static 'logo.jpg' %}" , height="50px" , width="50px">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <a class="nav-link" href="{% url 'controller:home' %}">
+        <img class="navbar-brand" src="{% static 'img/logo.jpg' %}" height="50px" width="50px">
+      </a>
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
           <a class="nav-link" href="{% url 'controller:home' %}">Home<span class="sr-only">(current)</span></a>
@@ -42,8 +43,9 @@
         </li>
         {% if request.user.is_authenticated %}
           <li class="nav-item mr-auto">
-            {% if request.user.first_name != '' %}
-              <a class="nav-link" style="color: black">Hello {{ request.user.first_name|title }}</a>
+            {% if request.user.get_short_name != '' %}
+              <a class="nav-link" style="color: black">Hello {{ request.user.get_short_name }}</a>
+              {#              <a class="nav-link" style="color: black">Hello {{ request.user.first_name|title }}</a>#}
             {% else %}
               <a class="nav-link" style="color: black">Hello {{ request.user.username }}</a>
             {% endif %}

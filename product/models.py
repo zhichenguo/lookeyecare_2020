@@ -30,9 +30,27 @@ class ProductManager(models.Manager):
         return self.get_queryset().outofstock()
 
 
+CATEGORY_CHOICES = (
+    ('M', 'Men'),
+    ('W', 'Women'),
+    ('K', 'Kid'),
+    ('S', 'Sun'),
+    ('O', 'Other')
+)
+
+
+LABEL_CHOICES = (
+    ('P', 'primary'),
+    ('S', 'secondary'),
+    ('D', 'danger')
+)
+
+
 class Product(models.Model):
     name = models.CharField(max_length=100)
-    category = models.CharField(max_length=50, default='Frame', blank=True)
+    # category = models.CharField(max_length=50, default='Frame', blank=True)
+    category = models.CharField(choices=CATEGORY_CHOICES, max_length=1)
+    label = models.CharField(choices=LABEL_CHOICES, max_length=1)
     description = models.TextField(default='', blank=True)
     price = models.DecimalField(max_digits=8, decimal_places=2, blank=True)
     inventory = models.IntegerField(default=0, blank=True)

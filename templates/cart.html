@@ -8,11 +8,14 @@
 
 {% block content %}
   <table class="table table-hover table-bordered text-center">
+    <thead>
     <tr class="text-center">
       <th>NO.</th>
       <th>Product Name</th>
       <th>Price</th>
     </tr>
+    </thead>
+    <tbody>
     {% for item in cart.items.all %}
       <tr>
         <td>
@@ -36,6 +39,8 @@
         </td>
       </tr>
     {% endfor %}
+    </tbody>
+    <tfoot>
     {% if cart.get_total %}
       <tr>
         <td colspan="2">
@@ -55,15 +60,12 @@
             Add items to your cart
           {% endif %}
         </a>
-      </td>
-    </tr>
-    {% if cart.get_total %}
-      <tr>
-        <td colspan="3">
+        {% if cart.get_total %}
           <a class="btn btn-outline-primary pull-left"
              href="{% url 'controller:checkout' %}">Checkout</a>
-        </td>
-      </tr>
-    {% endif %}
+        {% endif %}
+      </td>
+    </tr>
+    </tfoot>
   </table>
 {% endblock content %}

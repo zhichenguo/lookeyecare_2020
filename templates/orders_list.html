@@ -9,12 +9,15 @@
 {% block content %}
   <h1 class="text-center">Your Orders</h1>
   <table class="table table-hover table-bordered text-center">
+    <thead>
     <tr class="text-center">
       <th>Reference Code</th>
       <th>Order Placed</th>
       <th>Total</th>
       <th>Shipping</th>
     </tr>
+    </thead>
+    <tbody>
     {% for order in orders %}
       <tr>
         <td><a href="{% url 'controller:order_detail' order.slug %}">{{ order.ref_code }}</a></td>
@@ -33,5 +36,6 @@
         </td>
       </tr>
     {% endfor %}
+    </tbody>
   </table>
 {% endblock content %}

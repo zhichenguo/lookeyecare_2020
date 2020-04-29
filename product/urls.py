@@ -1,12 +1,10 @@
-from django.urls import path
-
+from django.urls import path, include
 from .views import (
     ProductListView,
     ProductDetailView,
     ProductCreateView,
     ProductUpdateView,
     ProductDeleteView,
-    ProductAPIView
 )
 
 app_name = 'product'
@@ -17,6 +15,4 @@ urlpatterns = [
     path('<slug>/', ProductDetailView.as_view(), name='product_detail'),
     path('<slug>/update/', ProductUpdateView.as_view(), name='product_update'),
     path('<slug>/delete/', ProductDeleteView.as_view(), name='product_delete'),
-
-    path('api/products/', ProductAPIView.as_view(), name='product_api_list'),
 ]

@@ -11,6 +11,7 @@ import stripe
 import string
 import random
 
+
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
 
@@ -108,7 +109,8 @@ def checkout(request):
             # add the order to the history list
             order = Order.objects.create(
                 user=request.user,
-                ref_code=cart.ref_code
+                ref_code=cart.ref_code,
+                # payment_id=payment.stripe_charge_id
             )
 
             for cart_item in cart.items.all():

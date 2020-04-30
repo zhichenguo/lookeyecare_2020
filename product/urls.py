@@ -11,6 +11,7 @@ app_name = 'product'
 
 urlpatterns = [
     path('', ProductListView.as_view(), name='product_list'),
+    # path('<category>/', ProductListView.as_view(), name='product_list_filtered'),
     path('create/', ProductCreateView.as_view(), name='product_create'),
     path('<slug>/', ProductDetailView.as_view(), name='product_detail'),
     path('<slug>/update/', ProductUpdateView.as_view(), name='product_update'),

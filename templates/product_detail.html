@@ -7,26 +7,120 @@
 {% endblock head_title %}
 
 {% block content %}
-  <div class="col-16">
-    <a class="btn btn-outline-primary" href="..">Back to Product List</a>
-    <div class="card mt-2">
-      <div class="card-header">
-        Product Name: {{ product.name }}
-      </div>
-      <div class="card-body">
-        <p>Catogory: {{ product.category }}</p>
-        <p>Description: {{ product.description }}</p>
-        <p>Price: $ {{ product.price|intcomma }}</p>
-        <img src="{{ product.image.url }}" height="300"/>
-      </div>
-      <div class="card-footer">
-        <a href="{% url 'controller:add_to_cart' product.slug %}" class="btn btn-warning btn-block mb-2">Add to cart</a>
+
+
+  <!--Main layout-->
+  <main class="mt-5 pt-4">
+    <div class="container dark-grey-text mt-5">
+      <div class="row">
         {% if request.user.is_superuser %}
-          <a href="./update" class="btn btn-outline-primary">Update this product</a>
-          <a href="./delete" class="btn btn-outline-primary">delete this product</a>
+          <a href="./update" class="btn btn-outline-primary col-md-3">Update this product</a>
+          <a href="./delete" class="btn btn-outline-primary col-md-3">delete this product</a>
+          <h5 class="col-md-2 mt-3">In Stock: {{ product.inventory }}</h5>
         {% endif %}
       </div>
+
+      <!--Grid row-->
+      <div class="row wow fadeIn">
+
+        <!--Grid column-->
+        <div class="col-md-6 mb-4">
+          <img src="{{ product.image.url }}" class="img-fluid mt-lg-5" alt="">
+        </div>
+        <!--Grid column-->
+
+        <!--Grid column-->
+        <div class="col-md-6 mb-4">
+
+          <!--Content-->
+          <div class="p-4">
+
+            <div class="mb-3">
+              <strong>
+                <h2 class="dark-grey-text">{{ product.name }}</h2>
+                {% if product.label == 'N' %}
+                  <span class="badge badge-pill secondary-color">{{ product.get_label_display }}</span>
+                {% elif product.label == 'S' %}
+                  <span class="badge badge-pill danger-color">{{ product.get_label_display }}</span>
+                {% endif %}
+              </strong>
+            </div>
+            <h4 class="font-weight-bold blue-text">
+              <strong>
+                {% if product.label == 'S' %}
+                  <span class="mr-2"><del>$ {{ product.price|intcomma }}</del></span>
+                  <span>$ {{ product.final_price|intcomma|floatformat:-2 }}</span>
+                {% else %}
+                  <span>$ {{ product.final_price|intcomma|floatformat:-2 }}</span>
+                {% endif %}
+              </strong>
+            </h4>
+            <p class="lead font-weight-bold">Description</p>
+            <p>{{ product.description }}</p>
+            <a href="{% url 'shopping:add_to_cart' product.slug %}" class="btn btn-outline-primary btn-lg mb-2">
+              Add to cart
+              <i class="fas fa-cart-arrow-down ml-1"></i>
+            </a>
+          </div>
+          <!--Content-->
+
+        </div>
+        <!--Grid column-->
+
+      </div>
+      <!--Grid row-->
+
+      <hr>
+
+      <!--Grid row-->
+      <div class="row d-flex justify-content-center wow fadeIn">
+
+        <!--Grid column-->
+        <div class="col-md-6 text-center">
+
+          <h4 class="my-4 h4">Additional information</h4>
+
+          <p>Additional information. Additional information. Additional information.
+            Additional information. Additional information. Additional information. </p>
+
+        </div>
+        <!--Grid column-->
+
+      </div>
+      <!--Grid row-->
+
+      <!--Grid row-->
+      <div class="row wow fadeIn">
+
+        <!--Grid column-->
+        <div class="col-lg-4 col-md-12 mb-4">
+
+          <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/11.jpg" class="img-fluid" alt="">
+
+        </div>
+        <!--Grid column-->
+
+        <!--Grid column-->
+        <div class="col-lg-4 col-md-6 mb-4">
+
+          <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/12.jpg" class="img-fluid" alt="">
+
+        </div>
+        <!--Grid column-->
+
+        <!--Grid column-->
+        <div class="col-lg-4 col-md-6 mb-4">
+
+          <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/13.jpg" class="img-fluid" alt="">
+
+        </div>
+        <!--Grid column-->
+
+      </div>
+      <!--Grid row-->
+
     </div>
-  </div>
+  </main>
+  <!--Main layout-->
 
 {% endblock %}

@@ -41,21 +41,22 @@ CATEGORY_CHOICES = (
 
 LABEL_CHOICES = (
     ('P', 'primary'),
-    ('S', 'secondary'),
-    ('D', 'danger')
+    ('S', 'On Sale'),
+    ('N', 'New')
 )
 
 
 class Product(models.Model):
     name = models.CharField(max_length=100)
-    # category = models.CharField(max_length=50, default='Frame', blank=True)
     category = models.CharField(choices=CATEGORY_CHOICES, max_length=1)
-    label = models.CharField(choices=LABEL_CHOICES, max_length=1)
     description = models.TextField(default='', blank=True)
-    price = models.DecimalField(max_digits=8, decimal_places=2, blank=True)
+    price = models.FloatField(default=0, blank=True, null=True)
     inventory = models.IntegerField(default=0, blank=True)
     image = models.ImageField(default=0, blank=True, null=True)
     slug = AutoSlugField(populate_from='name')
+
+    label = models.CharField(choices=LABEL_CHOICES, max_length=1)
+    off_percentage = models.FloatField(default=0, blank=True, null=True)
 
     objects = ProductManager()
 
@@ -67,6 +68,13 @@ class Product(models.Model):
             return True
         else:
             return False
+
+    @property
+    def final_price(self):
+        if self.label == 'S':
+            return self.price * (1 - self.off_percentage)
+        else:
+            return self.price
 
     def get_absolute_url(self):
         return reverse("product:product_detail", kwargs={

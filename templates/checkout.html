@@ -11,8 +11,14 @@
   <link href="{% static 'css/stripe_form.css' %}" rel="stylesheet"/>
 
   <div class="text-center mb-2">
-    <a href="{% url 'product:product_list' %}" class="btn btn-warning">Continue Shopping</a>
-    <a href="{% url 'controller:cart' %}" class="btn btn-warning">Return to Cart</a>
+    <a href="{% url 'product:product_list' %}" class="btn btn-outline-primary btn-lg mb-2">
+      Continue Shopping
+      <i class="fas fa-shopping-basket ml-2"></i>
+    </a>
+    <a href="{% url 'shopping:cart' %}" class="btn btn-outline-primary btn-lg mb-2">
+      Return to Cart
+      <i class="fas fa-shopping-cart ml-2"></i>
+    </a>
   </div>
   <table class="table table-hover table-bordered text-center">
     <tr class="text-center">
@@ -23,8 +29,20 @@
     {% for item in cart.items.all %}
       <tr>
         <td>{{ forloop.counter }}</td>
-        <td class="text-left">{{ item.product.name }}</td>
-        <td>$ {{ item.product.price|intcomma }}</td>
+        <td class="text-left">
+          {{ item.product.name }}
+          {% if item.product.label == 'S' %}
+            <span class="badge badge-pill danger-color ml-5">{{ item.product.get_label_display }}</span>
+          {% endif %}
+        </td>
+        <td>
+          {% if item.product.label == 'S' %}
+            <span class="mr-2"><del>$ {{ item.product.price|intcomma }}</del></span>
+            <span>$ {{ item.product.final_price|intcomma|floatformat:-2 }}</span>
+          {% else %}
+            <span>$ {{ item.product.final_price|intcomma|floatformat:-2 }}</span>
+          {% endif %}
+        </td>
       </tr>
     {% empty %}
       <tr>

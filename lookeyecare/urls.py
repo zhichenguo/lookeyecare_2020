@@ -19,10 +19,13 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
+
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),
     path('product/', include('product.urls', namespace='product')),
-    path('', include('controller.urls', namespace='controller')),
+    path('account/', include('core.urls', namespace='core')),
+    path('home/', include('website.urls', namespace='website')),
+    path('', include('shopping.urls', namespace='shopping')),
 ]
 
 if settings.DEBUG:

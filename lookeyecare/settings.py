@@ -49,8 +49,10 @@ INSTALLED_APPS = [
     'crispy_forms',
 
     # own apps
+    'core.apps.CoreConfig',
     'product.apps.ProductConfig',
-    'controller.apps.ControllerConfig',
+    'shopping.apps.ShoppingConfig',
+    'website.apps.WebsiteConfig',
 ]
 
 MIDDLEWARE = [
@@ -116,7 +118,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'EST'
 
 USE_I18N = True
 
@@ -142,7 +144,7 @@ AUTHENTICATION_BACKENDS = (
 )
 SITE_ID = 1
 # let django know the auth user
-AUTH_USER_MODEL = 'controller.User'
+AUTH_USER_MODEL = 'shopping.User'
 LOGIN_REDIRECT_URL = '/home/'
 ACCOUNT_EMAIL_VERIFICATION = 'none'
 ACCOUNT_LOGOUT_REDIRECT_URL = '/home/'

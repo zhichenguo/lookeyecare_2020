@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import DeleteView, UpdateView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -11,7 +11,7 @@ class ProductListView(ListView):
     context_object_name = 'products'
     template_name = 'products_list.html'
 
-    # paginate_by = 12
+    paginate_by = 6
 
     # auto html file is 'app_name (product)' / 'model_name'(product) _list
     # the context passed in will be "object_list"
@@ -28,6 +28,7 @@ class ProductListView(ListView):
         # only show the instock product with Manager Objects
         objs = Product.objects.instock()
         return objs
+        # return objs.filter(category=self.kwargs['category'])
 
 
 # CRUD - Create, Retrieve, Update, Delete or List

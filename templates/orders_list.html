@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% load humanize %}
+{% load tz %}
 
 {% block head_title %}
   Orders List
@@ -20,8 +21,10 @@
     <tbody>
     {% for order in orders %}
       <tr>
-        <td><a href="{% url 'controller:order_detail' order.slug %}">{{ order.ref_code }}</a></td>
-        <td>{{ order.create_time }}</td>
+        <td><a href="{% url 'shopping:order_detail' order.slug %}">{{ order.ref_code }}</a></td>
+
+        <td>{{ order.create_time|localtime }}</td>
+
         <td>$ {{ order.get_total|intcomma|floatformat:-2 }}</td>
         {% if order.is_shipped %}
           <td>Tracking link here</td>

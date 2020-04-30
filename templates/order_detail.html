@@ -18,7 +18,7 @@
       <tr>
         <td>{{ forloop.counter }}</td>
         <td class="text-left">{{ item.product.name }}</td>
-        <td>$ {{ item.product.price|intcomma }}</td>
+        <td>$ {{ item.final_price|intcomma|floatformat:-2 }}</td>
       </tr>
     {% endfor %}
     {% if order.get_total %}

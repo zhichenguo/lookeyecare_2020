@@ -14,7 +14,7 @@ class ProductForm(forms.ModelForm):
         # fields = ['name', 'category', 'description', 'price', 'inventory']
 
 
-User = get_user_model()
+# User = get_user_model()
 
 # Register and Login Form are took care of by django-allauth
 

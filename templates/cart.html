@@ -22,15 +22,26 @@
           {{ forloop.counter }}
           <span>
             <a class="text-danger"
-               href="{% url 'controller:remove_from_cart' item.slug %}">
+               href="{% url 'shopping:remove_from_cart' item.slug %}">
             <i class="fas fa-trash "></i>
             </a>
           </span>
         </td>
         <td class="text-left">
           <a href="{% url 'product:product_detail' item.product.slug %}">{{ item.product.name }}</a>
+          {% if item.product.label == 'S' %}
+            <span class="badge badge-pill danger-color ml-5">{{ item.product.get_label_display }}</span>
+          {% endif %}
+
         </td>
-        <td>$ {{ item.product.price|intcomma }}</td>
+        <td>
+          {% if item.product.label == 'S' %}
+            <span class="mr-2"><del>$ {{ item.product.price|intcomma }}</del></span>
+            <span>$ {{ item.product.final_price|intcomma|floatformat:-2 }}</span>
+          {% else %}
+            <span>$ {{ item.product.final_price|intcomma|floatformat:-2 }}</span>
+          {% endif %}
+        </td>
       </tr>
     {% empty %}
       <tr>
@@ -53,16 +64,19 @@
     {% endif %}
     <tr>
       <td colspan="3">
-        <a href="{% url 'product:product_list' %}" class="btn btn-warning">
+        <a href="{% url 'product:product_list' %}" class="btn btn-outline-primary btn-lg mb-2">
           {% if cart.get_total %}
             Continue Shopping
+            <i class="fas fa-shopping-basket ml-2"></i>
           {% else %}
             Add items to your cart
           {% endif %}
         </a>
         {% if cart.get_total %}
-          <a class="btn btn-outline-primary pull-left"
-             href="{% url 'controller:checkout' %}">Checkout</a>
+          <a class="btn btn btn-outline-primary btn-lg mb-2" href="{% url 'shopping:checkout' %}">
+            Checkout
+            <i class="fas fa-credit-card ml-2"></i>
+          </a>
         {% endif %}
       </td>
     </tr>

@@ -28,25 +28,49 @@ class ProductListView(ListView):
         kid = request.GET.get('kid')
         sun = request.GET.get('sun')
         onsale = request.GET.get('onSale')
-        print(categories, women, men, kid, sun, onsale, search_text)
+        # self.object_list = None
 
         if search_text != '' and search_text is not None:
-            self.object_list = self.object_list.filter(
+            objs_search = self.object_list.filter(
                 Q(name__icontains=search_text) | Q(description__icontains=search_text)).distinct()
+        else:
+            objs_search = Product.objects.none()
+
+        print(women, men, kid, sun, onsale, search_text, objs_search)
 
         # if category != '' and category is not None and category != 'Choose...':
         #     self.object_list = self.object_list.filter(category=category)
 
         if women == 'on':
-            objs_search_women = self.object_list.filter(category='W')
+            objs_women = self.object_list.filter(category='W')
+        else:
+            objs_women = Product.objects.none()
         if men == 'on':
-            objs_search_men = self.object_list.filter(category='M')
+            objs_men = self.object_list.filter(category='M')
+        else:
+            objs_men = Product.objects.none()
         if kid == 'on':
-            objs_search_kid = self.object_list.filter(category='K')
+            objs_kid = self.object_list.filter(category='K')
+        else:
+            objs_kid = Product.objects.none()
         if sun == 'on':
-            objs_search_sun = self.object_list.filter(category='S')
+            objs_sun = self.object_list.filter(category='S')
+        else:
+            objs_sun = Product.objects.none()
         if onsale == 'on':
-            self.object_list = self.object_list.filter(label='S')
+            objs_onsale = self.object_list.filter(label='S')
+        else:
+            objs_onsale = Product.objects.none()
+
+        filter_list = [women, men, kid, sun, onsale]
+        # print(all(filter_list))
+        if (search_text == '' or search_text is None) and (
+                women is None and men is None and kid is None and sun is None and onsale is None):
+            self.object_list = self.get_queryset()
+            # print(search_text, filter_list, all(filter_list))
+        else:
+            self.object_list = Product.objects.none().union(objs_search, objs_women, objs_men, objs_kid, objs_sun,
+                                                            objs_onsale)
 
         context = self.get_context_data()
 

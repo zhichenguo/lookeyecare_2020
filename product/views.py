@@ -11,7 +11,7 @@ from .models import Product, CATEGORY_CHOICES
 class ProductListView(ListView):
     model = Product
     context_object_name = 'products'
-    template_name = 'products_list.html'
+    # template_name = 'product/products_list.html'
 
     paginate_by = 6
 
@@ -20,7 +20,7 @@ class ProductListView(ListView):
         self.object_list = self.get_queryset()
 
     def get(self, request, *args, **kwargs):
-        categories = [row[1] for row in CATEGORY_CHOICES]
+        # categories = [row[1] for row in CATEGORY_CHOICES]
         search_text = request.GET.get('search_text')
         # category = request.GET.get('category')
         women = request.GET.get('women')
@@ -35,8 +35,6 @@ class ProductListView(ListView):
                 Q(name__icontains=search_text) | Q(description__icontains=search_text)).distinct()
         else:
             objs_search = Product.objects.none()
-
-        print(women, men, kid, sun, onsale, search_text, objs_search)
 
         # if category != '' and category is not None and category != 'Choose...':
         #     self.object_list = self.object_list.filter(category=category)
@@ -62,19 +60,20 @@ class ProductListView(ListView):
         else:
             objs_onsale = Product.objects.none()
 
-        filter_list = [women, men, kid, sun, onsale]
-        # print(all(filter_list))
+        # filter_list = [women, men, kid, sun, onsale]
+
         if (search_text == '' or search_text is None) and (
                 women is None and men is None and kid is None and sun is None and onsale is None):
             self.object_list = self.get_queryset()
-            # print(search_text, filter_list, all(filter_list))
         else:
-            self.object_list = Product.objects.none().union(objs_search, objs_women, objs_men, objs_kid, objs_sun,
-                                                            objs_onsale)
+            self.object_list = Product.objects.none().union(
+                objs_search, objs_women, objs_men, objs_kid, objs_sun, objs_onsale
+            )
 
         context = self.get_context_data()
 
-        return self.render_to_response(context)
+        # return self.render_to_response(context)  # work with template_name
+        return render(request, 'product/products_list.html', context)
 
     # auto html file is 'app_name (product)' / 'model_name'(product) _list
     # the context passed in will be "object_list"
@@ -100,7 +99,7 @@ class ProductListView(ListView):
 class ProductDetailView(DetailView):
     model = Product
     context_object_name = 'product'
-    template_name = 'product_detail.html'
+    template_name = 'product/product_detail.html'
 
     def get_object(self, queryset=None):
         obj = super().get_object()
@@ -110,7 +109,7 @@ class ProductDetailView(DetailView):
 
 
 class ProductCreateView(LoginRequiredMixin, CreateView):
-    template_name = 'product_create.html'
+    template_name = 'product/product_create.html'
     model = Product
     form_class = ProductForm
     success_url = '/product/'
@@ -122,7 +121,7 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
 
 
 class ProductUpdateView(LoginRequiredMixin, UpdateView):
-    template_name = 'product_update.html'
+    template_name = 'product/product_update.html'
     model = Product
     form_class = ProductForm
     success_url = '..'
@@ -134,7 +133,7 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
 
 
 class ProductDeleteView(LoginRequiredMixin, DeleteView):
-    template_name = 'product_confirm_delete.html'
+    template_name = 'product/product_confirm_delete.html'
     model = Product
     success_url = '/product/'
 

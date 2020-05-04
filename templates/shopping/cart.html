@@ -10,9 +10,11 @@
   <table class="table table-hover table-bordered text-center">
     <thead>
     <tr class="text-center">
-      <th>NO.</th>
-      <th>Product Name</th>
-      <th>Price</th>
+      <th scope="col">NO.</th>
+      <th scope="col">Product Name</th>
+      <th scope="col">Price</th>
+      <th scope="col">Quantity</th>
+      <th scope="col">Total Item Price</th>
     </tr>
     </thead>
     <tbody>
@@ -20,12 +22,6 @@
       <tr>
         <td>
           {{ forloop.counter }}
-          <span>
-            <a class="text-danger"
-               href="{% url 'shopping:remove_from_cart' item.slug %}">
-            <i class="fas fa-trash "></i>
-            </a>
-          </span>
         </td>
         <td class="text-left">
           <a href="{% url 'product:product_detail' item.product.slug %}">{{ item.product.name }}</a>
@@ -42,6 +38,26 @@
             <span>$ {{ item.product.final_price|intcomma|floatformat:-2 }}</span>
           {% endif %}
         </td>
+        <td>
+          <a href="#">
+            <a href="{% url 'shopping:minus_quantity' item.slug %}">
+              <i class="fas fa-minus mr-2"></i>
+            </a>
+            {{ item.quantity }}
+            <a href="{% url 'shopping:add_quantity' item.slug %}">
+              <i class="fas fa-plus ml-2"></i>
+            </a>
+        </td>
+        <td>
+          {{ item.get_total_final_price|intcomma|floatformat:-2 }}
+          <span>
+            <a class="text-danger"
+               href="{% url 'shopping:remove_from_cart' item.slug %}">
+            <i class="fas fa-trash float-lg-right" data-toggle="tooltip" data-placement="top"
+               title="Delete this item"></i>
+            </a>
+          </span>
+        </td>
       </tr>
     {% empty %}
       <tr>
@@ -54,7 +70,7 @@
     <tfoot>
     {% if cart.get_total %}
       <tr>
-        <td colspan="2">
+        <td colspan="4">
           <strong class="pull-right">Order total: </strong>
         </td>
         <td colspan="1">

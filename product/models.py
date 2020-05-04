@@ -53,7 +53,7 @@ class Product(models.Model):
     price = models.FloatField(default=0, blank=True, null=True)
     inventory = models.IntegerField(default=0, blank=True)
     image = models.ImageField(default=0, blank=True, null=True)
-    slug = AutoSlugField(populate_from='name')
+    slug = AutoSlugField(populate_from='name', unique=True, editable=False)
 
     label = models.CharField(choices=LABEL_CHOICES, max_length=1)
     off_percentage = models.FloatField(default=0, blank=True, null=True)

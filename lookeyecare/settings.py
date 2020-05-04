@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     # 'allauth.socialaccount.providers.twitter',
     # 'allauth.socialaccount.providers.instagram',
     'crispy_forms',
+    'localflavor',
 
     # own apps
     'core.apps.CoreConfig',
@@ -144,7 +145,7 @@ AUTHENTICATION_BACKENDS = (
 )
 SITE_ID = 1
 # let django know the auth user
-AUTH_USER_MODEL = 'shopping.User'
+AUTH_USER_MODEL = 'core.User'
 LOGIN_REDIRECT_URL = '/home/'
 ACCOUNT_EMAIL_VERIFICATION = 'none'
 ACCOUNT_LOGOUT_REDIRECT_URL = '/home/'

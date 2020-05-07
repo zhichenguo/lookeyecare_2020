@@ -50,34 +50,43 @@ class CartItem(models.Model):
 class Cart(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='cart', on_delete=models.CASCADE)
     items = models.ManyToManyField(CartItem)
-    ref_code = models.CharField(max_length=22)
     shipping_address = models.ForeignKey(
-        'Address', related_name='shipping_address', on_delete=models.SET_NULL, blank=True, null=True)
+        'Address', related_name='cart_shipping_address', on_delete=models.SET_NULL, blank=True, null=True)
     billing_address = models.ForeignKey(
-        'Address', related_name='billing_address', on_delete=models.SET_NULL, blank=True, null=True)
-    # payment = models.ForeignKey(
-    #     'Payment', on_delete=models.SET_NULL, blank=True, null=True)
+        'Address', related_name='cart_billing_address', on_delete=models.SET_NULL, blank=True, null=True)
     coupon = models.ForeignKey(
         'Coupon', on_delete=models.SET_NULL, blank=True, null=True)
-    being_delivered = models.BooleanField(default=False)
-    received = models.BooleanField(default=False)
-    refund_requested = models.BooleanField(default=False)
-    refund_granted = models.BooleanField(default=False)
 
     def __str__(self):
         return self.user.username
+
+    def get_total_save_in_cart(self):
+        return sum(item.get_amount_saved() for item in self.items.all())
 
     def get_total(self):
         total = sum(item.get_total_final_price() for item in self.items.all())
         if self.coupon:
             if self.coupon.coupon_type == 'P':
-                total *= self.coupon.percentage
+                total *= 1 - self.coupon.percentage
             elif self.coupon.coupon_type == 'A':
                 if total > self.coupon.above:
                     total -= self.coupon.amount
             elif self.coupon.coupon_type == 'M':
                 total -= self.coupon.amount
         return total
+
+    def get_coupon_saved(self):
+        total = sum(item.get_total_final_price() for item in self.items.all())
+        saved = 0
+        if self.coupon:
+            if self.coupon.coupon_type == 'P':
+                saved = total * self.coupon.percentage
+            elif self.coupon.coupon_type == 'A':
+                if total > self.coupon.above:
+                    saved = self.coupon.amount
+            elif self.coupon.coupon_type == 'M':
+                saved = self.coupon.amount
+        return saved
 
         # fuction property can not be resolved with below
         # return self.items.all().aggregate(order_total=Sum('product__final_price'))['order_total']
@@ -98,31 +107,52 @@ class OrderItem(models.Model):
     final_price = models.FloatField(default=0, blank=True, null=True)
     # prescription = models.OneToOneField(Prescription)
     slug = AutoSlugField(populate_from='product', unique_with='product')
+    quantity = models.IntegerField(default=1)
 
     def __str__(self):
         return self.product.name
 
+    def get_total_final_price(self):
+        return self.quantity * self.final_price
+
 
 class Order(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='order', on_delete=models.CASCADE)
-    is_shipped = models.BooleanField(default=False)
     ref_code = models.CharField(max_length=22, unique=True)
     create_time = models.DateTimeField(auto_now_add=True)
     items = models.ManyToManyField(OrderItem)
+    shipping_address = models.ForeignKey(
+        'Address', related_name='order_shipping_address', on_delete=models.SET_NULL, blank=True, null=True)
+    billing_address = models.ForeignKey(
+        'Address', related_name='order_billing_address', on_delete=models.SET_NULL, blank=True, null=True)
+    payment = models.ForeignKey(
+        'Payment', on_delete=models.SET_NULL, blank=True, null=True)
+    coupon = models.ForeignKey(
+        'Coupon', on_delete=models.SET_NULL, blank=True, null=True)
+    coupon_saved = models.FloatField(default=0, blank=True, null=True)
+    total_amount = models.FloatField()
+    is_shipped = models.BooleanField(default=False)
+    is_delivered = models.BooleanField(default=False)
+    is_received = models.BooleanField(default=False)
+    exchange_requested = models.BooleanField(default=False)
+    exchange_granted = models.BooleanField(default=False)
+    refund_requested = models.BooleanField(default=False)
+    refund_granted = models.BooleanField(default=False)
     slug = AutoSlugField(populate_from='ref_code', always_update=True)
 
     def __str__(self):
         return self.user.username
 
     def get_total(self):
-        return sum(item.final_price for item in self.items.all())
+        # total price without coupon
+        return sum(item.get_total_final_price() for item in self.items.all())
 
         # fuction property can not be resolved with below
         # return self.items.all().aggregate(order_total=Sum('product__final_price'))['order_total']
 
 
 class Payment(models.Model):
-    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='payment', on_delete=models.CASCADE)
     total_amount = models.FloatField()
     data_paid = models.DateTimeField(auto_now_add=True)
     stripe_charge_id = models.CharField(max_length=100)
@@ -132,14 +162,26 @@ class Payment(models.Model):
 
 
 class Coupon(models.Model):
-    code = models.CharField(max_length=15)
+    code = models.CharField(max_length=22)
     coupon_type = models.CharField(choices=COUPON_CHOICES, max_length=1)
     amount = models.FloatField(default=0, blank=True, null=True)
     above = models.FloatField(default=0, blank=True, null=True)
     percentage = models.FloatField(default=0, blank=True, null=True)
+    alive = models.BooleanField(default=False)
 
     def __str__(self):
         return self.code
+
+
+class Exchange(models.Model):
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    reason = models.TextField()
+    accepted = models.BooleanField(default=False)
+    email = models.EmailField()
+    create_time = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.order.ref_code
 
 
 class Refund(models.Model):
@@ -147,29 +189,22 @@ class Refund(models.Model):
     reason = models.TextField()
     accepted = models.BooleanField(default=False)
     email = models.EmailField()
+    create_time = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.pk}"
-
-
-class UserProfile(models.Model):
-    user = models.OneToOneField(
-        settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    stripe_customer_id = models.CharField(max_length=50, blank=True, null=True)
-    one_click_purchasing = models.BooleanField(default=False)
-
-    def __str__(self):
-        return self.user.username
+        return self.order.ref_code
 
 
 class Address(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    first_name = models.CharField(max_length=100, blank=True)
+    last_name = models.CharField(max_length=200, blank=True)
     street_address = models.CharField(max_length=150)
-    apartment_address = models.CharField(max_length=150)
+    apartment_address = models.CharField(max_length=150, blank=True, null=True)
+    city = models.CharField(max_length=100, blank=True, null=True)
     state = models.CharField(choices=CONTIGUOUS_STATES, max_length=2)
-    zip = models.CharField(max_length=22)
+    zipcode = models.CharField(max_length=22)
     address_type = models.CharField(max_length=1, choices=ADDRESS_CHOICES)
-    default = models.BooleanField(default=False)
 
     def __str__(self):
         return self.user.username

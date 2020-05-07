@@ -2,6 +2,8 @@
 
 {% load humanize %}
 {% load static %}
+{% load cart_template_tags %}
+{% load crispy_forms_tags %}
 
 {% block head_title %}
   Checkout
@@ -12,7 +14,7 @@
 
 
   <!--Main layout-->
-  <main class="mt-2 pt-4">
+  <main>
     <div class="container wow fadeIn">
 
       <!-- Heading -->
@@ -32,181 +34,177 @@
       <div class="row">
 
         <!--Grid column-->
-        <div class="col-md-8 mb-4">
+        <div class="col-md-8">
 
           <!--Card-->
           <div class="card">
 
             <!--Card content-->
-            <form class="card-body">
+            <form method="POST" class="card-body">
+              {% csrf_token %}
+              <h4>Shipping Address</h4>
 
-              <!--Grid row-->
-              <div class="row">
-
-                <!--Grid column-->
-                <div class="col-md-6 mb-2">
-
-                  <!--firstName-->
-                  <div class="md-form ">
-                    <input type="text" id="firstName" class="form-control">
-                    <label for="firstName" class="">First name</label>
-                  </div>
-
+              {% if profile.default_shipping_address %}
+                <div class="custom-control custom-checkbox mt-5">
+                  <input type="checkbox" class="custom-control-input" name="use_default_shipping"
+                         id="use_default_shipping">
+                  <label class="custom-control-label" for="use_default_shipping">
+                    Use the default shipping address:
+                    {{ profile.default_shipping_address.first_name }},
+                    {{ profile.default_shipping_address.street_address|truncatechars:10 }}
+                  </label>
                 </div>
-                <!--Grid column-->
 
-                <!--Grid column-->
-                <div class="col-md-6 mb-2">
-
-                  <!--lastName-->
-                  <div class="md-form">
-                    <input type="text" id="lastName" class="form-control">
-                    <label for="lastName" class="">Last name</label>
+                <!--default Shipping info-->
+                <div class="default_shipping_info" style="display: none">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <!--firstName lastNmae-->
+                      <div class="md-form mb-lg-3">
+                        <h5>
+                          {{ profile.default_shipping_address.first_name }}
+                          {{ profile.default_shipping_address.last_name }}
+                        </h5>
+                      </div>
+                    </div>
                   </div>
-
-                </div>
-                <!--Grid column-->
-
-              </div>
-              <!--Grid row-->
-
-              <!--address-->
-              <div class="md-form mb-5">
-                <input type="text" id="address" class="form-control" placeholder="123 Main St">
-                <label for="address" class="">Address</label>
-              </div>
-
-              <!--address-2-->
-              <div class="md-form mb-5">
-                <input type="text" id="address-2" class="form-control" placeholder="Apartment or suite">
-                <label for="address-2" class="">Address 2 (optional)</label>
-              </div>
-
-              <!--Grid row-->
-              <div class="row">
-
-                <!--Grid column-->
-                <div class="col-lg-4 col-md-12 mb-4">
-                  <!--city-->
-                  <div class="md-form mb-5">
-                    <input type="text" id="city" class="form-control" placeholder="Pittsburgh">
-                    <label for="city" class="">City</label>
+                  <!--street_address-->
+                  <div class="mb-lg-3">
+                    <h5>{{ profile.default_shipping_address.street_address }}</h5>
+                  </div>
+                  <!--apartment_address-->
+                  {% if profile.default_shipping_address.apartment_address %}
+                    <div class="mb-lg-3">
+                      <h5>{{ profile.default_shipping_address.apartment_address }}</h5>
+                    </div>
+                  {% endif %}
+                  <div class="mb-lg-3">
+                    <h5>
+                      {{ profile.default_shipping_address.city }},
+                      {{ profile.default_shipping_address.state }}
+                      {{ profile.default_shipping_address.zipcode }}
+                    </h5>
                   </div>
                 </div>
-                <!--Grid column-->
+                <!--default Shipping info-->
+              {% endif %}
 
-                <!--Grid column-->
-                <div class="col-lg-4 col-md-6 mb-4">
+              <!--hide Shipping form-->
+              <div class="hideable_shipping_form">
+                <!--Grid row-->
+                <div class="row">
 
-                  <label for="state">State</label>
-                  <select class="custom-select d-block w-100" id="state" required>
-                    <option value="">Choose...</option>
-                    <option>California</option>
-                  </select>
-                  <div class="invalid-feedback">
-                    Please provide a valid state.
+                  <!--Grid column-->
+                  <div class="col-md-6">
+
+                    <!--firstName-->
+                    <div class="md-form mb-lg-3">
+                      <input type='text' id='shipping_first_name' name='shipping_first_name' class='form-control'/>
+                      <label for="shipping_first_name" class="">First name</label>
+                    </div>
+
                   </div>
+                  <!--Grid column-->
+
+                  <!--Grid column-->
+                  <div class="col-md-6">
+
+                    <!--lastName-->
+                    <div class="md-form mb-lg-3">
+                      <input type='text' id='shipping_last_name' name='shipping_last_name' class='form-control'/>
+                      <label for="shipping_last_name" class="">Last name</label>
+                    </div>
+
+                  </div>
+                  <!--Grid column-->
 
                 </div>
-                <!--Grid column-->
+                <!--Grid row-->
 
-                <!--Grid column-->
-                <div class="col-lg-4 col-md-6 mb-4">
+                <!--address-->
+                <div class="md-form mb-lg-3">
+                  <input type='text' placeholder='123 Main St' id='shipping_street_address'
+                         name='shipping_street_address'
+                         class='form-control'/>
+                  <label for="shipping_street_address" class="">Address</label>
+                </div>
 
-                  <label for="zip">Zip</label>
-                  <input type="text" class="form-control" id="zip" placeholder="" required>
-                  <div class="invalid-feedback">
-                    Zip code required.
+                <!--address-2-->
+                <div class="md-form mb-lg-3">
+                  <input type='text' placeholder='Apartment or suite' id='shipping_apartment_address'
+                         name='shipping_apartment_address' class='form-control'/>
+                  <label for="shipping_apartment_address" class="">Address 2 (optional)</label>
+                </div>
+
+                <!--Grid row-->
+                <div class="row">
+
+                  <!--Grid column-->
+                  <div class="col-lg-4 col-md-2">
+                    <!--city-->
+                    <div class="md-form mb-2">
+                      <input type='text' placeholder='Pittsburgh' id='shipping_city' name='shipping_city'
+                             class='form-control'/>
+                      <label for="shipping_city" class="">City</label>
+                    </div>
                   </div>
+                  <!--Grid column-->
+
+                  <!--Grid column-->
+                  <div class="col-lg-4 col-md-12 mb-2">
+
+                    <label for="shipping_state">State</label>
+                    {{ form.shipping_state }}
+                    {#                  <select class="custom-select d-block w-100" id="shipping_state" required>#}
+                    {#                    <option value="">Choose...</option>#}
+                    {#                    <option>California</option>#}
+                    {#                  </select>#}
+                    <div class="invalid-feedback">
+                      Please provide a valid state.
+                    </div>
+
+                  </div>
+                  <!--Grid column-->
+
+                  <!--Grid column-->
+                  <div class="col-lg-4 col-md-6">
+                    <!--zip-->
+                    <div class="md-form mb-2">
+                      <input type='text' id='shipping_zipcode' name='shipping_zipcode' class='form-control'/>
+                      <label for="shipping_zipcode" class="">Zip Code</label>
+                      <div class="invalid-feedback">
+                        Zip code required.
+                      </div>
+                    </div>
+                  </div>
+                  <!--Grid column-->
 
                 </div>
-                <!--Grid column-->
+                <!--Grid row-->
+
+                <div class="custom-control custom-checkbox mt-2">
+                  <input type="checkbox" class="custom-control-input" name="set_default_shipping"
+                         id="set_default_shipping">
+                  <label class="custom-control-label" for="set_default_shipping">
+                    Store this shipping address for next time
+                  </label>
+                </div>
 
               </div>
-              <!--Grid row-->
+              <!--hide Shipping form-->
 
-              <hr>
-
-              <div class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" id="same-address">
-                <label class="custom-control-label" for="same-address">Shipping address is the same as my billing
-                  address</label>
-              </div>
-              <div class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" id="save-info">
-                <label class="custom-control-label" for="save-info">Save this information for next time</label>
-              </div>
-
-              <hr>
-
-              <div class="d-block my-3">
-                <div class="custom-control custom-radio">
-                  <input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked required>
-                  <label class="custom-control-label" for="credit">Credit card</label>
-                </div>
-                <div class="custom-control custom-radio">
-                  <input id="debit" name="paymentMethod" type="radio" class="custom-control-input" required>
-                  <label class="custom-control-label" for="debit">Debit card</label>
-                </div>
-                <div class="custom-control custom-radio">
-                  <input id="paypal" name="paymentMethod" type="radio" class="custom-control-input" required>
-                  <label class="custom-control-label" for="paypal">Paypal</label>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-6 mb-3">
-                  <label for="cc-name">Name on card</label>
-                  <input type="text" class="form-control" id="cc-name" placeholder="" required>
-                  <small class="text-muted">Full name as displayed on card</small>
-                  <div class="invalid-feedback">
-                    Name on card is required
-                  </div>
-                </div>
-                <div class="col-md-6 mb-3">
-                  <label for="cc-number">Credit card number</label>
-                  <input type="text" class="form-control" id="cc-number" placeholder="" required>
-                  <div class="invalid-feedback">
-                    Credit card number is required
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-3 mb-3">
-                  <label for="cc-expiration">Expiration</label>
-                  <input type="text" class="form-control" id="cc-expiration" placeholder="" required>
-                  <div class="invalid-feedback">
-                    Expiration date required
-                  </div>
-                </div>
-                <div class="col-md-3 mb-3">
-                  <label for="cc-expiration">CVV</label>
-                  <input type="text" class="form-control" id="cc-cvv" placeholder="" required>
-                  <div class="invalid-feedback">
-                    Security code required
-                  </div>
-                </div>
-              </div>
               <hr class="mb-4">
               <div class="text-center">
-                <a class="btn btn-outline-primary btn-lg btn-block" type="submit">
-                  Continue to checkout
-                  <i class="fas fa-shopping-cart ml-2"></i>
-                </a>
+                <button class="btn btn-outline-primary btn-lg h-auto btn-block" type="submit">
+                  Continue to payment
+                  <i class="fas fa-credit-card ml-2"></i>
+                </button>
               </div>
-
-
-              {#              <!-- Footing -->#}
-              {#              <div class="text-center mb-2">#}
-              {#                <a href="{% url 'shopping:payment' %}" class="btn btn-outline-primary btn-lg mb-2">#}
-              {#                  Continue Checkout#}
-              {#                  <i class="fas fa-shopping-cart ml-2"></i>#}
-              {#                </a>#}
-              {#              </div>#}
 
             </form>
 
           </div>
-          <!--/.Card-->
+          <!--Card-->
 
         </div>
         <!--Grid column-->
@@ -217,52 +215,59 @@
           <!-- Heading -->
           <h4 class="d-flex justify-content-between align-items-center mb-3">
             <span class="text-muted">Your cart</span>
-            <span class="badge badge-secondary badge-pill">3</span>
+            {#            <span class="badge badge-secondary badge-pill">{{ cart.items.count }}</span>#}
+            <a href="{% url 'shopping:cart' %}">
+              <span class="badge badge-info badge-pill">{{ request.user|cart_item_count }}</span>
+            </a>
           </h4>
 
           <!-- Cart -->
           <ul class="list-group mb-3 z-depth-2">
 
-
             {% for item in cart.items.all %}
               <li class="list-group-item d-flex justify-content-between lh-condensed">
                 <div>
-                  <h6 class="my-0">{{ item.product.name }}</h6>
+                  <h6 class="my-0">{{ item.product.name }}
+                    {% if item.quantity > 1 %}
+                      <span class="text-muted"> x {{ item.quantity }}</span>
+                    {% endif %}
+                  </h6>
                   <small class="text-muted">Frame color or contact info</small>
                 </div>
-                <span class="text-muted">$ {{ item.product.final_price|intcomma|floatformat:-2 }}</span>
+                <span class="text-muted">$ {{ item.get_total_final_price|intcomma|floatformat:-2 }}</span>
               </li>
-
             {% empty %}
               <li class="list-group-item d-flex justify-content-between lh-condensed">
                 <h6 class="my-0 text-center">There is nothing in your cart</h6>
               </li>
-
-
             {% endfor %}
 
+            {% if cart.coupon %}
+              <li class="list-group-item d-flex justify-content-between bg-light">
+                <div class="text-success">
+                  <h6 class="my-0">Promo code</h6>
+                  <small>{{ cart.coupon.code }}</small>
+                </div>
+                <span class="text-success">- $ {{ cart.get_coupon_saved|intcomma|floatformat:-2 }}</span>
+              </li>
+            {% endif %}
 
-            <li class="list-group-item d-flex justify-content-between bg-light">
-              <div class="text-success">
-                <h6 class="my-0">Promo code</h6>
-                <small>EXAMPLECODE</small>
-              </div>
-              <span class="text-success">-$5</span>
-            </li>
             <li class="list-group-item d-flex justify-content-between">
               <span>Total (USD)</span>
-              <strong>$20</strong>
+              <strong>$ {{ cart.get_total|intcomma|floatformat:-2 }}</strong>
             </li>
           </ul>
           <!-- Cart -->
 
           <!-- Promo code -->
-          <form class="card p-2">
+          <form class="card p-2" action="{% url 'shopping:add_coupon' %}" method="POST">
+            {% csrf_token %}
             <div class="input-group">
-              <input type="text" class="form-control" placeholder="Promo code" aria-label="Recipient's username"
-                     aria-describedby="basic-addon2">
+              {#              <input type="text" class="form-control" placeholder="Promo Code" aria-label="Recipient's username"#}
+              {#                     aria-describedby="basic-addon2">#}
+              {{ couponform.code }}
               <div class="input-group-append">
-                <button class="btn btn-secondary btn-md waves-effect m-0" type="button">Redeem</button>
+                <button class="btn btn-blue-grey btn-md waves-effect m-0" type="submit">Redeem</button>
               </div>
             </div>
           </form>
@@ -281,7 +286,25 @@
 
 {% endblock content %}
 
+{% block extra_scripts %}
+  <script>
+    window.onload = function () {
+      var hideable_shipping_form = $('.hideable_shipping_form');
+      var default_shipping_info = $('.default_shipping_info');
 
+      var use_default_shipping = document.querySelector("input[name=use_default_shipping]");
 
-
-
+      if (use_default_shipping) {
+        use_default_shipping.addEventListener('change', function () {
+          if (this.checked) {
+            hideable_shipping_form.hide();
+            default_shipping_info.show();
+          } else {
+            hideable_shipping_form.show();
+            default_shipping_info.hide();
+          }
+        });
+      }
+    }
+  </script>
+{% endblock extra_scripts %}

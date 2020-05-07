@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% load humanize %}
+{% load cart_template_tags %}
 
 {% block head_title %}
   Shopping Cart
@@ -50,6 +51,11 @@
         </td>
         <td>
           {{ item.get_total_final_price|intcomma|floatformat:-2 }}
+          {% if item.product.label == 'S' %}
+            <span class="badge badge-pill primary-color ml-5">
+              Saving $ {{ item.get_amount_saved|intcomma|floatformat:-2 }}
+            </span>
+          {% endif %}
           <span>
             <a class="text-danger"
                href="{% url 'shopping:remove_from_cart' item.slug %}">
@@ -61,7 +67,7 @@
       </tr>
     {% empty %}
       <tr>
-        <td colspan="3">
+        <td colspan="5">
           There is nothing in your cart
         </td>
       </tr>
@@ -75,11 +81,16 @@
         </td>
         <td colspan="1">
           <strong>$ {{ cart.get_total|intcomma|floatformat:-2 }}</strong>
+          {% if request.user|cart_total_saving %}
+            <span class="badge badge-pill primary-color ml-5">
+              Saving $ {{ request.user|cart_total_saving|intcomma|floatformat:-2 }}
+            </span>
+          {% endif %}
         </td>
       </tr>
     {% endif %}
     <tr>
-      <td colspan="3">
+      <td colspan="5">
         <a href="{% url 'product:product_list' %}" class="btn btn-outline-primary btn-lg mb-2">
           {% if cart.get_total %}
             Continue Shopping

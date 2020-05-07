@@ -2,347 +2,420 @@
 
 {% load humanize %}
 {% load static %}
+{% load cart_template_tags %}
+{% load crispy_forms_tags %}
 
 {% block head_title %}
-  Checkout
+  Payment
 {% endblock head_title %}
 
 {% block content %}
   <link href="{% static 'css/stripe_form.css' %}" rel="stylesheet"/>
 
 
-  {#  <!--Main layout-->#}
-  {#  <main class="mt-2 pt-4">#}
-  {#    <div class="container wow fadeIn">#}
-  {##}
-  {#      <!-- Heading -->#}
-  {#      <h2 class="h2 text-center">Checkout</h2>#}
-  {#      <div class="text-center mb-2">#}
-  {#        <a href="{% url 'product:product_list' %}" class="btn btn-outline-primary btn-lg mb-2">#}
-  {#          Continue Shopping#}
-  {#          <i class="fas fa-shopping-basket ml-2"></i>#}
-  {#        </a>#}
-  {#        <a href="{% url 'shopping:cart' %}" class="btn btn-outline-primary btn-lg mb-2">#}
-  {#          Return to Cart#}
-  {#          <i class="fas fa-shopping-cart ml-2"></i>#}
-  {#        </a>#}
-  {#      </div>#}
-  {##}
-  {#      <!--Grid row-->#}
-  {#      <div class="row">#}
-  {##}
-  {#        <!--Grid column-->#}
-  {#        <div class="col-md-8 mb-4">#}
-  {##}
-  {#          <!--Card-->#}
-  {#          <div class="card">#}
-  {##}
-  {#            <!--Card content-->#}
-  {#            <form class="card-body">#}
-  {##}
-  {#              <!--Grid row-->#}
-  {#              <div class="row">#}
-  {##}
-  {#                <!--Grid column-->#}
-  {#                <div class="col-md-6 mb-2">#}
-  {##}
-  {#                  <!--firstName-->#}
-  {#                  <div class="md-form ">#}
-  {#                    <input type="text" id="firstName" class="form-control">#}
-  {#                    <label for="firstName" class="">First name</label>#}
-  {#                  </div>#}
-  {##}
-  {#                </div>#}
-  {#                <!--Grid column-->#}
-  {##}
-  {#                <!--Grid column-->#}
-  {#                <div class="col-md-6 mb-2">#}
-  {##}
-  {#                  <!--lastName-->#}
-  {#                  <div class="md-form">#}
-  {#                    <input type="text" id="lastName" class="form-control">#}
-  {#                    <label for="lastName" class="">Last name</label>#}
-  {#                  </div>#}
-  {##}
-  {#                </div>#}
-  {#                <!--Grid column-->#}
-  {##}
-  {#              </div>#}
-  {#              <!--Grid row-->#}
-  {##}
-  {#              <!--address-->#}
-  {#              <div class="md-form mb-5">#}
-  {#                <input type="text" id="address" class="form-control" placeholder="123 Main St">#}
-  {#                <label for="address" class="">Address</label>#}
-  {#              </div>#}
-  {##}
-  {#              <!--address-2-->#}
-  {#              <div class="md-form mb-5">#}
-  {#                <input type="text" id="address-2" class="form-control" placeholder="Apartment or suite">#}
-  {#                <label for="address-2" class="">Address 2 (optional)</label>#}
-  {#              </div>#}
-  {##}
-  {#              <!--Grid row-->#}
-  {#              <div class="row">#}
-  {##}
-  {#                <!--Grid column-->#}
-  {#                <div class="col-lg-4 col-md-12 mb-4">#}
-  {#                  <!--city-->#}
-  {#                  <div class="md-form mb-5">#}
-  {#                    <input type="text" id="city" class="form-control" placeholder="Pittsburgh">#}
-  {#                    <label for="city" class="">City</label>#}
-  {#                  </div>#}
-  {#                </div>#}
-  {#                <!--Grid column-->#}
-  {##}
-  {#                <!--Grid column-->#}
-  {#                <div class="col-lg-4 col-md-6 mb-4">#}
-  {##}
-  {#                  <label for="state">State</label>#}
-  {#                  <select class="custom-select d-block w-100" id="state" required>#}
-  {#                    <option value="">Choose...</option>#}
-  {#                    <option>California</option>#}
-  {#                  </select>#}
-  {#                  <div class="invalid-feedback">#}
-  {#                    Please provide a valid state.#}
-  {#                  </div>#}
-  {##}
-  {#                </div>#}
-  {#                <!--Grid column-->#}
-  {##}
-  {#                <!--Grid column-->#}
-  {#                <div class="col-lg-4 col-md-6 mb-4">#}
-  {##}
-  {#                  <label for="zip">Zip</label>#}
-  {#                  <input type="text" class="form-control" id="zip" placeholder="" required>#}
-  {#                  <div class="invalid-feedback">#}
-  {#                    Zip code required.#}
-  {#                  </div>#}
-  {##}
-  {#                </div>#}
-  {#                <!--Grid column-->#}
-  {##}
-  {#              </div>#}
-  {#              <!--Grid row-->#}
-  {##}
-  {#              <hr>#}
-  {##}
-  {#              <div class="custom-control custom-checkbox">#}
-  {#                <input type="checkbox" class="custom-control-input" id="same-address">#}
-  {#                <label class="custom-control-label" for="same-address">Shipping address is the same as my billing#}
-  {#                  address</label>#}
-  {#              </div>#}
-  {#              <div class="custom-control custom-checkbox">#}
-  {#                <input type="checkbox" class="custom-control-input" id="save-info">#}
-  {#                <label class="custom-control-label" for="save-info">Save this information for next time</label>#}
-  {#              </div>#}
-  {##}
-  {#              <hr>#}
-  {##}
-  {#              <div class="d-block my-3">#}
-  {#                <div class="custom-control custom-radio">#}
-  {#                  <input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked required>#}
-  {#                  <label class="custom-control-label" for="credit">Credit card</label>#}
-  {#                </div>#}
-  {#                <div class="custom-control custom-radio">#}
-  {#                  <input id="debit" name="paymentMethod" type="radio" class="custom-control-input" required>#}
-  {#                  <label class="custom-control-label" for="debit">Debit card</label>#}
-  {#                </div>#}
-  {#                <div class="custom-control custom-radio">#}
-  {#                  <input id="paypal" name="paymentMethod" type="radio" class="custom-control-input" required>#}
-  {#                  <label class="custom-control-label" for="paypal">Paypal</label>#}
-  {#                </div>#}
-  {#              </div>#}
-  {#              <div class="row">#}
-  {#                <div class="col-md-6 mb-3">#}
-  {#                  <label for="cc-name">Name on card</label>#}
-  {#                  <input type="text" class="form-control" id="cc-name" placeholder="" required>#}
-  {#                  <small class="text-muted">Full name as displayed on card</small>#}
-  {#                  <div class="invalid-feedback">#}
-  {#                    Name on card is required#}
-  {#                  </div>#}
-  {#                </div>#}
-  {#                <div class="col-md-6 mb-3">#}
-  {#                  <label for="cc-number">Credit card number</label>#}
-  {#                  <input type="text" class="form-control" id="cc-number" placeholder="" required>#}
-  {#                  <div class="invalid-feedback">#}
-  {#                    Credit card number is required#}
-  {#                  </div>#}
-  {#                </div>#}
-  {#              </div>#}
-  {#              <div class="row">#}
-  {#                <div class="col-md-3 mb-3">#}
-  {#                  <label for="cc-expiration">Expiration</label>#}
-  {#                  <input type="text" class="form-control" id="cc-expiration" placeholder="" required>#}
-  {#                  <div class="invalid-feedback">#}
-  {#                    Expiration date required#}
-  {#                  </div>#}
-  {#                </div>#}
-  {#                <div class="col-md-3 mb-3">#}
-  {#                  <label for="cc-expiration">CVV</label>#}
-  {#                  <input type="text" class="form-control" id="cc-cvv" placeholder="" required>#}
-  {#                  <div class="invalid-feedback">#}
-  {#                    Security code required#}
-  {#                  </div>#}
-  {#                </div>#}
-  {#              </div>#}
-  {#              <hr class="mb-4">#}
-  {#              <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>#}
-  {##}
-  {#            </form>#}
-  {##}
-  {#          </div>#}
-  {#          <!--/.Card-->#}
-  {##}
-  {#        </div>#}
-  {#        <!--Grid column-->#}
-  {##}
-  {#        <!--Grid column-->#}
-  {#        <div class="col-md-4 mb-4">#}
-  {##}
-  {#          <!-- Heading -->#}
-  {#          <h4 class="d-flex justify-content-between align-items-center mb-3">#}
-  {#            <span class="text-muted">Your cart</span>#}
-  {#            <span class="badge badge-secondary badge-pill">3</span>#}
-  {#          </h4>#}
-  {##}
-  {#          <!-- Cart -->#}
-  {#          <ul class="list-group mb-3 z-depth-2">#}
-  {##}
-  {##}
-  {#            {% for item in cart.items.all %}#}
-  {#              <li class="list-group-item d-flex justify-content-between lh-condensed">#}
-  {#                <div>#}
-  {#                  <h6 class="my-0">{{ item.product.name }}</h6>#}
-  {#                  <small class="text-muted">Frame color or contact info</small>#}
-  {#                </div>#}
-  {#                <span class="text-muted">$ {{ item.product.final_price|intcomma|floatformat:-2 }}</span>#}
-  {#              </li>#}
-  {##}
-  {#            {% empty %}#}
-  {#              <li class="list-group-item d-flex justify-content-between lh-condensed">#}
-  {#                <h6 class="my-0 text-center">There is nothing in your cart</h6>#}
-  {#              </li>#}
-  {##}
-  {##}
-  {#            {% endfor %}#}
-  {##}
-  {##}
-  {#            <li class="list-group-item d-flex justify-content-between bg-light">#}
-  {#              <div class="text-success">#}
-  {#                <h6 class="my-0">Promo code</h6>#}
-  {#                <small>EXAMPLECODE</small>#}
-  {#              </div>#}
-  {#              <span class="text-success">-$5</span>#}
-  {#            </li>#}
-  {#            <li class="list-group-item d-flex justify-content-between">#}
-  {#              <span>Total (USD)</span>#}
-  {#              <strong>$20</strong>#}
-  {#            </li>#}
-  {#          </ul>#}
-  {#          <!-- Cart -->#}
-  {##}
-  {#          <!-- Promo code -->#}
-  {#          <form class="card p-2">#}
-  {#            <div class="input-group">#}
-  {#              <input type="text" class="form-control" placeholder="Promo code" aria-label="Recipient's username"#}
-  {#                     aria-describedby="basic-addon2">#}
-  {#              <div class="input-group-append">#}
-  {#                <button class="btn btn-secondary btn-md waves-effect m-0" type="button">Redeem</button>#}
-  {#              </div>#}
-  {#            </div>#}
-  {#          </form>#}
-  {#          <!-- Promo code -->#}
-  {##}
-  {#        </div>#}
-  {#        <!--Grid column-->#}
-  {##}
-  {#      </div>#}
-  {#      <!--Grid row-->#}
-  {##}
-  {#    </div>#}
-  {#  </main>#}
-  {#  <!--Main layout-->#}
+  <!--Main layout-->
+  <main>
+    <div class="container wow fadeIn">
 
+      <!-- Heading -->
+      <h2 class="h2 text-center">Payment</h2>
 
-  <table class="table table-hover table-bordered text-center">
-    <tr class="text-center">
-      <th>NO.</th>
-      <th>Product Name</th>
-      <th>Price</th>
-    </tr>
-    {% for item in cart.items.all %}
-      <tr>
-        <td>{{ forloop.counter }}</td>
-        <td class="text-left">
-          {{ item.product.name }}
-          {% if item.product.label == 'S' %}
-            <span class="badge badge-pill danger-color ml-5">{{ item.product.get_label_display }}</span>
-          {% endif %}
-        </td>
-        <td>
-          {% if item.product.label == 'S' %}
-            <span class="mr-2"><del>$ {{ item.product.price|intcomma }}</del></span>
-            <span>$ {{ item.product.final_price|intcomma|floatformat:-2 }}</span>
-          {% else %}
-            <span>$ {{ item.product.final_price|intcomma|floatformat:-2 }}</span>
-          {% endif %}
-        </td>
-      </tr>
-    {% empty %}
-      <tr>
-        <td colspan="3">
-          There is nothing in your cart
-        </td>
-      </tr>
-    {% endfor %}
-    {% if cart.get_total %}
-      <tr>
-        <td colspan="2">
-          <strong class="pull-right">Order total: </strong>
-        </td>
-        <td colspan="1">
-          <strong>$ {{ cart.get_total|intcomma|floatformat:-2 }}</strong>
-        </td>
-      </tr>
-    {% endif %}
-  </table>
-
-  <div class="wrapper">
-    <script src="https://js.stripe.com/v3/"></script>
-
-    <form action="." method="post" id="payment-form">
-      {% csrf_token %}
-      <div class="stripe-form-row">
-        <label for="card-element" class="stripe-label">
-          Credit or debit card
-        </label>
-        <div id="card-element" class="StripeElement StripeElement--empty">
-          <div class="__PrivateStripeElement"
-               style="margin: 0px !important; padding: 0px !important; border: none !important; display: block !important; background: transparent !important; position: relative !important; opacity: 1 !important;">
-            <iframe frameborder="0" allowtransparency="true" scrolling="no" name="__privateStripeFrame5"
-                    allowpaymentrequest="true"
-                    src="https://js.stripe.com/v3/elements-inner-card-fbfeb5b62d598125b16ab6addef894d6.html#style[base][color]=%2332325d&amp;style[base][fontFamily]=%22Helvetica+Neue%22%2C+Helvetica%2C+sans-serif&amp;style[base][fontSmoothing]=antialiased&amp;style[base][fontSize]=16px&amp;style[base][::placeholder][color]=%23aab7c4&amp;style[invalid][color]=%23fa755a&amp;style[invalid][iconColor]=%23fa755a&amp;componentName=card&amp;wait=false&amp;rtl=false&amp;keyMode=test&amp;apiKey=pk_test_1RE9q7BFBBM1iEU9MWkg3cZK00nNu0ayiI&amp;origin=https%3A%2F%2Fstripe.com&amp;referrer=https%3A%2F%2Fstripe.com%2Fdocs%2Fstripe-js&amp;controllerId=__privateStripeController1"
-                    title="Secure payment input frame"
-                    style="border: none !important; margin: 0px !important; padding: 0px !important; width: 1px !important; min-width: 100% !important; overflow: hidden !important; display: block !important; user-select: none !important; height: 19.2px;"></iframe>
-            <input class="__PrivateStripeElement-input" aria-hidden="true" aria-label=" " autocomplete="false"
-                   maxlength="1"
-                   style="border: none !important; display: block !important; position: absolute !important; height: 1px !important; top: 0px !important; left: 0px !important; padding: 0px !important; margin: 0px !important; width: 100% !important; opacity: 0 !important; background: transparent !important; pointer-events: none !important; font-size: 16px !important;">
-          </div>
-        </div>
-
-        <!-- Used to display form errors. -->
-        <div id="card-errors" role="alert"></div>
+      <div class="text-center mb-2">
+        <a href="{% url 'shopping:cart' %}" class="btn btn-outline-primary btn-lg mb-2">
+          Return to Cart
+          <i class="fas fa-shopping-cart ml-2"></i>
+        </a>
+        <a href="{% url 'shopping:checkout' %}" class="btn btn-outline-primary btn-lg mb-2">
+          Return to Shipping
+          <i class="fas fa-truck ml-2"></i>
+        </a>
       </div>
 
-      <button>Submit Payment</button>
-    </form>
-  </div>
-  <script src="{% static 'js/stripe_form.js' %}"></script>
+      <!--Grid row-->
+      <div class="row">
+
+        <!--Grid column-->
+        <div class="col-md-8">
+
+          <!--Card-->
+          <div class="card">
+
+            <!--Card content-->
+            <form method="POST" class="card-body" id="payment-form">
+              {% csrf_token %}
+              <h4 class="mb-5">Billing Address</h4>
+              <div class="hideble_for_same_billing">
+                {% if profile.default_billing_address %}
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" name="use_default_billing"
+                           id="use_default_billing">
+                    <label class="custom-control-label" for="use_default_billing">
+                      Use the default billing address:
+                      {{ profile.default_billing_address.first_name }},
+                      {{ profile.default_billing_address.street_address|truncatechars:10 }}
+                    </label>
+                  </div>
+
+                  <!--default Billing info-->
+                  <div class="default_billing_info" style="display: none">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <!--firstName lastNmae-->
+                        <div class="md-form mb-lg-3">
+                          <h5>
+                            {{ profile.default_billing_address.first_name }}
+                            {{ profile.default_billing_address.last_name }}
+                          </h5>
+                        </div>
+                      </div>
+                    </div>
+                    <!--street_address-->
+                    <div class="mb-lg-3">
+                      <h5>{{ profile.default_billing_address.street_address }}</h5>
+                    </div>
+                    <!--apartment_address-->
+                    {% if profile.default_billing_address.apartment_address %}
+                      <div class="mb-lg-3">
+                        <h5>{{ profile.default_billing_address.apartment_address }}</h5>
+                      </div>
+                    {% endif %}
+                    <div class="mb-lg-3">
+                      <h5>
+                        {{ profile.default_billing_address.city }},
+                        {{ profile.default_billing_address.state }}
+                        {{ profile.default_billing_address.zipcode }}
+                      </h5>
+                    </div>
+                  </div>
+                  <!--default Billing info-->
+
+                {% endif %}
+              </div>
+
+              <!--Hideable Billing_Form-->
+              <div class="hideable_billing_form">
+
+                <div class="custom-control custom-checkbox mt-2">
+                  <input type="checkbox" class="custom-control-input" name="same_billing_address"
+                         id="same_billing_address">
+                  <label class="custom-control-label" for="same_billing_address">
+                    Billing address is the same as my Shipping address
+                  </label>
+                </div>
+
+                <!--Same as Shipping info-->
+                <div class="same_as_shipping" style="display: none">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <!--firstName lastNmae-->
+                      <div class="md-form mb-lg-3">
+                        <h5>
+                          {{ cart.shipping_address.first_name }}
+                          {{ cart.shipping_address.last_name }}
+                        </h5>
+                      </div>
+                    </div>
+                  </div>
+                  <!--street_address-->
+                  <div class="mb-lg-3">
+                    <h5>{{ cart.shipping_address.street_address }}</h5>
+                  </div>
+                  <!--apartment_address-->
+                  {% if cart.shipping_address.apartment_address %}
+                    <div class="mb-lg-3">
+                      <h5>{{ cart.shipping_address.apartment_address }}</h5>
+                    </div>
+                  {% endif %}
+                  <div class="mb-lg-3">
+                    <h5>
+                      {{ cart.shipping_address.city }},
+                      {{ cart.shipping_address.state }}
+                      {{ cart.shipping_address.zipcode }}
+                    </h5>
+                  </div>
+                </div>
+                <!--Same as Shipping info-->
+
+                <div class="hideble_for_same_billing">
+                  <!--Grid row-->
+                  <div class="row">
+
+                    <!--Grid column-->
+                    <div class="col-md-6">
+
+                      <!--firstName-->
+                      <div class="md-form mb-lg-3">
+                        <input type='text' id='billing_first_name' name='billing_first_name' class='form-control'/>
+                        <label for="billing_first_name" class="">First name</label>
+                      </div>
+
+                    </div>
+                    <!--Grid column-->
+
+                    <!--Grid column-->
+                    <div class="col-md-6">
+
+                      <!--lastName-->
+                      <div class="md-form mb-lg-3">
+                        <input type='text' id='billing_last_name' name='billing_last_name' class='form-control'/>
+                        <label for="billing_last_name" class="">Last name</label>
+                      </div>
+
+                    </div>
+                    <!--Grid column-->
+
+                  </div>
+                  <!--Grid row-->
+
+                  <!--address-->
+                  <div class="md-form mb-lg-3">
+                    <input type='text' placeholder='123 Main St' id='billing_street_address'
+                           name='billing_street_address'
+                           class='form-control'/>
+                    <label for="billing_street_address" class="">Address</label>
+                  </div>
+
+                  <!--address-2-->
+                  <div class="md-form mb-lg-3">
+                    <input type='text' placeholder='Apartment or suite' id='billing_apartment_address'
+                           name='billing_apartment_address' class='form-control'/>
+                    <label for="billing_apartment_address" class="">Address 2 (optional)</label>
+                  </div>
+
+                  <!--Grid row-->
+                  <div class="row">
+
+                    <!--Grid column-->
+                    <div class="col-lg-4 col-md-2">
+                      <!--city-->
+                      <div class="md-form mb-2">
+                        <input type='text' placeholder='Pittsburgh' id='billing_city' name='billing_city'
+                               class='form-control'/>
+                        <label for="billing_city" class="">City</label>
+                      </div>
+                    </div>
+                    <!--Grid column-->
+
+                    <!--Grid column-->
+                    <div class="col-lg-4 col-md-12 mb-2">
+
+                      <label for="billing_state">State</label>
+                      {{ form.billing_state }}
+                      {#                  <select class="custom-select d-block w-100" id="billing_state" required>#}
+                      {#                    <option value="">Choose...</option>#}
+                      {#                    <option>California</option>#}
+                      {#                  </select>#}
+                      <div class="invalid-feedback">
+                        Please provide a valid state.
+                      </div>
+
+                    </div>
+                    <!--Grid column-->
+
+                    <!--Grid column-->
+                    <div class="col-lg-4 col-md-6">
+                      <!--zip-->
+                      <div class="md-form mb-2">
+                        <input type='text' id='billing_zipcode' name='billing_zipcode' class='form-control'/>
+                        <label for="billing_zipcode" class="">Zip Code</label>
+                        <div class="invalid-feedback">
+                          Zip code required.
+                        </div>
+                      </div>
+                    </div>
+                    <!--Grid column-->
+
+                  </div>
+                  <!--Grid row-->
+                </div>
+                <!--Same as Shipping info-->
+
+                <hr>
+
+                {#              {% if default_billing_address %}#}
+                <div class="custom-control custom-checkbox">
+                  <input type="checkbox" class="custom-control-input" name="set_default_billing"
+                         id="set_default_billing">
+                  <label class="custom-control-label" for="set_default_billing">
+                    Store this billing address for next time
+                    {#                  {{ default_billing_address.street_address|truncatechars:10 }}#}
+                  </label>
+                </div>
+              </div>
+              <!--Hideable Billing_Form-->
+
+              <hr>
+
+
+              <div class="text-center mt-3">
+                <script src="https://js.stripe.com/v3/"></script>
+                {% csrf_token %}
+                <div class="stripe-form-row">
+                  <label for="card-element" class="stripe-label">
+                    Credit or Debit Card
+                  </label>
+                  <div id="card-element" class="StripeElement StripeElement--empty">
+                    <div class="__PrivateStripeElement"
+                         style="margin: 0px !important; padding: 0px !important; border: none !important; display: block !important; background: transparent !important; position: relative !important; opacity: 1 !important;">
+                      <iframe frameborder="0" allowtransparency="true" scrolling="no" name="__privateStripeFrame5"
+                              allowpaymentrequest="true"
+                              src="https://js.stripe.com/v3/elements-inner-card-fbfeb5b62d598125b16ab6addef894d6.html#style[base][color]=%2332325d&amp;style[base][fontFamily]=%22Helvetica+Neue%22%2C+Helvetica%2C+sans-serif&amp;style[base][fontSmoothing]=antialiased&amp;style[base][fontSize]=16px&amp;style[base][::placeholder][color]=%23aab7c4&amp;style[invalid][color]=%23fa755a&amp;style[invalid][iconColor]=%23fa755a&amp;componentName=card&amp;wait=false&amp;rtl=false&amp;keyMode=test&amp;apiKey=pk_test_1RE9q7BFBBM1iEU9MWkg3cZK00nNu0ayiI&amp;origin=https%3A%2F%2Fstripe.com&amp;referrer=https%3A%2F%2Fstripe.com%2Fdocs%2Fstripe-js&amp;controllerId=__privateStripeController1"
+                              title="Secure payment input frame"
+                              style="border: none !important; margin: 0px !important; padding: 0px !important; width: 1px !important; min-width: 100% !important; overflow: hidden !important; display: block !important; user-select: none !important; height: 19.2px;"></iframe>
+                      <input class="__PrivateStripeElement-input" aria-hidden="true" aria-label=" "
+                             autocomplete="false"
+                             maxlength="1"
+                             style="border: none !important; display: block !important; position: absolute !important; height: 1px !important; top: 0px !important; left: 0px !important; padding: 0px !important; margin: 0px !important; width: 100% !important; opacity: 0 !important; background: transparent !important; pointer-events: none !important; font-size: 16px !important;">
+                    </div>
+                  </div>
+
+                  <!-- Used to display form errors. -->
+                  <div id="card-errors" role="alert"></div>
+                </div>
+                <div class="text-center mt-2">
+                  <button class="btn btn-outline-primary btn-lg h-auto btn-block" type="submit">
+                    Place Your Order
+                    <i class="fas fa-credit-card ml-2"></i>
+                  </button>
+                </div>
+                <script src="{% static 'js/stripe_form.js' %}"></script>
+              </div>
+
+            </form>
+
+          </div>
+          <!--/.Card-->
+
+        </div>
+        <!--Grid column-->
+
+        <!--Grid column-->
+        <div class="col-md-4 mb-4">
+
+          <!-- Heading -->
+          <h4 class="d-flex justify-content-between align-items-center mb-3">
+            <span class="text-muted">Your cart</span>
+            {#            <span class="badge badge-secondary badge-pill">{{ cart.items.count }}</span>#}
+            <a href="{% url 'shopping:cart' %}">
+              <span class="badge badge-info badge-pill">{{ request.user|cart_item_count }}</span>
+            </a>
+          </h4>
+
+          <!-- Cart -->
+          <ul class="list-group mb-3 z-depth-2">
+
+
+            {% for item in cart.items.all %}
+              <li class="list-group-item d-flex justify-content-between lh-condensed">
+                <div>
+                  <h6 class="my-0">{{ item.product.name }}</h6>
+                  <small class="text-muted">Frame color or contact info</small>
+                  {#                  use |truncatechars:22 to cutoff#}
+                </div>
+                <span class="text-muted">$ {{ item.get_total_final_price|intcomma|floatformat:-2 }}</span>
+              </li>
+            {% empty %}
+              <li class="list-group-item d-flex justify-content-between lh-condensed">
+                <h6 class="my-0 text-center">There is nothing in your cart</h6>
+              </li>
+            {% endfor %}
+
+            {% if cart.coupon %}
+              <li class="list-group-item d-flex justify-content-between bg-light">
+                <div class="text-success">
+                  <h6 class="my-0">Promo code</h6>
+                  <small>{{ cart.coupon.code }}</small>
+                </div>
+                <span class="text-success">- $ {{ cart.get_coupon_saved|intcomma|floatformat:-2 }}</span>
+              </li>
+            {% endif %}
+
+            <li class="list-group-item d-flex justify-content-between">
+              <span>Total (USD)</span>
+              <strong>$ {{ cart.get_total|intcomma|floatformat:-2 }}</strong>
+            </li>
+          </ul>
+          <!-- Cart -->
+
+
+          <!-- Heading -->
+          <h4 class="d-flex justify-content-between align-items-center mt-5">
+            <span class="text-muted">Shipping Address</span>
+            <a href="{% url 'shopping:checkout' %}">
+              <span class="badge badge-light badge-pill">Change</span>
+            </a>
+          </h4>
+
+          <!-- Shipping -->
+          <ul class="list-group mb-3 z-depth-2">
+            <li class="list-group-item d-flex justify-content-between lh-condensed">
+              <h6 class="my-0">{{ cart.shipping_address.first_name }} {{ cart.shipping_address.last_name }}</h6>
+            </li>
+            <li class="list-group-item d-flex justify-content-between lh-condensed">
+              <h6 class="my-0">{{ cart.shipping_address.street_address }}</h6>
+            </li>
+            {% if cart.shipping_address.apartment_address %}
+              <li class="list-group-item d-flex justify-content-between lh-condensed">
+                <h6 class="my-0">{{ cart.shipping_address.apartment_address }}</h6>
+              </li>
+            {% endif %}
+            <li class="list-group-item d-flex justify-content-between lh-condensed">
+              <h6 class="my-0">
+                {{ cart.shipping_address.city }}, {{ cart.shipping_address.state }} {{ cart.shipping_address.zipcode }}
+              </h6>
+            </li>
+          </ul>
+          <!-- Shipping -->
+
+        </div>
+        <!--Grid column-->
+
+      </div>
+      <!--Grid row-->
+
+    </div>
+  </main>
+  <!--Main layout-->
 
 {% endblock content %}
 
+{% block extra_scripts %}
+  <script>
+    window.onload = function () {
+      var hideable_billing_form = $('.hideable_billing_form');
+      var default_billing_info = $('.default_billing_info');
+      var hideble_for_same_billing = $('.hideble_for_same_billing');
+      {#var hideble_for_same_billing_default_checkbox = $('.hideble_for_same_billing_default_checkbox');#}
+      var same_as_shipping = $('.same_as_shipping');
 
+      var use_default_billing = document.querySelector("input[name=use_default_billing]");
+      var same_billing_address = document.querySelector("input[name=same_billing_address]");
 
+      if (use_default_billing) {
+        use_default_billing.addEventListener('change', function () {
+          if (this.checked) {
+            hideable_billing_form.hide();
+            default_billing_info.show();
+          } else {
+            hideable_billing_form.show();
+            default_billing_info.hide();
+          }
+        });
+      }
 
-
+      if (same_billing_address) {
+        same_billing_address.addEventListener('change', function () {
+          if (this.checked) {
+            hideble_for_same_billing.hide();
+            {#hideble_for_same_billing_default_checkbox.hide();#}
+            same_as_shipping.show();
+          } else {
+            hideble_for_same_billing.show();
+            {#hideble_for_same_billing_default_checkbox.show();#}
+            same_as_shipping.hide();
+          }
+        });
+      }
+    }
+  </script>
+{% endblock extra_scripts %}

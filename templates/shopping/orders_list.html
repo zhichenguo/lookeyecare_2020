@@ -25,7 +25,7 @@
 
         <td>{{ order.create_time|localtime }}</td>
 
-        <td>$ {{ order.get_total|intcomma|floatformat:-2 }}</td>
+        <td>$ {{ order.total_amount|intcomma|floatformat:-2 }}</td>
         {% if order.is_shipped %}
           <td>Tracking link here</td>
         {% else %}

@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block head_title %}
+  Thank You!
+{% endblock head_title %}
+
+{% block content %}
+
+  <div class="text-center mb-2">
+    <h4>Thank you!</h4>
+    <h4>Your request has been received</h4>
+    <a href="{% url 'product:product_list' %}" class="btn btn-outline-primary btn-lg mb-2">
+      Continue Shopping
+      <i class="fas fa-shopping-basket ml-2"></i>
+    </a>
+  </div>
+
+
+{% endblock content %}
+
+
+
+
+

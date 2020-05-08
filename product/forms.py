@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth import get_user_model, authenticate
-from .models import Product
+from .models import Product, ColorsGallery, Images
 
 
 # from django.conf import settings
@@ -13,6 +13,19 @@ class ProductForm(forms.ModelForm):
         # or defined the fields by specifically
         # fields = ['name', 'category', 'description', 'price', 'inventory']
 
+
+class ColorsGalleryForm(forms.ModelForm):
+    class Meta:
+        model = ColorsGallery
+        fields = ('color', 'product',)
+
+
+class ImagesForm(forms.ModelForm):
+    # image = forms.ImageField(label='Image')
+
+    class Meta:
+        model = Images
+        fields = ('color_gallery', 'image',)
 
 # User = get_user_model()
 

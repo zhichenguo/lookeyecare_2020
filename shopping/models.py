@@ -48,7 +48,7 @@ class CartItem(models.Model):
 
 
 class Cart(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='cart', on_delete=models.CASCADE)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, related_name='cart', on_delete=models.CASCADE)
     items = models.ManyToManyField(CartItem)
     shipping_address = models.ForeignKey(
         'Address', related_name='cart_shipping_address', on_delete=models.SET_NULL, blank=True, null=True)
@@ -207,7 +207,7 @@ class Address(models.Model):
     address_type = models.CharField(max_length=1, choices=ADDRESS_CHOICES)
 
     def __str__(self):
-        return self.user.username
+        return self.first_name + ' ' + self.last_name + ' ' + self.street_address
 
     class Meta:
         verbose_name_plural = 'Addresses'

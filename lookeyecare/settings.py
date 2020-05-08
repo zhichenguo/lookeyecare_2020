@@ -48,6 +48,9 @@ INSTALLED_APPS = [
     # 'allauth.socialaccount.providers.instagram',
     'crispy_forms',
     'localflavor',
+    # 'photologue',
+    # 'sortedm2m',
+    # 'taggit',
 
     # own apps
     'core.apps.CoreConfig',

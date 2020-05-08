@@ -1,11 +1,11 @@
 from django.http import Http404
-from django.shortcuts import render, redirect, get_object_or_404
-from django.views.generic import ListView, DetailView
+from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
+from django.views.generic import ListView, DetailView, View
 from django.views.generic.edit import DeleteView, UpdateView, CreateView
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
-from .forms import ProductForm
-from .models import Product, CATEGORY_CHOICES
+from braces.views import SuperuserRequiredMixin
+from .forms import ProductForm, ColorsGalleryForm, ImagesForm
+from .models import Product, CATEGORY_CHOICES, ColorsGallery
 
 
 class ProductListView(ListView):
@@ -97,18 +97,25 @@ class ProductListView(ListView):
 # CRUD - Create, Retrieve, Update, Delete or List
 
 class ProductDetailView(DetailView):
-    model = Product
     context_object_name = 'product'
     template_name = 'product/product_detail.html'
 
-    def get_object(self, queryset=None):
-        obj = super().get_object()
-        # perform logic, like 20% 0ff
-        # obj.price *= 0.80
-        return obj
+    def get(self, *args, **kwargs):
+        product = get_object_or_404(Product, slug=kwargs['slug'])
+        if 'color_gallery' in kwargs:
+            color_gallery = get_object_or_404(ColorsGallery, slug=kwargs['color_gallery'])
+        else:
+            color_gallery = get_list_or_404(ColorsGallery, product=product)[0]
+
+        context = {
+            'product': product,
+            'color_gallery': color_gallery,
+        }
+        return render(self.request, self.template_name, context)
 
 
-class ProductCreateView(LoginRequiredMixin, CreateView):
+class ProductCreateView(SuperuserRequiredMixin, CreateView):
+    permission_required = "auth."
     template_name = 'product/product_create.html'
     model = Product
     form_class = ProductForm
@@ -120,7 +127,7 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class ProductUpdateView(LoginRequiredMixin, UpdateView):
+class ProductUpdateView(SuperuserRequiredMixin, UpdateView):
     template_name = 'product/product_update.html'
     model = Product
     form_class = ProductForm
@@ -132,7 +139,7 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
         return super().form_valid(form)
 
 
-class ProductDeleteView(LoginRequiredMixin, DeleteView):
+class ProductDeleteView(SuperuserRequiredMixin, DeleteView):
     template_name = 'product/product_confirm_delete.html'
     model = Product
     success_url = '/product/'

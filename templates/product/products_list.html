@@ -141,7 +141,8 @@
                 <!--Card image-->
                 <div class="view overlay zoom">
                   <a href="{{ product.get_absolute_url }}" target='_blank'>
-                    <img src="{{ product.image.url }}" class="card-img-top" alt="">
+                    {#                    <img src="{{ product.image.url }}" class="card-img-top" alt="">#}
+                    <img src="{{ product.colors_gallery.first.images.first.image.url }}" class="card-img-top" alt="">
                     <div class="mask rgba-white-slight"></div>
                   </a>
                 </div>
@@ -161,9 +162,16 @@
                       </a>
                     </strong>
                   </h5>
-                  <a href="" class="grey-text">
-                    <h5>{{ product.get_category_display }}</h5>
-                  </a>
+                  <div>
+                    {% for color_gallery in product.colors_gallery.all %}
+                      <input type="image" class="color-display-tag" src="{{ color_gallery.color.sample.url }}" alt=""
+                             style="width: 20px; height: 20px; background-size: cover; border-radius: 20px;"
+                             data-toggle="tooltip" data-placement="top" title="{{ color_gallery.color.color_name }}">
+                    {% endfor %}
+                  </div>
+                  {#                  <a href="" class="grey-text">#}
+                  {#                    <h5>{{ product.get_category_display }}</h5>#}
+                  {#                  </a>#}
 
                   <h4 class="font-weight-bold blue-text">
                     <strong>
@@ -223,7 +231,7 @@
                 </a>
               </li>
               <li class="page-item">
-                <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Last">
+                <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}" aria-label="Last">
                   <span aria-hidden="true" style="font-size: large">&raquo; {{ page_obj.paginator.num_pages }}</span>
                 </a>
               </li>

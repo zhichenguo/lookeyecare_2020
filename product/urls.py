@@ -14,6 +14,7 @@ urlpatterns = [
     # path('<category>/', ProductListView.as_view(), name='product_list_filtered'),
     path('create/', ProductCreateView.as_view(), name='product_create'),
     path('<slug>/', ProductDetailView.as_view(), name='product_detail'),
+    path('<slug>/<color_gallery>/', ProductDetailView.as_view(), name='product_detail_color'),
     path('<slug>/update/', ProductUpdateView.as_view(), name='product_update'),
     path('<slug>/delete/', ProductDeleteView.as_view(), name='product_delete'),
 ]

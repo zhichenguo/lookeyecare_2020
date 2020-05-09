@@ -153,6 +153,7 @@ LOGIN_REDIRECT_URL = '/home/'
 ACCOUNT_EMAIL_VERIFICATION = 'none'
 ACCOUNT_LOGOUT_REDIRECT_URL = '/home/'
 ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_FORMS = {'add_email': 'core.forms.MyCustomAddEmailForm'}
 
 # Crispy forms
 CRISPY_TEMPLATE_PACK = 'bootstrap4'

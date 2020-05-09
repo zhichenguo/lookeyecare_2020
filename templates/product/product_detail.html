@@ -2,9 +2,9 @@
 
 {% load humanize %}
 
-{% block head_title %}
-  Product Detail
-{% endblock head_title %}
+{% load i18n %}
+
+{% block head_title %}{% trans product.name %}{% endblock %}
 
 {% block content %}
 

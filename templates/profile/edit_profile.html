@@ -1,0 +1,302 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block head_title %}
+  {% trans "Profile" %}
+{% endblock %}
+
+{% block content %}
+
+  <div>
+    <span><a href="{% url 'core:profile' %}" class="float-lg-right h5">Back to your account</a></span>
+    <span><h1 class="mb-5">{% trans "Profile" %}</h1></span>
+  </div>
+  <!--Card-->
+  <div class="card mt-5">
+    <!--Card content-->
+    <form method="POST" class="card-body">
+      {% csrf_token %}
+      <h4>Name</h4>
+      <!--Grid row-->
+      <div class="row">
+        <!--Grid column-->
+        <div class="col-md-6">
+          <!--firstName-->
+          <div class="md-form mb-lg-3">
+            <input type='text' id='first_name' name='first_name' class='form-control'
+                   value="{{ profile.user.first_name }}"/>
+            <label for="first_name" class="">First name</label>
+          </div>
+        </div>
+        <!--Grid column-->
+
+        <!--Grid column-->
+        <div class="col-md-6">
+          <!--lastName-->
+          <div class="md-form mb-lg-3">
+            <input type='text' id='last_name' name='last_name' class='form-control'
+                   value="{{ profile.user.last_name }}"/>
+            <label for="last_name" class="">Last name</label>
+          </div>
+        </div>
+        <!--Grid column-->
+      </div>
+      <!--Grid row-->
+
+      <div class="text-center">
+        <button class="btn btn-outline-primary btn-lg h-auto btn-block" type="submit" name="save_name">
+          Save Name
+          <i class="fas fa-credit-card ml-2"></i>
+        </button>
+      </div>
+    </form>
+  </div>
+  <!--Card-->
+
+  <!--Card-->
+  <div class="card mt-5">
+    <!--Card content-->
+    <form method="POST" class="card-body">
+      {% csrf_token %}
+      <h4>Phone Number</h4>
+      <!--phone number-->
+      <div class="md-form mb-lg-3">
+        <input type='text' placeholder='XXX-XXX-XXXX' id='phone_num' name='phone_num' class='form-control'
+               {% if profile.phone_num %}value="{{ profile.phone_num }}{% endif %}"/>
+        <label for="phone_num" class="">Phone Number</label>
+      </div>
+      <div class="text-center">
+        <button class="btn btn-outline-primary btn-lg h-auto btn-block" type="submit" name="save_phone">
+          Save Phone Number
+          <i class="fas fa-credit-card ml-2"></i>
+        </button>
+      </div>
+    </form>
+  </div>
+  <!--Card-->
+
+  <!--Card-->
+  <div class="card mt-5">
+
+    <!--Card content-->
+    <form method="POST" class="card-body">
+      {% csrf_token %}
+      <h4>Default Shipping Address</h4>
+
+      <!--Grid row-->
+      <div class="row">
+        <!--Grid column-->
+        <div class="col-md-6">
+          <!--firstName-->
+          <div class="md-form mb-lg-3">
+            <input type='text' id='shipping_first_name' name='shipping_first_name' class='form-control'
+                   value="{{ profile.default_shipping_address.first_name }}"/>
+            <label for="shipping_first_name" class="">First name</label>
+          </div>
+        </div>
+        <!--Grid column-->
+
+        <!--Grid column-->
+        <div class="col-md-6">
+          <!--lastName-->
+          <div class="md-form mb-lg-3">
+            <input type='text' id='shipping_last_name' name='shipping_last_name' class='form-control'
+                   value="{{ profile.default_shipping_address.last_name }}"/>
+            <label for="shipping_last_name" class="">Last name</label>
+          </div>
+        </div>
+        <!--Grid column-->
+      </div>
+      <!--Grid row-->
+
+      <!--address-->
+      <div class="md-form mb-lg-3">
+        <input type='text' placeholder='123 Main St' id='shipping_street_address'
+               name='shipping_street_address' class='form-control'
+               value="{{ profile.default_shipping_address.street_address }}"/>
+        <label for="shipping_street_address" class="">Address</label>
+      </div>
+
+      <!--address-2-->
+      <div class="md-form mb-lg-3">
+        <input type='text' placeholder='Apartment or suite' id='shipping_apartment_address'
+               name='shipping_apartment_address' class='form-control'
+               value="{{ profile.default_shipping_address.apartment_address }}"/>
+        <label for="shipping_apartment_address" class="">Address 2 (optional)</label>
+      </div>
+
+      <!--Grid row-->
+      <div class="row">
+        <!--Grid column-->
+        <div class="col-lg-4 col-md-2">
+          <!--city-->
+          <div class="md-form mb-2">
+            <input type='text' placeholder='Pittsburgh' id='shipping_city' name='shipping_city'
+                   class='form-control' value="{{ profile.default_shipping_address.city }}"/>
+            <label for="shipping_city" class="">City</label>
+          </div>
+        </div>
+        <!--Grid column-->
+
+        <!--Grid column-->
+        <div class="col-lg-4 col-md-12 mb-2">
+          <!--state-->
+          <label for="shipping_state">State</label>
+          {#          {{ form.shipping_state }}#}
+          <select class='custom-select d-block w-100' id='shipping_state' name='shipping_state'>
+            {% for state in states_choices %}
+              <option value="{{ state.0 }}"
+                  {% if state.0 == profile.default_shipping_address.state %} selected {% endif %}>
+                {{ state.1 }}
+              </option>
+            {% endfor %}
+          </select>
+          <div class="invalid-feedback">
+            Please provide a valid state.
+          </div>
+        </div>
+        <!--Grid column-->
+
+        <!--Grid column-->
+        <div class="col-lg-4 col-md-6">
+          <!--zip-->
+          <div class="md-form mb-2">
+            <input type='text' id='shipping_zipcode' name='shipping_zipcode' class='form-control'
+                   value="{{ profile.default_shipping_address.zipcode }}"/>
+            <label for="shipping_zipcode" class="">Zip Code</label>
+            <div class="invalid-feedback">
+              Zip code required.
+            </div>
+          </div>
+        </div>
+        <!--Grid column-->
+      </div>
+      <!--Grid row-->
+
+      <hr class="mb-4">
+      <div class="text-center">
+        <button class="btn btn-outline-primary btn-lg h-auto btn-block" type="submit" name="save_shipping">
+          Save Default Shipping Address
+          <i class="fas fa-credit-card ml-2"></i>
+        </button>
+      </div>
+    </form>
+
+  </div>
+  <!--Card-->
+
+  <!--Card-->
+  <div class="card mt-5">
+
+    <!--Card content-->
+    <form method="POST" class="card-body">
+      {% csrf_token %}
+      <h4>Default Billing Address</h4>
+
+      <!--Grid row-->
+      <div class="row">
+
+        <!--Grid column-->
+        <div class="col-md-6">
+          <!--firstName-->
+          <div class="md-form mb-lg-3">
+            <input type='text' id='shipping_first_name' name='billing_first_name' class='form-control'
+                   value="{{ profile.default_billing_address.first_name }}"/>
+            <label for="shipping_first_name" class="">First name</label>
+          </div>
+        </div>
+        <!--Grid column-->
+
+        <!--Grid column-->
+        <div class="col-md-6">
+          <!--lastName-->
+          <div class="md-form mb-lg-3">
+            <input type='text' id='shipping_last_name' name='billing_last_name' class='form-control'
+                   value="{{ profile.default_billing_address.last_name }}"/>
+            <label for="shipping_last_name" class="">Last name</label>
+          </div>
+        </div>
+        <!--Grid column-->
+
+      </div>
+      <!--Grid row-->
+
+      <!--address-->
+      <div class="md-form mb-lg-3">
+        <input type='text' placeholder='123 Main St' id='billing_street_address'
+               name='billing_street_address' class='form-control'
+               value="{{ profile.default_billing_address.street_address }}"/>
+        <label for="billing_street_address" class="">Address</label>
+      </div>
+
+      <!--address-2-->
+      <div class="md-form mb-lg-3">
+        <input type='text' placeholder='Apartment or suite' id='billing_apartment_address'
+               name='billing_apartment_address' class='form-control'
+               value="{{ profile.default_billing_address.apartment_address }}"/>
+        <label for="billing_apartment_address" class="">Address 2 (optional)</label>
+      </div>
+
+      <!--Grid row-->
+      <div class="row">
+        <!--Grid column-->
+        <div class="col-lg-4 col-md-2">
+          <!--city-->
+          <div class="md-form mb-2">
+            <input type='text' placeholder='Pittsburgh' id='billing_city' name='billing_city'
+                   class='form-control' value="{{ profile.default_billing_address.city }}"/>
+            <label for="billing_city" class="">City</label>
+          </div>
+        </div>
+        <!--Grid column-->
+
+        <!--Grid column-->
+        <div class="col-lg-4 col-md-12 mb-2">
+
+          <label for="billing_state">State</label>
+          {#          {{ form.billing_state }}#}
+          <select class='custom-select d-block w-100' id='billing_state' name='billing_state'>
+            {% for state in states_choices %}
+              <option value="{{ state.0 }}"
+                  {% if state.0 == profile.default_billing_address.state %} selected {% endif %}>
+                {{ state.1 }}
+              </option>
+            {% endfor %}
+          </select>
+          <div class="invalid-feedback">
+            Please provide a valid state.
+          </div>
+
+        </div>
+        <!--Grid column-->
+
+        <!--Grid column-->
+        <div class="col-lg-4 col-md-6">
+          <!--zip-->
+          <div class="md-form mb-2">
+            <input type='text' id='billing_zipcode' name='billing_zipcode' class='form-control'
+                   value="{{ profile.default_billing_address.zipcode }}"/>
+            <label for="billing_zipcode" class="">Zip Code</label>
+            <div class="invalid-feedback">
+              Zip code required.
+            </div>
+          </div>
+        </div>
+        <!--Grid column-->
+
+      </div>
+      <!--Grid row-->
+
+      <hr class="mb-4">
+      <div class="text-center">
+        <button class="btn btn-outline-primary btn-lg h-auto btn-block" type="submit" name="save_billing">
+          Save Default billing Address
+          <i class="fas fa-credit-card ml-2"></i>
+        </button>
+      </div>
+    </form>
+
+  </div>
+  <!--Card-->
+{% endblock %}

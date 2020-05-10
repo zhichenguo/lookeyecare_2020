@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block head_title %}{% trans "Change Name" %}{% endblock %}
+
+{% block content %}
+  <h1>{% trans "Change Name" %}</h1>
+
+  <form method="POST" action="{% url 'core:change_name' %}" class="change_name">
+    {% csrf_token %}
+    <input type="text"
+    <button type="submit" name="action">{% trans "Change Name" %}</button>
+  </form>
+{% endblock %}

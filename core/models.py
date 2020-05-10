@@ -21,7 +21,8 @@ class Profile(models.Model):
                                                  on_delete=models.CASCADE, blank=True, null=True)
     default_billing_address = models.ForeignKey(Address, related_name='default_billing_address',
                                                 on_delete=models.CASCADE, blank=True, null=True)
-    # first_name
+    phone_num = models.CharField(max_length=50, blank=True, null=True)
+
 
 def post_user_signup_receiver(sender, instance, created, *args, **kwargs):
     # after User signup, a profile will be created automatically

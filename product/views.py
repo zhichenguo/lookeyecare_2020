@@ -3,9 +3,10 @@ from django.shortcuts import render, redirect, get_object_or_404, get_list_or_40
 from django.views.generic import ListView, DetailView, View
 from django.views.generic.edit import DeleteView, UpdateView, CreateView
 from django.db.models import Q
+from django.forms import modelformset_factory
 from braces.views import SuperuserRequiredMixin
 from .forms import ProductForm, ColorsGalleryForm, ImagesForm
-from .models import Product, CATEGORY_CHOICES, ColorsGallery
+from .models import Product, CATEGORY_CHOICES, ColorsGallery, Images
 
 
 class ProductListView(ListView):

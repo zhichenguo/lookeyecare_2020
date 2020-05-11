@@ -96,7 +96,7 @@ class Product(models.Model):
     price = models.FloatField(default=0, blank=True, null=True)
     inventory = models.IntegerField(default=0, blank=True)
 
-    image = models.ImageField(upload_to=image_directory_path, default=0, blank=True, null=True)
+    # image = models.ImageField(upload_to=image_directory_path, default=0, blank=True, null=True)
     # image = models.ImageField(
     #     upload_to=image_directory_path,
     #     default=0, blank=True, null=True

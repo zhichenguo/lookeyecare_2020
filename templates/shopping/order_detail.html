@@ -42,15 +42,18 @@
       </td>
     </tr>
 
-    {% if order.is_shipped %}
-      <tr>
-        <td colspan="1" class="pull-right">Tracking: ></td>
-        <td colspan="4">tracking number with link here</td>
-      </tr>
-    {% else %}
-      <tr>
-        <td colspan="5">Preparing Shipping</td>
-      </tr>
-    {% endif %}
+    <tr>
+      <td colspan="1" class="align-middle"><strong>Shipping Address</strong></td>
+      <td colspan="3" class="text-sm-left">
+        {{ order.shipping_address.first_name }} {{ order.shipping_address.last_name }} </br>
+        {{ order.shipping_address.street_address }}, {{ order.shipping_address.apartment_address }} </br>
+        {{ order.shipping_address.city }}, {{ order.shipping_address.state }} {{ order.shipping_address.zipcode }}
+      </td>
+      {% if order.is_shipped %}
+        <td colspan="1" class="align-middle">tracking number with link here</td>
+      {% else %}
+        <td colspan="1" class="align-middle">Preparing Shipping</td>
+      {% endif %}
+    </tr>
   </table>
 {% endblock %}

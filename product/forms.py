@@ -21,7 +21,7 @@ class ColorsGalleryForm(forms.ModelForm):
 
 
 class ImagesForm(forms.ModelForm):
-    # image = forms.ImageField(label='Image')
+    image = forms.ImageField(label='Image', required=False)
 
     class Meta:
         model = Images

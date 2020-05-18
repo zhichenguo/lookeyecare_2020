@@ -17,7 +17,12 @@
       <div class="card-body">
         <form method="POST" enctype="multipart/form-data">
           {% csrf_token %}
-          {{ form|crispy }}
+          {{ product_form|crispy }}
+          {{ color_gallery_form|crispy }}
+          {{ image_forset.management_form }}
+          {% for form in image_forset %}
+            {{ form|crispy }}
+          {% endfor %}
           <button class="btn btn-outline-primary" type="submit">Submit</button>
         </form>
       </div>

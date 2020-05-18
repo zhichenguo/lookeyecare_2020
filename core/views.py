@@ -43,7 +43,7 @@ class EditProfileView(View):
         #     # 'name_form': name_form,
         #     # 'phone_form': phone_form,
         # }
-        print(self.request.POST)
+        # print(self.request.POST)
         if 'save_name' in self.request.POST:
             if form.is_valid():
                 first_name = form.cleaned_data.get('first_name')

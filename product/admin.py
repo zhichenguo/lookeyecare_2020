@@ -1,5 +1,8 @@
 from django.contrib import admin
-from .models import Product, Color, ColorsGallery, Images
+from .models import (
+    Product, Color, ColorsGallery, Images,
+    BaseCurve, Diameter, Power, Cylinder, Axis, HighLow, DN, AddOnPower, ContactColor
+)
 
 
 class ColorsGalleryInline(admin.StackedInline):
@@ -15,10 +18,10 @@ class ImagesInline(admin.StackedInline):
 class ProductAdmin(admin.ModelAdmin):
     # can define functions with actions and methods to mulipulated price here, like on sale / discount
     # fields = ['name', 'category', 'description', 'price', 'label', 'off_percentage', 'inventory', 'image']
-    list_display = ['name', 'slug', 'category', 'label', 'off_percentage', 'price', 'inventory']
+    list_display = ['name', 'slug', 'category', 'gender', 'label', 'off_percentage', 'price', 'inventory']
     list_display_links = ['name']
-    list_editable = ['category', 'label', 'off_percentage', 'price', 'inventory']
-    list_filter = ['category', 'label']
+    list_editable = ['category', 'gender', 'label', 'off_percentage', 'price', 'inventory']
+    list_filter = ['category', 'gender', 'label']
     sortable_by = ['price', 'inventory']
     search_fields = ['name', 'category', 'description']
     # inlines = [ColorsGalleryInline]
@@ -45,3 +48,12 @@ class ColorsGalleryAdmin(admin.ModelAdmin):
 admin.site.register(Color)
 admin.site.register(Product, ProductAdmin)
 admin.site.register(ColorsGallery, ColorsGalleryAdmin)
+admin.site.register(BaseCurve)
+admin.site.register(Diameter)
+admin.site.register(Power)
+admin.site.register(Cylinder)
+admin.site.register(Axis)
+admin.site.register(DN)
+admin.site.register(AddOnPower)
+admin.site.register(HighLow)
+admin.site.register(ContactColor)

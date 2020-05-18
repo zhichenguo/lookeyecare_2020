@@ -162,13 +162,13 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 STRIPE_PUBLISH_KEY = 'pk_test_1RE9q7BFBBM1iEU9MWkg3cZK00nNu0ayiI'
 STRIPE_SECRET_KEY = 'sk_test_SKktFmWaYgS0mrFef32TnRxi00ik1lNr36'
 
-if DEBUG:
-    EMAIL_HOST = 'localhost'
-    EMAIL_PORT = 1025
-    EMAIL_HOST_USER = ''
-    EMAIL_HOST_PASSWORD = ''
-    EMAIL_USE_TLS = False
-    DEFAULT_FROM_EMAIL = 'testing@example.com'
+# if DEBUG:
+#     EMAIL_HOST = 'localhost'
+#     EMAIL_PORT = 1025
+#     EMAIL_HOST_USER = ''
+#     EMAIL_HOST_PASSWORD = ''
+#     EMAIL_USE_TLS = False
+#     DEFAULT_FROM_EMAIL = 'testing@example.com'
 
 # # sendgrid settings
 # SEND_GRID_API_KEY = ''

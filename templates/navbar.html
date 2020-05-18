@@ -16,16 +16,13 @@
       <li class="nav-item">
         <a class="nav-link" href="{% url 'website:home' %}">Home<span class="sr-only">(current)</span></a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'website:our_services' %}">Our Services</a>
-      </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
            aria-haspopup="true" aria-expanded="false">
           Products
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="{% url 'product:product_list' %}">Eyeware</a>
+          <a class="dropdown-item" href="{% url 'product:product_list' %}">Sun Glasses</a>
           <a class="dropdown-item" href="{% url 'website:contacts' %}" target="_blank">Contacts</a>
           <a class="dropdown-item" href="{% url 'website:collections' %}">Eyeware Collections</a>
           <div class="dropdown-divider"></div>
@@ -33,14 +30,16 @@
         </div>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{% url 'website:meet_us' %}">Meet Us</a>
+        <a class="nav-link" href="{% url 'website:our_services' %}">Our Services</a>
       </li>
       <li class="nav-item">
-
-        <a class="nav-link" href="#" target="_blank">Book Appointment</a>
+        <a class="nav-link" href="{% url 'website:book_exam' %}" target="_blank">Book Exam</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="{% url 'website:insurance_promotion' %}">Insurance & Promotion</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'website:meet_us' %}">Meet Us</a>
       </li>
     </ul>
 

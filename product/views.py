@@ -1,14 +1,17 @@
+from django.contrib import messages
 from django.http import Http404
 from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
+from django.template import RequestContext
 from django.views.generic import ListView, DetailView, View
 from django.views.generic.edit import DeleteView, UpdateView, CreateView
 from django.db.models import Q
 from django.forms import modelformset_factory
 from braces.views import SuperuserRequiredMixin
 from .forms import ProductForm, ColorsGalleryForm, ImagesForm
-from .models import Product, CATEGORY_CHOICES, ColorsGallery, Images
+from .models import Product, CATEGORY_CHOICES, ColorsGallery, Images, Color
 
 
+# only filter for Sun Glasses
 class ProductListView(ListView):
     model = Product
     context_object_name = 'products'
@@ -18,7 +21,7 @@ class ProductListView(ListView):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.object_list = self.get_queryset()
+        self.object_list = self.get_queryset().filter(category='S')
 
     def get(self, request, *args, **kwargs):
         # categories = [row[1] for row in CATEGORY_CHOICES]
@@ -27,7 +30,7 @@ class ProductListView(ListView):
         women = request.GET.get('women')
         men = request.GET.get('men')
         kid = request.GET.get('kid')
-        sun = request.GET.get('sun')
+        # sun = request.GET.get('sun')
         onsale = request.GET.get('onSale')
         # self.object_list = None
 
@@ -41,34 +44,33 @@ class ProductListView(ListView):
         #     self.object_list = self.object_list.filter(category=category)
 
         if women == 'on':
-            objs_women = self.object_list.filter(category='W')
+            objs_women = self.object_list.filter(gender='W').union(self.object_list.filter(gender='U'))
         else:
             objs_women = Product.objects.none()
         if men == 'on':
-            objs_men = self.object_list.filter(category='M')
+            objs_men = self.object_list.filter(gender='M').union(self.object_list.filter(gender='U'))
         else:
             objs_men = Product.objects.none()
         if kid == 'on':
-            objs_kid = self.object_list.filter(category='K')
+            objs_kid = self.object_list.filter(gender='K')
         else:
             objs_kid = Product.objects.none()
-        if sun == 'on':
-            objs_sun = self.object_list.filter(category='S')
-        else:
-            objs_sun = Product.objects.none()
+        # if sun == 'on':
+        #     objs_sun = self.object_list.filter(category='S')
+        # else:
+        #     objs_sun = Product.objects.none()
         if onsale == 'on':
             objs_onsale = self.object_list.filter(label='S')
         else:
             objs_onsale = Product.objects.none()
 
-        # filter_list = [women, men, kid, sun, onsale]
-
         if (search_text == '' or search_text is None) and (
-                women is None and men is None and kid is None and sun is None and onsale is None):
-            self.object_list = self.get_queryset()
+                women is None and men is None and kid is None and onsale is None):
+            # self.object_list = self.get_queryset()
+            self.object_list = self.object_list.filter(category='S')
         else:
             self.object_list = Product.objects.none().union(
-                objs_search, objs_women, objs_men, objs_kid, objs_sun, objs_onsale
+                objs_search, objs_women, objs_men, objs_kid, objs_onsale
             )
 
         context = self.get_context_data()
@@ -116,11 +118,63 @@ class ProductDetailView(DetailView):
 
 
 class ProductCreateView(SuperuserRequiredMixin, CreateView):
-    permission_required = "auth."
     template_name = 'product/product_create.html'
-    model = Product
-    form_class = ProductForm
+    # model = Product
+    # form_class = ProductForm
     success_url = '/product/'
+
+    def get(self, *args, **kwargs):
+        colors = get_list_or_404(Color)
+        product_form = ProductForm()
+        color_gallery_form = ColorsGalleryForm()
+        image_forset = modelformset_factory(Images, form=ImagesForm, extra=3)
+        context = {
+            'colors': colors,
+            'product_form': product_form,
+            'color_gallery_form': color_gallery_form,
+            'image_forset': image_forset,
+
+        }
+        return render(self.request, self.template_name, context)
+
+    def post(self, *args, **kwargs):
+
+        product_form = ProductForm(self.request.POST or None)
+        color_gallery_form = ColorsGalleryForm(self.request.POST or None)
+        image_forset = modelformset_factory(Images, form=ImagesForm, extra=3)
+        images_formset = image_forset(self.request.POST or None, self.request.FILES, queryset=Images.objects.none())
+
+        print(self.request.POST)
+
+        if product_form.is_valid() and color_gallery_form.is_valid() and images_formset.is_valid():
+            product = product_form.save(commit=False)
+            product.save()
+            color_gallery = color_gallery_form.save(commit=False)
+            color_gallery.save()
+
+            for form in images_formset.cleaned_data:
+                image = form['image']
+                photo = Images(color_gallery=color_gallery, image=image)
+                photo.save()
+            messages.success(self.request, "Posted!")
+            return redirect('product:product_list')
+        else:
+            print(product_form.errors, color_gallery_form.errors, images_formset.errors)
+
+            # else:
+            #     postForm = PostForm()
+            #     formset = ImageFormSet(queryset=Images.objects.none())
+
+            # context = {
+            #     'product_form': product_form,
+            #     'color_gallery': color_gallery,
+            #     'formset': formset,
+            # }
+            return redirect('product:product_create')
+
+        # return render(self.request, 'index.html',
+        #               {'postForm': postForm, 'formset': formset},
+        #               context_instance=RequestContext(request))
 
     def form_valid(self, form):
         form.save()

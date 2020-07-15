@@ -152,34 +152,29 @@ class Product(models.Model):
     name = models.CharField(max_length=100)
     category = models.CharField(default='O', choices=CATEGORY_CHOICES, max_length=1)
     gender = models.CharField(default='U', choices=GENDER_CHOICES, max_length=1, blank=True)
+    short_description = models.CharField(max_length=120, default='', blank=True)
     description = models.TextField(default='', blank=True)
     size = models.CharField(default='NA', choices=SIZE_CHOICES, max_length=2, blank=True)
     shape = models.CharField(default='NA', choices=SHAPE_CHOICES, max_length=2, blank=True)
     price = models.FloatField(default=0, blank=True)
     inventory = models.IntegerField(default=0, blank=True)
 
-    # contact data fields
-    base_curve = models.ManyToManyField(BaseCurve, default=None, blank=True, null=True)
-    diameter = models.ManyToManyField(Diameter, blank=True, null=True)
-    power = models.ManyToManyField(Power, blank=True, null=True)
-    cylinder = models.ManyToManyField(Cylinder, blank=True, null=True)
-    axis = models.ManyToManyField(Axis, blank=True, null=True)
-    high_low = models.ManyToManyField(HighLow, blank=True, null=True)
-    dn = models.ManyToManyField(DN, blank=True, null=True)
-    add_on_power = models.ManyToManyField(AddOnPower, blank=True, null=True)
-    contact_color = models.ManyToManyField(ContactColor, blank=True, null=True)
+    # # contact data fields
+    # base_curve = models.ManyToManyField(BaseCurve, default=None, blank=True, null=True)
+    # diameter = models.ManyToManyField(Diameter, blank=True, null=True)
+    # power = models.ManyToManyField(Power, blank=True, null=True)
+    # cylinder = models.ManyToManyField(Cylinder, blank=True, null=True)
+    # axis = models.ManyToManyField(Axis, blank=True, null=True)
+    # high_low = models.ManyToManyField(HighLow, blank=True, null=True)
+    # dn = models.ManyToManyField(DN, blank=True, null=True)
+    # add_on_power = models.ManyToManyField(AddOnPower, blank=True, null=True)
+    # contact_color = models.ManyToManyField(ContactColor, blank=True, null=True)
 
     # image = models.ImageField(upload_to=image_directory_path, default=0, blank=True, null=True)
-    # image = models.ImageField(
-    #     upload_to=image_directory_path,
-    #     default=0, blank=True, null=True
-    # )
 
     slug = AutoSlugField(populate_from='name', unique=True, editable=False)
-
     label = models.CharField(default='P', choices=LABEL_CHOICES, max_length=1, blank=True)
     off_percentage = models.FloatField(default=0, blank=True)
-
     objects = ProductManager()
 
     def __str__(self):
@@ -217,7 +212,6 @@ def get_color_gallery_slug(instance):
 class ColorsGallery(models.Model):
     color = models.ForeignKey(Color, on_delete=models.SET_NULL, blank=True, null=True)
     product = models.ForeignKey(Product, related_name='colors_gallery', on_delete=models.CASCADE)
-
     slug = AutoSlugField(populate_from=get_color_gallery_slug, unique=True, editable=False)
 
     def __str__(self):
@@ -227,9 +221,39 @@ class ColorsGallery(models.Model):
 def gallery_images_directory_path(instance, filename):
     # file will be uploaded to MEDIA_ROOT / user_<id>/<filename>
     return 'products/{0}/{1}_{2}'.format(
-        instance.color_gallery.product.name, instance.color_gallery.color.color_name, filename)
+        instance.color_gallery.product.name,
+        instance.color_gallery.color.color_name, filename)
 
 
 class Images(models.Model):
     color_gallery = models.ForeignKey(ColorsGallery, related_name='images', on_delete=models.CASCADE, default=None)
     image = models.ImageField(upload_to=gallery_images_directory_path, verbose_name='Image')
+
+
+class Contact(Product):
+    # name = models.CharField(max_length=100)
+    # # category = models.CharField(default='C', choices=CATEGORY_CHOICES, max_length=1)
+    # # gender = models.CharField(default='U', choices=GENDER_CHOICES, max_length=1, blank=True)
+    # short_description = models.CharField(max_length=120, default='', blank=True)
+    # description = models.TextField(default='', blank=True)
+    # # size = models.CharField(default='NA', choices=SIZE_CHOICES, max_length=2, blank=True)
+    # # shape = models.CharField(default='NA', choices=SHAPE_CHOICES, max_length=2, blank=True)
+    # price = models.FloatField(default=0, blank=True)
+    # inventory = models.IntegerField(default=0, blank=True)
+    # slug = AutoSlugField(populate_from='name', unique=True, editable=False)
+    # label = models.CharField(default='P', choices=LABEL_CHOICES, max_length=1, blank=True)
+    # off_percentage = models.FloatField(default=0, blank=True)
+    # objects = ProductManager()
+
+    # contact data fields
+    base_curve = models.ManyToManyField(BaseCurve, default=None, blank=True, null=True)
+    diameter = models.ManyToManyField(Diameter, blank=True, null=True)
+    power = models.ManyToManyField(Power, blank=True, null=True)
+    cylinder = models.ManyToManyField(Cylinder, blank=True, null=True)
+    axis = models.ManyToManyField(Axis, blank=True, null=True)
+    high_low = models.ManyToManyField(HighLow, blank=True, null=True)
+    dn = models.ManyToManyField(DN, blank=True, null=True)
+    add_on_power = models.ManyToManyField(AddOnPower, blank=True, null=True)
+    contact_color = models.ManyToManyField(ContactColor, blank=True, null=True)
+
+    # image = models.ImageField(upload_to=image_directory_path, default=0, blank=True, null=True)

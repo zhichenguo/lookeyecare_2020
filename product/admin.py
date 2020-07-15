@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .models import (
-    Product, Color, ColorsGallery, Images,
+    Product, Color, ColorsGallery, Images, Contact,
     BaseCurve, Diameter, Power, Cylinder, Axis, HighLow, DN, AddOnPower, ContactColor
 )
 
@@ -57,3 +57,4 @@ admin.site.register(DN)
 admin.site.register(AddOnPower)
 admin.site.register(HighLow)
 admin.site.register(ContactColor)
+admin.site.register(Contact)

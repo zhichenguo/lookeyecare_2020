@@ -1,0 +1,260 @@
+{% extends "base.html" %}
+
+{% load humanize %}
+
+{% block head_title %}
+  Products List
+{% endblock head_title %}
+
+{% block content %}
+
+  <!--Main layout-->
+  <main>
+    <div class="container">
+
+      <!--Navbar-->
+      <nav class="navbar navbar-expand-lg lighten-3 mt-3 mb-5 white scrolling-navbar">
+
+        <!-- Navbar brand -->
+        <span class="navbar-brand">Filter</span>
+
+        <!-- Collapse button -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
+                aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Collapsible content -->
+        <div class="collapse navbar-collapse" id="basicExampleNav">
+
+          <!-- Links -->
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="{% url 'product:product_list' %}">All</a>
+            </li>
+            {#            <li class="nav-item">#}
+            {#              <a class="nav-link" href="{% url 'product:product_list_filtered' 'Women' %}">Women</a>#}
+            {#            </li>#}
+            {#            <li class="nav-item">#}
+            {#              <a class="nav-link" href="{% url 'product:product_list' %}">Men</a>#}
+            {#            </li>#}
+            {#            <li class="nav-item">#}
+            {#              <a class="nav-link" href="{% url 'product:product_list' %}">Kids</a>#}
+            {#            </li>#}
+            {#            <li class="nav-item">#}
+            {#              <a class="nav-link" href="{% url 'product:product_list' %}">Sun Glasses</a>#}
+            {#            </li>#}
+
+            <li class="nav-item">
+              <form method="GET">
+                <div class="form-inline">
+                  <div class="form-group mr-2">
+
+                    {#                    <label for="category" class="ml-2 mr-1">Category</label>#}
+                    {#                    <select id="category" class="form-control" name="category">#}
+                    {#                      <option selected>Choose...</option>#}
+                    {#                      {% for cat in categories %}#}
+                    {#                        <option value="{{ cat.0 }}">{{ cat.1 }}</option>#}
+                    {#                      {% endfor %}                    #}
+                    {#                    </select>#}
+
+                    <div class="form-check">
+                      <input class="form-check-input ml-2" type="checkbox" id="women" name="women">
+                      <label class="form-check-label" for="women">
+                        Women
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input ml-2" type="checkbox" id="men" name="men">
+                      <label class="form-check-label" for="men">
+                        Men
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input ml-2" type="checkbox" id="kid" name="kid">
+                      <label class="form-check-label" for="kid">
+                        Kid
+                      </label>
+                    </div>
+                    {#                    <div class="form-check">#}
+                    {#                      <input class="form-check-input ml-2" type="checkbox" id="sun" name="sun">#}
+                    {#                      <label class="form-check-label" for="sun">#}
+                    {#                        Sun Glasses#}
+                    {#                      </label>#}
+                    {#                    </div>#}
+                    {#                    <div class="form-check">#}
+                    {#                      <input class="form-check-input ml-2" type="checkbox" id="other" name="other">#}
+                    {#                      <label class="form-check-label mr-5" for="other">#}
+                    {#                        Other#}
+                    {#                      </label>#}
+                    {#                    </div>#}
+                    <div class="form-check">
+                      <input class="form-check-input ml-5" type="checkbox" id="onSale" name="onSale">
+                      <label class="form-check-label" for="onSale">
+                        On Sale
+                      </label>
+                    </div>
+                    <button type="search" class="btn btn-outline- bg-transparent btn-sm">Apply</button>
+                  </div>
+                </div>
+              </form>
+            </li>
+          </ul>
+          <!-- Links -->
+
+          <form method="GET">
+            <div class="form-inline nav-item">
+              <div class="form-group">
+                <div class="input-group">
+                  <input class="form-control border-right-0 border" type="search" name="search_text"
+                         placeholder="Search">
+                  <span class="input-group-append">
+                    <div class="input-group-text bg-transparent">
+                        <button type="search"
+                                class="fas fa-search icon-search icon-2x bg-transparent border-0"></button>
+                    </div>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <!-- Collapsible content -->
+
+      </nav>
+      <!--/.Navbar-->
+
+      <!--Section: Products v.3-->
+      <section class="text-center mb-4">
+
+        <!--Grid row-->
+        <div class="row wow fadeIn">
+
+          {% for product in contacts %}
+
+            <!--Grid column-->
+            <div class="col-lg-4 col-xs-6 mb-4">
+
+              <!--Card-->
+              <div class="card">
+
+                <!--Card image-->
+                <div class="view overlay zoom">
+                  <a href="{{ product.get_absolute_url }}" target='_blank'>
+                    {#                    <img src="{{ product.image.url }}" class="card-img-top" alt="">#}
+                    <img src="{{ product.colors_gallery.first.images.first.image.url }}" class="card-img-top" alt="">
+                    <div class="mask rgba-white-slight"></div>
+                  </a>
+                </div>
+                <!--Card image-->
+
+                <!--Card content-->
+                <div class="card-body text-center">
+                  <!--Category & Title-->
+                  <h5>
+                    <strong>
+                      <a href="{{ product.get_absolute_url }}" class="dark-grey-text" target='_blank'>{{ product.name }}
+                        {% if product.label == 'N' %}
+                          <span class="badge badge-pill secondary-color">{{ product.get_label_display }}</span>
+                        {% elif product.label == 'S' %}
+                          <span class="badge badge-pill danger-color">{{ product.get_label_display }}</span>
+                        {% endif %}
+                      </a>
+                    </strong>
+                  </h5>
+                  <div>
+                    {% for color_gallery in product.colors_gallery.all %}
+                      <input type="image" class="color-display-tag" src="{{ color_gallery.color.sample.url }}" alt=""
+                             style="width: 20px; height: 20px; background-size: cover; border-radius: 20px;"
+                             data-toggle="tooltip" data-placement="top" title="{{ color_gallery.color.color_name }}">
+                    {% endfor %}
+                  </div>
+                  {#                  <a href="" class="grey-text">#}
+                  {#                    <h5>{{ product.get_category_display }}</h5>#}
+                  {#                  </a>#}
+
+                  <h4 class="font-weight-bold blue-text">
+                    <strong>
+                      {% if product.label == 'S' %}
+                        <span class="mr-2"><del>$ {{ product.price|intcomma }}</del></span>
+                        <span>$ {{ product.final_price|intcomma|floatformat:-2 }}</span>
+                      {% else %}
+                        <span>$ {{ product.final_price|intcomma|floatformat:-2 }}</span>
+                      {% endif %}
+                    </strong>
+                  </h4>
+
+                </div>
+                <!--Card content-->
+
+              </div>
+              <!--Card-->
+
+            </div>
+          {% endfor %}
+          <!--Grid column-->
+
+        </div>
+        <!--Grid row-->
+
+      </section>
+      <!--Section: Products v.3-->
+
+      <!--Pagination-->
+      {% if is_paginated %}
+        <nav class="d-flex justify-content-center wow fadeIn">
+          <ul class="pagination pg-blue text-lg-center">
+
+            {% if page_obj.has_previous %}
+              <!--Arrow left-->
+              <li class="page-item">
+                <a class="page-link" href="?page=1" aria-label="First">
+                  <span aria-hidden="true" style="font-size: large">1 &laquo;</span>
+                </a>
+              </li>
+              <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                  <span aria-hidden="true" style="font-size: large">&lsaquo; Previous</span>
+                </a>
+              </li>
+            {% endif %}
+
+            <li class="page-item">
+              <a class="page-link" href="#" style="font-size: large">{{ page_obj.number }}</a>
+            </li>
+
+
+            {% if page_obj.has_next %}
+              <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                  <span aria-hidden="true" style="font-size: large">Next &rsaquo;</span>
+                </a>
+              </li>
+              <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}" aria-label="Last">
+                  <span aria-hidden="true" style="font-size: large">&raquo; {{ page_obj.paginator.num_pages }}</span>
+                </a>
+              </li>
+            {% endif %}
+
+          </ul>
+        </nav>
+      {% endif %}
+      <!--Pagination-->
+
+    </div>
+  </main>
+  <!--Main layout-->
+  </div>
+
+{% endblock content %}
+
+{% block extra_body %}
+  {% if request.user.is_superuser %}
+    <div class="text-lg-center mt-5">
+      <a class="btn btn-outline-primary mt=3" href="{% url 'product:product_create' %}">
+        Create a Product
+      </a>
+    </div>
+  {% endif %}
+{% endblock extra_body %}

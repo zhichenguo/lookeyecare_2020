@@ -149,9 +149,9 @@ AUTHENTICATION_BACKENDS = (
 SITE_ID = 1
 # let django know the auth user
 AUTH_USER_MODEL = 'core.User'
-LOGIN_REDIRECT_URL = '/home/'
+LOGIN_REDIRECT_URL = '/'
 ACCOUNT_EMAIL_VERIFICATION = 'none'
-ACCOUNT_LOGOUT_REDIRECT_URL = '/home/'
+ACCOUNT_LOGOUT_REDIRECT_URL = '/'
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_FORMS = {'add_email': 'core.forms.MyCustomAddEmailForm'}
 

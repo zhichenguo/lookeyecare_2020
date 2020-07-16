@@ -1,7 +1,66 @@
 {% extends "base.html" %}
+{% load static %}
+
+{% block extra_head %}
+  <style>
+    body, html {
+      height: 100%;
+    }
+
+    .ins_logo {
+      width: 100%;
+    }
+  </style>
+{% endblock extra_head %}
 
 {% block content %}
 
-  <p>This is the Lens Technology page</p>
+  <div class="h1 font-italic text-center"><strong>Insurance Plans We Recognize</strong></div>
+  <div class="h5 font-italic text-right">Covering the Care We Provide</div>
+
+  <div class="row align-items-center mt-2">
+    <div class="col-6 p card">
+      <div>
+        <img src="{% static 'img/store_logo/BrandLogos_NEW_transitionsGen8.webp' %}">
+        <p>There’s no need to slow down now. The latest generation of Transitions® lenses is designed to keep up with
+          your lifestyle, providing the best visual performance—indoors and out, day and night.</p>
+        <ul>
+          <li>Darkens outdoors in seconds*</li>
+          <li>Returns to clear faster than ever</li>
+          <li>Fully clear indoors</li>
+          <li>Even darker outdoors</li>
+        </ul>
+        <iframe width="100%" height="266" src="https://www.youtube.com/embed/dbJZlLUS83o" frameborder="0"
+                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen>
+        </iframe>
+      </div>
+      <div>
+        <img src="{% static 'img/store_logo/CrizalLogo_4c.webp' %}">
+        <p>GLARE, SCRATCH, AND SMUDGE RESISTANT</p>
+        <p>Crizal® Anti-Glare lenses give you the clearest vision possible, so you’re ready for whatever comes your
+          way—glare, scratches, smudges, and even UV light. </p>
+        <ul>
+          <li>Reduces Glare</li>
+          <li>Durable</li>
+          <li>Easy to Clean</li>
+        </ul>
+        <div class="text-center">
+          <a
+            href="https://www.essilorusa.com/content/dam/essilor-redesign/product-resources/crizal/Crizal_Portfolio_Guide_LZAL201135.pdf"
+            class="btn btn-light-blue">Learn More</a>
+        </div>
+        <img class="ins_logo" src="{% static 'img/store_logo/1286_essilor-2.webp' %}">
+
+      </div>
+    </div>
+    <div class="col-6">
+      <img class="ins_logo" src="{% static 'img/insurance/davius.png' %}">
+      <img class="ins_logo" src="{% static 'img/insurance/vsp.jpg' %}">
+      <img class="ins_logo" src="{% static 'img/insurance/spectera.jpg' %}">
+      <img class="ins_logo" src="{% static 'img/insurance/United Healthcare Logo.jpg' %}">
+      <img class="ins_logo" src="{% static 'img/insurance/blue-cross-blue-shield-vector-logo-small.png' %}">
+    </div>
+  </div>
 
 {% endblock %}

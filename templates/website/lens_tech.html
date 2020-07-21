@@ -1,7 +1,203 @@
 {% extends "base.html" %}
+{% load static %}
+
+{% block extra_head %}
+  <style>
+    body, html {
+      height: 100%;
+    }
+
+    .ins_logo {
+      width: 100%;
+    }
+  </style>
+{% endblock extra_head %}
 
 {% block content %}
+  <div class="row">
+    <div class="col-6 text-primary">
+      <div class="h1 font-italic text-center"><strong>Explore Our Lenses</strong></div>
+      <div class="h5 font-italic text-right">Powered by Essilor Of America</div>
+    </div>
+    <div class="col-6 text-center">
+      <img src="{% static 'img/store_logo/EE-Logo.webp' %}"></div>
+  </div>
 
-  <p>This is the Lens Technology page</p>
+
+  <div class="row align-items-center mt-2">
+    <div class="col-6">
+      <div>
+        <img src="{% static 'img/store_logo/BrandLogos_NEW_transitionsGen8.webp' %}">
+        <p>There’s no need to slow down now. The latest generation of Transitions® lenses is designed to keep up with
+          your lifestyle, providing the best visual performance—indoors and out, day and night.</p>
+        <ul>
+          <li>Darkens outdoors in seconds*</li>
+          <li>Returns to clear faster than ever</li>
+          <li>Fully clear indoors</li>
+          <li>Even darker outdoors</li>
+        </ul>
+        <iframe width="100%" height="266" src="https://www.youtube.com/embed/dbJZlLUS83o" frameborder="0"
+                allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen>
+        </iframe>
+      </div>
+      <div>
+        <img src="{% static 'img/store_logo/CrizalLogo_4c.webp' %}">
+        <p>GLARE, SCRATCH, AND SMUDGE RESISTANT</p>
+        <p>Crizal® Anti-Glare lenses give you the clearest vision possible, so you’re ready for whatever comes your
+          way—glare, scratches, smudges, and even UV light. </p>
+        <ul>
+          <li>Reduces Glare</li>
+          <li>Durable</li>
+          <li>Easy to Clean</li>
+        </ul>
+        <div class="text-center mb-5">
+          <a
+            href="https://www.essilorusa.com/content/dam/essilor-redesign/product-resources/crizal/Crizal_Portfolio_Guide_LZAL201135.pdf"
+            class="btn btn-light-blue">Learn More</a>
+        </div>
+        <img class="ins_logo" src="{% static 'img/store_logo/1286_essilor-2.webp' %}">
+      </div>
+      <div>
+        <img src="{% static 'img/store_logo/VariluxLogo_4c.webp' %}">
+        <div class="h3 font-italic">#1 PROGRESSIVE LENS BRAND</div>
+        <p>Varilux® progressive lenses provide sharp vision at every distance—even in dimly lit conditions—eliminating
+          the blurriness and low-light issues of ordinary progressive lenses.</p>
+        <ul>
+          <li>Sharp Vision</li>
+          <li>Near to Far</li>
+          <li>Eliminates Off-Balance</li>
+        </ul>
+        <div class="text-center mb-5">
+          <a
+            href="https://docs.wixstatic.com/ugd/fabf98_6e66e8af76e6449ba7f3a2434fd99b65.pdf"
+            class="btn btn-light-blue">DISCOVER More</a>
+        </div>
+        <video width="100%" controls>
+          <source src="{% static 'img/store_logo/56_Varilux_X_Series_Benefits.mp4' %}" type="video/mp4">
+          Your browser does not support HTML video.
+        </video>
+      </div>
+      <div>
+        <img src="{% static 'img/store_logo/EyezenLogo_4c.png' %}">
+        <div class="h3 font-italic">SEEING IS RELIEVING</div>
+        <p>Between computers, tablets, and smartphones, we’re needing computer glasses more than ever before. All that
+          screen time can be hard on your eyes and may cause digital eye strain. Eyezen™ enhanced single vision lenses
+          provide sharper vision than ordinary single vision lenses and are available to everyone—whether you have a
+          prescription or just want a pair of computer glasses. </p>
+        <ul>
+          <li>Reduces Eye Strain</li>
+          <li>Helps Protect from Harmful Blue Light</li>
+          <li>Enhanced Single Vision Lens</li>
+        </ul>
+        <div class="text-center">
+          <a
+            href="https://www.essilorusa.com/content/dam/essilor-redesign/product-resources/eyezen/Eyezen+%20Scientific%20Overview.pdf"
+            class="btn btn-light-blue" target="_blank">LEARN MORE</a>
+        </div>
+      </div>
+      <div>
+        <img src="{% static 'img/store_logo/XperioLogo_4c.png' %}">
+        <div class="h3 font-italic">POLARIZED PRESCRIPTION SUNGLASSES</div>
+        <p>Xperio UV™ polarized prescription sunglasses aren't just ordinary sun lenses. They help you see more no
+          matter what you're doing outside, providing excellent clarity of vision all while protecting your eyes with a
+          superior quality lens.</p>
+        <ul>
+          <li>Sharp Colors</li>
+          <li>Maximum UV Protection</li>
+          <li>Durable</li>
+        </ul>
+        <div class="text-center">
+          <a
+            href="https://www.essilorusa.com/content/dam/essilor-redesign/product-resources/xperiouv/LXPE000391_XUV%20Patient%20Brochure-English.pdf"
+            class="btn btn-light-blue" target="_blank">DISCOVER THE COLOR IN THE SUN</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-6">
+      <div>
+        <img src="{% static 'img/store_logo/BrandLogos_essilor_NxtGen.webp' %}">
+        <div class="h3 font-italic">
+          THE FUTURE COMES WITH FREE LENSES TODAY
+        </div>
+        <p>Buy new Transitions® Signature® GEN 8™ with select Essilor® lenses and choose a second pair of clear lenses
+          for free.</p>
+        <ul>
+          <li>Sharp Colors</li>
+          <li>Maximum UV Protection</li>
+          <li>Durable</li>
+        </ul>
+        <div class="text-center">
+          <a
+            href="https://www.essilorusa.com/get-lenses/special-offers#/"
+            class="btn btn-light-blue" target="_blank">DISCOVER MORE</a>
+        </div>
+      </div>
+      <div class="mt-2">
+        <video width="100%" controls>
+          <source src="{% static 'img/store_logo/44_Crizal_day_in_life.mp4' %}" type="video/mp4">
+          Your browser does not support HTML video.
+        </video>
+        <img class="mt-2" src="{% static 'img/store_logo/CrizalPrevenciaKids.webp' %}">
+        <div class="h3 font-italic">
+          HELP DEFEND AGAINST
+          <br/>
+          HARMFUL BLUE LIGHT
+        </div>
+        <p>The sun, computer screens, smartphones, tablets, fluorescent bulbs—we encounter blue light every day. Crizal®
+          Prevencia®lenses provide all the benefits of anti-glare lenses and help protect against Harmful Blue Light.
+          Crizal® Prevencia® lenses, combined with a lens embedded with blue light filtering technology, can reduce
+          exposure to Harmful Blue Light by up to 20% while also providing UV protection. </p>
+        <div class="h3 font-italic">
+          TRUSTED AND WORN WORLDWIDE
+        </div>
+        <p>There’s a reason our lenses are worn by millions of people across the world. Industry-leading and patented
+          technologies ensure that Crizal® Anti-Glare lenses meet your standards and help provide you with superior
+          protection against glare, scratches, smudges, and UV light.</p>
+      </div>
+      <div class="mt-2">
+        <img class="mt-2" src="{% static 'img/store_logo/fabf98_51090f29ee244171be1fcf86631be8d7_mv2.gif' %}">
+        <div class="h5 font-italic">EXTEND VISION WITHIN ARM’S REACH</div>
+        <p>Our Xtend™ Technology found in the Varilux® X Series™ lenses significantly extends vision within arm's reach
+          so you no longer have to move your head around to find your focus.</p>
+        <div class="h5 font-italic">ELIMINATE OFF-BALANCE FEELING</div>
+        <p>The Varilux X Series lenses use revolutionary Nanoptix™ Technology to virtually eliminate the off-balance
+          feeling, so you can feel more confident on the go.</p>
+        <div class="h5 font-italic">GET CLEAR VISION</div>
+        <p>With SynchronEyes™, your eyes actually work better together, so you get clearer vision from left to right and
+          top to bottom. SynchronEyes is included in Varilux® Physio® and the Varilux X Series lenses.</p>
+        <div class="h5 font-italic">REACT FASTER</div>
+        <p>Focus more quickly when moving from one point to another with 4D Technology™, which is included in Varilux X
+          Series lenses. It’s the only technology to use a personalized measurement for your leading dominant eye.</p>
+      </div>
+      <div class="mt-2">
+        <iframe width="100%" height="266" src="https://www.youtube.com/embed/incUIucslSo"
+                frameborder="0"
+                allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen>
+        </iframe>
+        <div class="h3 font-italic">
+          DESIGNED FOR THE WAY
+          <br/>
+          YOU SEE THE WORLD
+        </div>
+        <p>Eyezen enhanced single vision lenses are designed for the way you see the world, reducing strain from viewing
+          digital devices. These computer glasses also filter blue-violet light, helping to keep your eyes protected and
+          comfortable, even on your most digital days.</p>
+      </div>
+      <div class="mt-2">
+        <img width="100%" src="{% static 'img/store_logo/eyezen-computer-lenses-banner-desktop_0.jpg' %}">
+        <img width="100%" src="{% static 'img/store_logo/header_xperio-2.jpg' %}">
+        <div class="h5 font-italic">SUPERIOR CLARITY AND PROTECTION</div>
+        <p>Did you know Xperio UV polarized prescription sunglasses provide the ultimate protection from UV rays on both
+          sides of the lens? With an Eye-Sun Protective Factor (E-SPF®) of 50+, you get the highest level of UV
+          protection offered within the E-SPFindex.* Shown in the color Plum. Additional lens colors available.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="row justify-content-center mt-2">
+    <img width="80%" src="{% static 'img/store_logo/ad_34590718_39ab0e78be34e46d_web.webp' %}">
+  </div>
 
 {% endblock %}

@@ -1,7 +1,64 @@
 {% extends "base.html" %}
+{% load static %}
+
+{% block extra_head %}
+  <style>
+    body, html {
+      height: 100%;
+    }
+
+    .ins_logo {
+      width: 100%;
+    }
+  </style>
+{% endblock extra_head %}
 
 {% block content %}
 
-  <p>This is the Insurance & Promotion page</p>
+  <div class="h1 font-italic text-center"><strong>Insurance Plans We Recognize</strong></div>
+  <div class="h5 font-italic text-right">Covering the Care We Provide</div>
+
+  <div class="row align-items-center mt-2">
+    <div class="col-3 h5 text-center font-italic card">
+      <div>AETNA</div>
+      <div class="h6 align-self-center">BLUE CROSS BLUE SHIELD</div>
+      <div>CIGNA</div>
+      <div>DAVIS VISION</div>
+      <div>EYE MED</div>
+      <div>GAURDIAN</div>
+      <div>HIGHMARK</div>
+      <div>HUMANA</div>
+      <div>MET LIFE</div>
+      <div>NVA</div>
+      <div>SPECTERA</div>
+      <div>SUPERIOR VISION</div>
+      <div>UNITED HEALTHCARE</div>
+      <div>UPMC</div>
+      <div>VBA</div>
+      <div>VSP</div>
+    </div>
+    <div class="col-3">
+      <img class="ins_logo" src="{% static 'img/insurance/davius.png' %}">
+      <img class="ins_logo" src="{% static 'img/insurance/vsp.jpg' %}">
+      <img class="ins_logo" src="{% static 'img/insurance/spectera.jpg' %}">
+      <img class="ins_logo" src="{% static 'img/insurance/United Healthcare Logo.jpg' %}">
+      <img class="ins_logo" src="{% static 'img/insurance/blue-cross-blue-shield-vector-logo-small.png' %}">
+      <img class="ins_logo" src="{% static 'img/insurance/Aetna_Logo.png' %}">
+    </div>
+    <div class="col-3">
+      <img class="ins_logo" src="{% static 'img/insurance/vba.png' %}">
+      <img class="ins_logo mt-5 mb-5" src="{% static 'img/insurance/eyemed.png' %}">
+      <img class="ins_logo mb-5" src="{% static 'img/insurance/Highmark Logo.jpg' %}">
+      <img class="ins_logo mb-5" src="{% static 'img/insurance/cigna-logo.jpg' %}">
+      <img class="ins_logo" src="{% static 'img/insurance/Metlife Logo.jpg' %}">
+    </div>
+    <div class="col-3">
+      <img class="ins_logo mb-5" src="{% static 'img/insurance/nva-logo.gif' %}">
+      <img class="ins_logo mb-5" src="{% static 'img/insurance/upmc.jpg' %}">
+      <img class="ins_logo" src="{% static 'img/insurance/superior-vision.png' %}">
+      <img class="ins_logo" src="{% static 'img/insurance/Humana Logo.jpeg' %}">
+      <img class="ins_logo" src="{% static 'img/insurance/guardian-life.jpg' %}">
+    </div>
+  </div>
 
 {% endblock %}

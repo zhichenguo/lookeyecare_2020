@@ -1,0 +1,433 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block extra_head %}
+	<style>
+		.border-thick {
+			border-width: 5px !important;
+		}
+
+		.font-darkred {
+			color: #B30E05;
+		}
+
+		.serif {
+			font-family: "Times New Roman", Times, serif;
+		}
+
+	</style>
+{% endblock extra_head %}
+
+{% block content %}
+
+	<div class="container">
+		<div class="row justify-content-center align-items-center">
+			<img src="{% static 'img/eyeware/cartier_logo.png' %}">
+		</div>
+
+
+		<div class="row justify-content-center">
+			<div class="col-4">
+				<div class="h5">
+					<div class="mt-2">Founded in 1847, Cartier is one of the most distinguished names in jewelry and watches
+						worldwide and a true reference of contemporary luxury.
+					</div>
+					<div class="mt-2">Cartier's exceptional eyewear perpetuates its deep-rooted traditions through distinct
+						creativity and iconic stylings.
+					</div>
+				</div>
+			</div>
+
+			<div class="col-8">
+				<iframe width="600" height="300" src="https://www.youtube.com/embed/qzFiavMkb0A" frameborder="0"
+				        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+				        allowfullscreen></iframe>
+			</div>
+		</div>
+
+		<div class="row justify-content-center mt-5">
+			<div class="col-6 float-left p-5 mt-5">
+
+				<div class="h3 font-darkred font-italic serif font-weight-bold text-center">
+					SIGNATURE C DE CARTIER
+				</div>
+				<div class="row align-items-center border border-dark border-thick">
+					<img class="carousel-img img-fluid" src="{% static 'img/eyeware/cartier_31.jpg' %}">
+				</div>
+
+				<div class="h3 font-darkred font-italic serif font-weight-bold text-center mt-5">
+					SANTOS DE CARTIER
+				</div>
+				<div class="row align-items-center border border-dark border-thick mb-5">
+					<img class="carousel-img img-fluid" src="{% static 'img/eyeware/cartier_32.jpg' %}">
+				</div>
+
+				<div class="mt-5 pt-5">
+					<div class="mt-2">Shop hand-picked selections of Cartier Luxury Eyeglasses & Sunglasses in over 50 styles.
+					</div>
+					<div class="mt-2">Order customized Cartier frames in a variety of expertly crafted precious materials; solid
+						18-carat yellow, pink, or white gold; rare woods & natural horns.
+					</div>
+					<div class="mt-2">Pittsburgh’s Look Eye Care stocks 2,020 designer eyewear frames. Visit us for men’s and
+						women’s Cartier glasses and sunglasses available with a prescription or without.
+					</div>
+				</div>
+			</div>
+
+			<div class="col-6 float-right">
+				<div class="p-5">
+					<div class="h3 font-darkred font-italic serif font-weight-bold text-center">
+						PREMIÈRE DE CARTIER
+					</div>
+					<div class="row align-items-center border border-dark border-thick">
+						<img class="carousel-img img-fluid" src="{% static 'img/eyeware/cartier_33.jpg' %}">
+					</div>
+
+					<div class="h3 font-darkred font-italic serif font-weight-bold text-center mt-5">
+						PANTHÈRE DE CARTIER
+					</div>
+					<div class="row align-items-center border border-dark border-thick mb-5">
+						<img class="carousel-img img-fluid" src="{% static 'img/eyeware/cartier_34.jpg' %}">
+					</div>
+				</div>
+
+				<!--Carousel Wrapper-->
+				<div id="carousel-page" class="carousel slide" data-ride="carousel" style="height: 300px">
+
+					<!--Controls-->
+					<div>
+						<a class="carousel-control-prev pg-dark-grey float-left pl-lg-5" href="#carousel-page" data-slide="prev"><i
+							class="fas fa-chevron-left"></i></a>
+						<a class="carousel-control-next pg-dark-grey float-right pr-lg-5" href="#carousel-page" data-slide="next"><i
+							class="fas fa-chevron-right"></i></a>
+					</div>
+					<!--/.Controls-->
+
+					<!--Slides-->
+					<div class="carousel-inner" role="listbox" data-toggle="modal" data-target="#pic-Modal">
+
+						<div class="carousel-item active">
+							<div class="view row align-items-center">
+								<img class="carousel-img img-fluid" src="{% static 'img/eyeware/cartier_01.jpg' %}">
+							</div>
+						</div>
+						<div class="carousel-item">
+							<div class="view row align-items-center">
+								<img class="carousel-img img-fluid" src="{% static 'img/eyeware/cartier_02.jpg' %}">
+							</div>
+						</div>
+						<div class="carousel-item">
+							<div class="view row align-items-center">
+								<img class="carousel-img img-fluid" src="{% static 'img/eyeware/cartier_03.jpg' %}">
+							</div>
+						</div>
+						<div class="carousel-item">
+							<div class="view row align-items-center">
+								<img class="carousel-img img-fluid" src="{% static 'img/eyeware/cartier_04.jpg' %}">
+							</div>
+						</div>
+						<div class="carousel-item">
+							<div class="view row align-items-center">
+								<img class="carousel-img img-fluid" src="{% static 'img/eyeware/cartier_05.jpg' %}">
+							</div>
+						</div>
+						<div class="carousel-item">
+							<div class="view row align-items-center">
+								<img class="carousel-img img-fluid" src="{% static 'img/eyeware/cartier_06.jpg' %}">
+							</div>
+						</div>
+						<div class="carousel-item">
+							<div class="view row align-items-center">
+								<img class="carousel-img img-fluid" src="{% static 'img/eyeware/cartier_07.jpg' %}">
+							</div>
+						</div>
+						<div class="carousel-item">
+							<div class="view row align-items-center">
+								<img class="carousel-img img-fluid" src="{% static 'img/eyeware/cartier_08.jpg' %}">
+							</div>
+						</div>
+						<div class="carousel-item">
+							<div class="view row align-items-center">
+								<img class="carousel-img img-fluid" src="{% static 'img/eyeware/cartier_09.jpg' %}">
+							</div>
+						</div>
+						<div class="carousel-item">
+							<div class="view row align-items-center">
+								<img class="carousel-img img-fluid" src="{% static 'img/eyeware/cartier_10.jpg' %}">
+							</div>
+						</div>
+						<div class="carousel-item">
+							<div class="view row align-items-center">
+								<img class="carousel-img img-fluid" src="{% static 'img/eyeware/cartier_11.jpg' %}">
+							</div>
+						</div>
+						<div class="carousel-item">
+							<div class="view row align-items-center">
+								<img class="carousel-img img-fluid" src="{% static 'img/eyeware/cartier_12.jpg' %}">
+							</div>
+						</div>
+						<div class="carousel-item">
+							<div class="view row align-items-center">
+								<img class="carousel-img img-fluid" src="{% static 'img/eyeware/cartier_13.jpg' %}">
+							</div>
+						</div>
+						<div class="carousel-item">
+							<div class="view row align-items-center">
+								<img class="carousel-img img-fluid" src="{% static 'img/eyeware/cartier_14.jpg' %}">
+							</div>
+						</div>
+						<div class="carousel-item">
+							<div class="view row align-items-center">
+								<img class="carousel-img img-fluid" src="{% static 'img/eyeware/cartier_15.jpg' %}">
+							</div>
+						</div>
+						<div class="carousel-item">
+							<div class="view row align-items-center">
+								<img class="carousel-img img-fluid" src="{% static 'img/eyeware/cartier_16.jpg' %}">
+							</div>
+						</div>
+						<div class="carousel-item">
+							<div class="view row align-items-center">
+								<img class="carousel-img img-fluid" src="{% static 'img/eyeware/cartier_17.jpg' %}">
+							</div>
+						</div>
+						<div class="carousel-item">
+							<div class="view row align-items-center">
+								<img class="carousel-img img-fluid" src="{% static 'img/eyeware/cartier_18.jpg' %}">
+							</div>
+						</div>
+						<div class="carousel-item">
+							<div class="view row align-items-center">
+								<img class="carousel-img img-fluid" src="{% static 'img/eyeware/cartier_19.jpg' %}">
+							</div>
+						</div>
+						<div class="carousel-item">
+							<div class="view row align-items-center">
+								<img class="carousel-img img-fluid" src="{% static 'img/eyeware/cartier_20.jpg' %}">
+							</div>
+						</div>
+						<div class="carousel-item">
+							<div class="view row align-items-center">
+								<img class="carousel-img img-fluid" src="{% static 'img/eyeware/cartier_21.jpg' %}">
+							</div>
+						</div>
+						<div class="carousel-item">
+							<div class="view row align-items-center">
+								<img class="carousel-img img-fluid" src="{% static 'img/eyeware/cartier_22.jpg' %}">
+							</div>
+						</div>
+						<div class="carousel-item">
+							<div class="view row align-items-center">
+								<img class="carousel-img img-fluid" src="{% static 'img/eyeware/cartier_23.jpg' %}">
+							</div>
+						</div>
+						<div class="carousel-item">
+							<div class="view row align-items-center">
+								<img class="carousel-img img-fluid" src="{% static 'img/eyeware/cartier_24.jpg' %}">
+							</div>
+						</div>
+						<div class="carousel-item">
+							<div class="view row align-items-center">
+								<img class="carousel-img img-fluid" src="{% static 'img/eyeware/cartier_25.jpg' %}">
+							</div>
+						</div>
+						<div class="carousel-item">
+							<div class="view row align-items-center">
+								<img class="carousel-img img-fluid" src="{% static 'img/eyeware/cartier_26.jpg' %}">
+							</div>
+						</div>
+						<div class="carousel-item">
+							<div class="view row align-items-center">
+								<img class="carousel-img img-fluid" src="{% static 'img/eyeware/cartier_27.jpg' %}">
+							</div>
+						</div>
+
+					</div>
+					<!--/.Slides-->
+
+				</div>
+				<!--/.Carousel Wrapper-->
+
+			</div>
+		</div>
+
+	</div>
+
+
+	<div class="modal fade" id="pic-Modal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-xl modal-dialog-centered" role="document" style="max-height: 500px">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+
+				<div class="modal-body">
+
+					<!--Carousel Wrapper-->
+					<div id="carousel-modal" class="carousel slide" data-ride="carousel" style="height: 500px">
+
+						<!--Slides-->
+						<div class="carousel-inner" role="listbox">
+
+							<div class="carousel-item active">
+								<div class="view row align-items-center">
+									<img class="carousel-img img-fluid" src="{% static 'img/eyeware/cartier_01.jpg' %}">
+								</div>
+							</div>
+							<div class="carousel-item">
+								<div class="view row align-items-center">
+									<img class="carousel-img img-fluid" src="{% static 'img/eyeware/cartier_02.jpg' %}">
+								</div>
+							</div>
+							<div class="carousel-item">
+								<div class="view row align-items-center">
+									<img class="carousel-img img-fluid" src="{% static 'img/eyeware/cartier_03.jpg' %}">
+								</div>
+							</div>
+							<div class="carousel-item">
+								<div class="view row align-items-center">
+									<img class="carousel-img img-fluid" src="{% static 'img/eyeware/cartier_04.jpg' %}">
+								</div>
+							</div>
+							<div class="carousel-item">
+								<div class="view row align-items-center">
+									<img class="carousel-img img-fluid" src="{% static 'img/eyeware/cartier_05.jpg' %}">
+								</div>
+							</div>
+							<div class="carousel-item">
+								<div class="view row align-items-center">
+									<img class="carousel-img img-fluid" src="{% static 'img/eyeware/cartier_06.jpg' %}">
+								</div>
+							</div>
+							<div class="carousel-item">
+								<div class="view row align-items-center">
+									<img class="carousel-img img-fluid" src="{% static 'img/eyeware/cartier_07.jpg' %}">
+								</div>
+							</div>
+							<div class="carousel-item">
+								<div class="view row align-items-center">
+									<img class="carousel-img img-fluid" src="{% static 'img/eyeware/cartier_08.jpg' %}">
+								</div>
+							</div>
+							<div class="carousel-item">
+								<div class="view row align-items-center">
+									<img class="carousel-img img-fluid" src="{% static 'img/eyeware/cartier_09.jpg' %}">
+								</div>
+							</div>
+							<div class="carousel-item">
+								<div class="view row align-items-center">
+									<img class="carousel-img img-fluid" src="{% static 'img/eyeware/cartier_10.jpg' %}">
+								</div>
+							</div>
+							<div class="carousel-item">
+								<div class="view row align-items-center">
+									<img class="carousel-img img-fluid" src="{% static 'img/eyeware/cartier_11.jpg' %}">
+								</div>
+							</div>
+							<div class="carousel-item">
+								<div class="view row align-items-center">
+									<img class="carousel-img img-fluid" src="{% static 'img/eyeware/cartier_12.jpg' %}">
+								</div>
+							</div>
+							<div class="carousel-item">
+								<div class="view row align-items-center">
+									<img class="carousel-img img-fluid" src="{% static 'img/eyeware/cartier_13.jpg' %}">
+								</div>
+							</div>
+							<div class="carousel-item">
+								<div class="view row align-items-center">
+									<img class="carousel-img img-fluid" src="{% static 'img/eyeware/cartier_14.jpg' %}">
+								</div>
+							</div>
+							<div class="carousel-item">
+								<div class="view row align-items-center">
+									<img class="carousel-img img-fluid" src="{% static 'img/eyeware/cartier_15.jpg' %}">
+								</div>
+							</div>
+							<div class="carousel-item">
+								<div class="view row align-items-center">
+									<img class="carousel-img img-fluid" src="{% static 'img/eyeware/cartier_16.jpg' %}">
+								</div>
+							</div>
+							<div class="carousel-item">
+								<div class="view row align-items-center">
+									<img class="carousel-img img-fluid" src="{% static 'img/eyeware/cartier_17.jpg' %}">
+								</div>
+							</div>
+							<div class="carousel-item">
+								<div class="view row align-items-center">
+									<img class="carousel-img img-fluid" src="{% static 'img/eyeware/cartier_18.jpg' %}">
+								</div>
+							</div>
+							<div class="carousel-item">
+								<div class="view row align-items-center">
+									<img class="carousel-img img-fluid" src="{% static 'img/eyeware/cartier_19.jpg' %}">
+								</div>
+							</div>
+							<div class="carousel-item">
+								<div class="view row align-items-center">
+									<img class="carousel-img img-fluid" src="{% static 'img/eyeware/cartier_20.jpg' %}">
+								</div>
+							</div>
+							<div class="carousel-item">
+								<div class="view row align-items-center">
+									<img class="carousel-img img-fluid" src="{% static 'img/eyeware/cartier_21.jpg' %}">
+								</div>
+							</div>
+							<div class="carousel-item">
+								<div class="view row align-items-center">
+									<img class="carousel-img img-fluid" src="{% static 'img/eyeware/cartier_22.jpg' %}">
+								</div>
+							</div>
+							<div class="carousel-item">
+								<div class="view row align-items-center">
+									<img class="carousel-img img-fluid" src="{% static 'img/eyeware/cartier_23.jpg' %}">
+								</div>
+							</div>
+							<div class="carousel-item">
+								<div class="view row align-items-center">
+									<img class="carousel-img img-fluid" src="{% static 'img/eyeware/cartier_24.jpg' %}">
+								</div>
+							</div>
+							<div class="carousel-item">
+								<div class="view row align-items-center">
+									<img class="carousel-img img-fluid" src="{% static 'img/eyeware/cartier_25.jpg' %}">
+								</div>
+							</div>
+							<div class="carousel-item">
+								<div class="view row align-items-center">
+									<img class="carousel-img img-fluid" src="{% static 'img/eyeware/cartier_26.jpg' %}">
+								</div>
+							</div>
+							<div class="carousel-item">
+								<div class="view row align-items-center">
+									<img class="carousel-img img-fluid" src="{% static 'img/eyeware/cartier_27.jpg' %}">
+								</div>
+							</div>
+
+						</div>
+						<!--/.Slides-->
+
+						<!--Controls-->
+						<a class="carousel-control-prev" href="#carousel-modal" role="button" data-slide="prev">
+							<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+							<span class="sr-only">Previous</span>
+						</a>
+						<a class="carousel-control-next" href="#carousel-modal" role="button" data-slide="next">
+							<span class="carousel-control-next-icon" aria-hidden="true"></span>
+							<span class="sr-only">Next</span>
+						</a>
+						<!--/.Controls-->
+
+					</div>
+					<!--/.Carousel Wrapper-->
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}

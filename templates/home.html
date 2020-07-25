@@ -4,400 +4,400 @@
 
 
 {% block extra_head %}
-  <style type="text/css">
-    html,
-    body,
-    header,
-    .carousel {
-      height: 60vh;
-    }
+	<style type="text/css">
+		html,
+		body,
+		header,
+		.carousel {
+			height: 60vh;
+		}
 
-    @media (max-width: 740px) {
+		@media (max-width: 740px) {
 
-      html,
-      body,
-      header,
-      .carousel {
-        height: 100vh;
-      }
-    }
+			html,
+			body,
+			header,
+			.carousel {
+				height: 100vh;
+			}
+		}
 
-    @media (min-width: 800px) and (max-width: 850px) {
+		@media (min-width: 800px) and (max-width: 850px) {
 
-      html,
-      body,
-      header,
-      .carousel {
-        height: 100vh;
-      }
-    }
+			html,
+			body,
+			header,
+			.carousel {
+				height: 100vh;
+			}
+		}
 
-  </style>
+	</style>
 {% endblock extra_head %}
 
 
 {% block home %}
 
-  <!--Carousel Wrapper-->
-  <div id="carousel-example-1z" class="carousel slide carousel-fade mt-5" data-ride="carousel">
+	<!--Carousel Wrapper-->
+	<div id="carousel-example-1z" class="carousel slide carousel-fade mt-5" data-ride="carousel">
 
-    <!--Indicators-->
-    <ol class="carousel-indicators">
-      <li data-target="#carousel-example-1z" data-slide-to="0" class="active"></li>
-      <li data-target="#carousel-example-1z" data-slide-to="1"></li>
-      <li data-target="#carousel-example-1z" data-slide-to="2"></li>
-    </ol>
-    <!--/.Indicators-->
+		<!--Indicators-->
+		<ol class="carousel-indicators">
+			<li data-target="#carousel-example-1z" data-slide-to="0" class="active"></li>
+			<li data-target="#carousel-example-1z" data-slide-to="1"></li>
+			<li data-target="#carousel-example-1z" data-slide-to="2"></li>
+		</ol>
+		<!--/.Indicators-->
 
-    <!--Slides-->
-    <div class="carousel-inner" role="listbox">
+		<!--Slides-->
+		<div class="carousel-inner" role="listbox">
 
-      <!--First slide-->
-      <div class="carousel-item active">
-        <div class="view"
-             style="background-image: url('{% static 'img/eyeware/boucheron.jpg' %}'); background-repeat: no-repeat; background-size: cover;">
+			<!--First slide-->
+			<div class="carousel-item active">
+				<div class="view"
+				     style="background-image: url('{% static 'img/eyeware/boucheron.jpg' %}'); background-repeat: no-repeat; background-size: cover;">
 
-          <!-- Mask & flexbox options-->
-          <div class="mask rgba-black-strong d-flex justify-content-center align-items-center">
+					<!-- Mask & flexbox options-->
+					<div class="mask rgba-black-strong d-flex justify-content-center align-items-center">
 
-            <!-- Content -->
-            <div class="text-center white-text mx-5 wow fadeIn">
-              <h1 class="mb-4">
-                <strong>You're Always Welcome at Look Eye Care</strong>
-              </h1>
+						<!-- Content -->
+						<div class="text-center white-text mx-5 wow fadeIn">
+							<h1 class="mb-4">
+								<strong>You're Always Welcome at Look Eye Care</strong>
+							</h1>
 
-              <h3>
-                <strong>Quality Eye Care You Can Trust</strong>
-              </h3>
+							<h3>
+								<strong>Quality Eye Care You Can Trust</strong>
+							</h3>
 
-              {#              <p class="mb-4 d-none d-md-block">#}
-              {#                <strong>Some more words here</strong>#}
-              {#              </p>#}
+							{#              <p class="mb-4 d-none d-md-block">#}
+							{#                <strong>Some more words here</strong>#}
+							{#              </p>#}
 
-              <a class="btn btn-outline-white mt-5" href="{% url 'website:book_exam' %}"
-                 target="_blank" role="button" style="font-size: 1rem">
-                Book Your Exam Online
-                <i class="far fa-calendar-alt ml-2"></i>
-              </a>
-            </div>
-            <!-- Content -->
+							<a class="btn btn-outline-white mt-5" href="{% url 'website:book_exam' %}"
+							   target="_blank" role="button" style="font-size: 1rem">
+								Book Your Exam Online
+								<i class="far fa-calendar-alt ml-2"></i>
+							</a>
+						</div>
+						<!-- Content -->
 
-          </div>
-          <!-- Mask & flexbox options-->
+					</div>
+					<!-- Mask & flexbox options-->
 
-        </div>
-      </div>
-      <!--/First slide-->
+				</div>
+			</div>
+			<!--/First slide-->
 
-      <!--Second slide-->
-      <div class="carousel-item">
-        <div class="view"
-             style="background-image: url('https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/8-col/img%283%29.jpg'); background-repeat: no-repeat; background-size: cover;">
+			<!--Second slide-->
+			<div class="carousel-item">
+				<div class="view"
+				     style="background-image: url('https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/8-col/img%283%29.jpg'); background-repeat: no-repeat; background-size: cover;">
 
-          <!-- Mask & flexbox options-->
-          <div class="mask rgba-black-strong d-flex justify-content-center align-items-center">
+					<!-- Mask & flexbox options-->
+					<div class="mask rgba-black-strong d-flex justify-content-center align-items-center">
 
-            <!-- Content -->
-            <div class="text-center white-text mx-5 wow fadeIn">
-              <h1 class="mb-4">
-                <strong>BOGO SALE!!</strong>
-              </h1>
+						<!-- Content -->
+						<div class="text-center white-text mx-5 wow fadeIn">
+							<h1 class="mb-4">
+								<strong>BOGO SALE!!</strong>
+							</h1>
 
-              <p>
-                <strong> 2nd PAIR OF LENSES FREE!!</strong>
-              </p>
+							<p>
+								<strong> 2nd PAIR OF LENSES FREE!!</strong>
+							</p>
 
-              <p class="mb-4 d-none d-md-block">
-                <strong>In Store only</strong>
-              </p>
+							<p class="mb-4 d-none d-md-block">
+								<strong>In Store only</strong>
+							</p>
 
-              <a class="btn btn-outline-white mt-2" href="{% url 'website:book_exam' %}"
-                 target="_blank" role="button" style="font-size: 1rem">
-                Book Your Exam Online
-                <i class="far fa-calendar-alt ml-2"></i>
-              </a>
-            </div>
-            <!-- Content -->
+							<a class="btn btn-outline-white mt-2" href="{% url 'website:book_exam' %}"
+							   target="_blank" role="button" style="font-size: 1rem">
+								Book Your Exam Online
+								<i class="far fa-calendar-alt ml-2"></i>
+							</a>
+						</div>
+						<!-- Content -->
 
-          </div>
-          <!-- Mask & flexbox options-->
+					</div>
+					<!-- Mask & flexbox options-->
 
-        </div>
-      </div>
-      <!--/Second slide-->
+				</div>
+			</div>
+			<!--/Second slide-->
 
-      <!--Third slide-->
-      <div class="carousel-item">
-        <div class="view"
-             style="background-image: url('https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/8-col/img%285%29.jpg'); background-repeat: no-repeat; background-size: cover;">
+			<!--Third slide-->
+			<div class="carousel-item">
+				<div class="view"
+				     style="background-image: url('https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/8-col/img%285%29.jpg'); background-repeat: no-repeat; background-size: cover;">
 
-          <!-- Mask & flexbox options-->
-          <div class="mask rgba-black-strong d-flex justify-content-center align-items-center">
+					<!-- Mask & flexbox options-->
+					<div class="mask rgba-black-strong d-flex justify-content-center align-items-center">
 
-            <!-- Content -->
-            <div class="text-center white-text mx-5 wow fadeIn">
-              <h1 class="mb-4">
-                <strong>Online Store Open</strong>
-              </h1>
+						<!-- Content -->
+						<div class="text-center white-text mx-5 wow fadeIn">
+							<h1 class="mb-4">
+								<strong>Online Store Open</strong>
+							</h1>
 
-              <p>
-                <strong>Place your order online</strong>
-              </p>
+							<p>
+								<strong>Place your order online</strong>
+							</p>
 
-              <p class="mb-4 d-none d-md-block">
-                <strong>Stay in home and wait for your new glasses</strong>
-              </p>
+							<p class="mb-4 d-none d-md-block">
+								<strong>Stay in home and wait for your new glasses</strong>
+							</p>
 
-              <a target="_blank" href="{% url 'product:product_list' %}"
-                 class="btn btn-outline-white btn-lg">
-                Browse our online store
-                <i class="fas fa-glasses ml-2"></i>
-              </a>
-            </div>
-            <!-- Content -->
+							<a target="_blank" href="{% url 'product:product_list' %}"
+							   class="btn btn-outline-white btn-lg">
+								Browse our online store
+								<i class="fas fa-glasses ml-2"></i>
+							</a>
+						</div>
+						<!-- Content -->
 
-          </div>
-          <!-- Mask & flexbox options-->
+					</div>
+					<!-- Mask & flexbox options-->
 
-        </div>
-      </div>
-      <!--/Third slide-->
+				</div>
+			</div>
+			<!--/Third slide-->
 
-    </div>
-    <!--/.Slides-->
+		</div>
+		<!--/.Slides-->
 
-    <!--Controls-->
-    <a class="carousel-control-prev" href="#carousel-example-1z" role="button" data-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="sr-only">Previous</span>
-    </a>
-    <a class="carousel-control-next" href="#carousel-example-1z" role="button" data-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="sr-only">Next</span>
-    </a>
-    <!--/.Controls-->
+		<!--Controls-->
+		<a class="carousel-control-prev" href="#carousel-example-1z" role="button" data-slide="prev">
+			<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+			<span class="sr-only">Previous</span>
+		</a>
+		<a class="carousel-control-next" href="#carousel-example-1z" role="button" data-slide="next">
+			<span class="carousel-control-next-icon" aria-hidden="true"></span>
+			<span class="sr-only">Next</span>
+		</a>
+		<!--/.Controls-->
 
-  </div>
-  <!--/.Carousel Wrapper-->
+	</div>
+	<!--/.Carousel Wrapper-->
 
 
-  <!--Brand logo slides-->
-  <div class="container">
-    <div id="carouselExampleControls" class="carousel slide row mx-auto mt-0" data-ride="carousel"
-         style="height: 200px;">
+	<!--Brand logo slides-->
+	<div class="container">
+		<div id="carouselExampleControls" class="carousel slide row mx-auto mt-0" data-ride="carousel"
+		     style="height: 200px;">
 
-      {#      <!--Indicators-->#}
-      {#      <ol class="carousel-indicators">#}
-      {#        <li data-target="#carousel-example-1z" data-slide-to="0" class="active"></li>#}
-      {#        <li data-target="#carousel-example-1z" data-slide-to="1"></li>#}
-      {#        <li data-target="#carousel-example-1z" data-slide-to="2"></li>#}
-      {#        <li data-target="#carousel-example-1z" data-slide-to="3"></li>#}
-      {#      </ol>#}
-      {#      <!--/.Indicators-->#}
+			{#      <!--Indicators-->#}
+			{#      <ol class="carousel-indicators">#}
+			{#        <li data-target="#carousel-example-1z" data-slide-to="0" class="active"></li>#}
+			{#        <li data-target="#carousel-example-1z" data-slide-to="1"></li>#}
+			{#        <li data-target="#carousel-example-1z" data-slide-to="2"></li>#}
+			{#        <li data-target="#carousel-example-1z" data-slide-to="3"></li>#}
+			{#      </ol>#}
+			{#      <!--/.Indicators-->#}
 
-      <!--Controls-->
-      <a class="carousel-control-prev mx-auto" href="#carouselExampleControls" role="button" data-slide="prev">
-        <span class="carousel-control-prev-icon rgba-black-light" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
-      </a>
+			<!--Controls-->
+			<a class="carousel-control-prev mx-auto" href="#carouselExampleControls" role="button" data-slide="prev">
+				<span class="carousel-control-prev-icon rgba-black-light" aria-hidden="true"></span>
+				<span class="sr-only">Previous</span>
+			</a>
 
-      <!--Slides-->
-      <div class="carousel-inner mx-auto">
+			<!--Slides-->
+			<div class="carousel-inner mx-auto">
 
-        <!--First slide-->
-        <div class="carousel-item active">
+				<!--First slide-->
+				<div class="carousel-item active">
 
-          <div class="view row align-content-center justify-content-center align-items-center">
-            <div class="col-2">
-              <a href="{% url 'website:tom_ford' %}" target="_blank">
-                <img class="img-fluid" src="{% static 'img/brand_logo/tom_ford.png' %}" alt="1 slide">
-              </a>
-            </div>
-            <div class="col-2">
-              <a href="{% url 'website:gucci' %}" target="_blank">
-                <img class="img-fluid" src="{% static 'img/brand_logo/gucci.jpg' %}" alt="2 slide">
-              </a>
-            </div>
-            <div class="col-2">
-              <a href="{% url 'website:cartier' %}" target="_blank">
-                <img class="img-fluid" src="{% static 'img/brand_logo/cartier.png' %}" alt="3 slide">
-              </a>
-            </div>
-            <div class="col-2">
-              <a href="{% url 'website:lindberg' %}" target="_blank">
-                <img class="img-fluid" src="{% static 'img/brand_logo/lindberg.jpg' %}" alt="4 slide">
-              </a>
-            </div>
-            <div class="col-2">
-              <a href="{% url 'website:ray_ban' %}" target="_blank">
-                <img class="img-fluid"
-                     src="{% static 'img/brand_logo/ray_ban.png' %}" alt="5 slide">
-              </a>
-            </div>
-          </div>
-        </div>
-        <!--/First slide-->
+					<div class="view row align-content-center justify-content-center align-items-center">
+						<div class="col-2">
+							<a href="{% url 'website:tom_ford' %}" target="_blank">
+								<img class="img-fluid" src="{% static 'img/brand_logo/tom_ford.png' %}" alt="1 slide">
+							</a>
+						</div>
+						<div class="col-2">
+							<a href="{% url 'website:gucci' %}" target="_blank">
+								<img class="img-fluid" src="{% static 'img/brand_logo/gucci.jpg' %}" alt="2 slide">
+							</a>
+						</div>
+						<div class="col-2">
+							<a href="{% url 'website:cartier' %}" target="_blank">
+								<img class="img-fluid" src="{% static 'img/brand_logo/cartier.png' %}" alt="3 slide">
+							</a>
+						</div>
+						<div class="col-2">
+							<a href="{% url 'website:lindberg' %}" target="_blank">
+								<img class="img-fluid" src="{% static 'img/brand_logo/lindberg.jpg' %}" alt="4 slide">
+							</a>
+						</div>
+						<div class="col-2">
+							<a href="{% url 'website:ray_ban' %}" target="_blank">
+								<img class="img-fluid"
+								     src="{% static 'img/brand_logo/ray_ban.png' %}" alt="5 slide">
+							</a>
+						</div>
+					</div>
+				</div>
+				<!--/First slide-->
 
-        <!--Second slide-->
-        <div class=" carousel-item">
+				<!--Second slide-->
+				<div class=" carousel-item">
 
-          <div class="view row align-content-center justify-content-center align-items-center">
-            <div class="col-2">
-              <a href="{% url 'website:oakley' %}" target="_blank">
-                <img class="img-fluid" src="{% static 'img/brand_logo/oakley.jpg' %}" alt="1 slide">
-              </a>
-            </div>
-            <div class="col-2">
-              <a href="{% url 'website:burberry' %}" target="_blank">
-                <img class="img-fluid" src="{% static 'img/brand_logo/burberry.jpg' %}" alt="1 slide">
-              </a>
-            </div>
-            <div class="col-2">
-              <a href="{% url 'website:look_eyeware' %}" target="_blank">
-                <img class="img-fluid" src="{% static 'img/brand_logo/look_eyeware.png' %}" alt="1 slide">
-              </a>
-            </div>
-            <div class="col-2">
-              <a href="{% url 'website:boucheron' %}" target="_blank">
-                <img class="img-fluid" src="{% static 'img/brand_logo/boucheron.png' %}" alt="1 slide">
-              </a>
-            </div>
-            <div class="col-2">
-              <a href="{% url 'website:saint_laurent' %}" target="_blank">
-                <img class="img-fluid" src="{% static 'img/brand_logo/saint_laurent.jpg' %}" alt="1 slide">
-              </a>
-            </div>
-          </div>
-        </div>
-        <!--/Second slide-->
+					<div class="view row align-content-center justify-content-center align-items-center">
+						<div class="col-2">
+							<a href="{% url 'website:oakley' %}" target="_blank">
+								<img class="img-fluid" src="{% static 'img/brand_logo/oakley.jpg' %}" alt="1 slide">
+							</a>
+						</div>
+						<div class="col-2">
+							<a href="{% url 'website:burberry' %}" target="_blank">
+								<img class="img-fluid" src="{% static 'img/brand_logo/burberry.jpg' %}" alt="1 slide">
+							</a>
+						</div>
+						<div class="col-2">
+							<a href="{% url 'website:look_eyeware' %}" target="_blank">
+								<img class="img-fluid" src="{% static 'img/brand_logo/look_eyeware.png' %}" alt="1 slide">
+							</a>
+						</div>
+						<div class="col-2">
+							<a href="{% url 'website:boucheron' %}" target="_blank">
+								<img class="img-fluid" src="{% static 'img/brand_logo/boucheron.png' %}" alt="1 slide">
+							</a>
+						</div>
+						<div class="col-2">
+							<a href="{% url 'website:saint_laurent' %}" target="_blank">
+								<img class="img-fluid" src="{% static 'img/brand_logo/saint_laurent.jpg' %}" alt="1 slide">
+							</a>
+						</div>
+					</div>
+				</div>
+				<!--/Second slide-->
 
-        <!--Third slide-->
-        <div class="carousel-item">
+				<!--Third slide-->
+				<div class="carousel-item">
 
-          <div class="view row align-content-center justify-content-center align-items-center">
-            <div class="col-2">
-              <a href="{% url 'website:freakshow' %}" target="_blank">
-                <img class="img-fluid" src="{% static 'img/brand_logo/freakshow.jpg' %}" alt="1 slide">
-              </a>
-            </div>
-            <div class="col-2">
-              <a href="{% url 'website:vinyl_factory' %}" target="_blank">
-                <img class="img-fluid" src="{% static 'img/brand_logo/vinyl_factory.png' %}" alt="1 slide">
-              </a>
-            </div>
-            <div class="col-2">
-              <a href="{% url 'website:bottega_veneta' %}" target="_blank">
-                <img class="img-fluid" src="{% static 'img/brand_logo/bottega_veneta.jpg' %}" alt="1 slide">
-              </a>
-            </div>
-            <div class="col-2">
-              <a href="{% url 'website:henry_jullien' %}" target="_blank">
-                <img class="img-fluid" src="{% static 'img/brand_logo/henry_jullien.png' %}" alt="1 slide">
-              </a>
-            </div>
-            <div class="col-2">
-              <a href="{% url 'website:mcq' %}" target="_blank">
-                <img class="img-fluid" src="{% static 'img/brand_logo/mcq.png' %}" alt="1 slide">
-              </a>
-            </div>
-          </div>
-        </div>
-        <!--/Third slide-->
+					<div class="view row align-content-center justify-content-center align-items-center">
+						<div class="col-2">
+							<a href="{% url 'website:freakshow' %}" target="_blank">
+								<img class="img-fluid" src="{% static 'img/brand_logo/freakshow.jpg' %}" alt="1 slide">
+							</a>
+						</div>
+						<div class="col-2">
+							<a href="{% url 'website:vinyl_factory' %}" target="_blank">
+								<img class="img-fluid" src="{% static 'img/brand_logo/vinyl_factory.png' %}" alt="1 slide">
+							</a>
+						</div>
+						<div class="col-2">
+							<a href="{% url 'website:bottega_veneta' %}" target="_blank">
+								<img class="img-fluid" src="{% static 'img/brand_logo/bottega_veneta.jpg' %}" alt="1 slide">
+							</a>
+						</div>
+						<div class="col-2">
+							<a href="{% url 'website:henry_jullien' %}" target="_blank">
+								<img class="img-fluid" src="{% static 'img/brand_logo/henry_jullien.png' %}" alt="1 slide">
+							</a>
+						</div>
+						<div class="col-2">
+							<a href="{% url 'website:mcq' %}" target="_blank">
+								<img class="img-fluid" src="{% static 'img/brand_logo/mcq.png' %}" alt="1 slide">
+							</a>
+						</div>
+					</div>
+				</div>
+				<!--/Third slide-->
 
-        <!--fourth slide-->
-        <div class="carousel-item">
+				<!--fourth slide-->
+				<div class="carousel-item">
 
-          <div class="view row align-content-center justify-content-center align-items-center">
-            <div class="col-2">
-              <a href="{% url 'website:swarovski' %}" target="_blank">
-                <img class="img-fluid" src="{% static 'img/brand_logo/swarovski.jpg' %}" alt="1 slide">
-              </a>
-            </div>
-            <div class="col-2">
-              <a href="{% url 'website:stella_kids' %}" target="_blank">
-                <img class="img-fluid" src="{% static 'img/brand_logo/stella_kids.jpg' %}" alt="1 slide">
-              </a>
-            </div>
-            <div class="col-2">
-              <a href="{% url 'website:zegna' %}" target="_blank">
-                <img class="img-fluid" src="{% static 'img/brand_logo/zegna.png' %}" alt="1 slide">
-              </a>
-            </div>
-            <div class="col-2">
-              <a href="{% url 'website:plm' %}" target="_blank">
-                <img class="img-fluid" src="{% static 'img/brand_logo/plm.jpg' %}" alt="1 slide">
-              </a>
-            </div>
-            <div class="col-2">
-              <a href="{% url 'website:look_eyeware' %}" target="_blank">
-                <img class="img-fluid" src="{% static 'img/brand_logo/look_eyeware.png' %}" alt="1 slide">
-              </a>
-            </div>
-          </div>
-        </div>
-        <!--/fourth slide-->
+					<div class="view row align-content-center justify-content-center align-items-center">
+						<div class="col-2">
+							<a href="{% url 'website:swarovski' %}" target="_blank">
+								<img class="img-fluid" src="{% static 'img/brand_logo/swarovski.jpg' %}" alt="1 slide">
+							</a>
+						</div>
+						<div class="col-2">
+							<a href="{% url 'website:stella_kids' %}" target="_blank">
+								<img class="img-fluid" src="{% static 'img/brand_logo/stella_kids.jpg' %}" alt="1 slide">
+							</a>
+						</div>
+						<div class="col-2">
+							<a href="{% url 'website:zegna' %}" target="_blank">
+								<img class="img-fluid" src="{% static 'img/brand_logo/zegna.png' %}" alt="1 slide">
+							</a>
+						</div>
+						<div class="col-2">
+							<a href="{% url 'website:plm' %}" target="_blank">
+								<img class="img-fluid" src="{% static 'img/brand_logo/plm.jpg' %}" alt="1 slide">
+							</a>
+						</div>
+						<div class="col-2">
+							<a href="{% url 'website:look_eyeware' %}" target="_blank">
+								<img class="img-fluid" src="{% static 'img/brand_logo/look_eyeware.png' %}" alt="1 slide">
+							</a>
+						</div>
+					</div>
+				</div>
+				<!--/fourth slide-->
 
-      </div>
-      <!--/.Slides-->
+			</div>
+			<!--/.Slides-->
 
-      <a class="carousel-control-next mx-auto" href="#carouselExampleControls" role="button" data-slide="next">
-        <span class="carousel-control-next-icon rgba-black-light" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
-      </a>
-      <!--/.Controls-->
+			<a class="carousel-control-next mx-auto" href="#carouselExampleControls" role="button" data-slide="next">
+				<span class="carousel-control-next-icon rgba-black-light" aria-hidden="true"></span>
+				<span class="sr-only">Next</span>
+			</a>
+			<!--/.Controls-->
 
-    </div>
-    <!--/.Brand logo slides-->
-  </div>
-  <!--/.Brand logo slides-->
+		</div>
+		<!--/.Brand logo slides-->
+	</div>
+	<!--/.Brand logo slides-->
 
-  <div class="container">
-    <div class="row text-center">
-      <div class="col-sm-8">
-        <div class="row card border border-dark text-left">
-          <p class="ml-2 mr-2">Welcome to Look Eye Care, Pittsburgh’s premier eyewear boutique.  Conveniently
-            located near
-            you in Ross
-            Park Mall, you’re just minutes away from 2020 designer and luxury brand glasses and sunglasses frames.</p>
-          <p class="ml-2 mr-2">Dr. Yang and the Look Eye Care staff are committed to providing exceptional customer
-            service experiences
-            every step of the way including evening and weekend appointments with complementary fittings for life.</p>
-          <p class="ml-2 mr-2">Look Eye Care provides the highest quality products and offers many same day
-            services, from eye exams to
-            prescription glasses in an hour utilizing the latest digital technologies.</p>
-        </div>
-        <div class="row mt-2">
-          <div class="col-sm align-self-center">
-            <a href="{% url 'website:our_services' %}"><h5><u>Our Services</u></h5></a>
-            <p class="ml-2 text-left"><small>We strive to provide complete care for our patients.
-              Learn
-              more about
-              all the services we provide and schedule your appointment today.</small></p>
-          </div>
-          <div class="col-sm">
-            <img class="img-fluid rounded mr-2" src="{% static 'img/store_logo/Eye_Test_Glasses.webp' %}">
-          </div>
-        </div>
+	<div class="container">
+		<div class="row text-center">
+			<div class="col-sm-8">
+				<div class="row card border border-dark text-left">
+					<p class="ml-2 mr-2">Welcome to Look Eye Care, Pittsburgh’s premier eyewear boutique.  Conveniently
+						located near
+						you in Ross
+						Park Mall, you’re just minutes away from 2020 designer and luxury brand glasses and sunglasses frames.</p>
+					<p class="ml-2 mr-2">Dr. Yang and the Look Eye Care staff are committed to providing exceptional customer
+						service experiences
+						every step of the way including evening and weekend appointments with complementary fittings for life.</p>
+					<p class="ml-2 mr-2">Look Eye Care provides the highest quality products and offers many same day
+						services, from eye exams to
+						prescription glasses in an hour utilizing the latest digital technologies.</p>
+				</div>
+				<div class="row mt-2">
+					<div class="col-sm align-self-center">
+						<a href="{% url 'website:our_services' %}"><h5><u>Our Services</u></h5></a>
+						<p class="ml-2 text-left"><small>We strive to provide complete care for our patients.
+							Learn
+							more about
+							all the services we provide and schedule your appointment today.</small></p>
+					</div>
+					<div class="col-sm">
+						<img class="img-fluid rounded mr-2" src="{% static 'img/store_logo/Eye_Test_Glasses.webp' %}">
+					</div>
+				</div>
 
-        <div class="row mt-2">
-          <div class="col-sm align-self-center">
-            <a href="{% url 'website:collections' %}"><h5><u>Our Eyewear</u></h5></a>
-            <p class="ml-2 text-left"><small>Glasses say so much about your personality and personal style. At Look Eye
-              Care, we are happy to work with you in selecting frames that complement your features. </small></p>
-          </div>
-          <div class="col-sm">
-            <img class="img-fluid rounded mr-2" src="{% static 'img/store_logo/Lenses.webp' %}">
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-4">
-        <div class="row">
-          <script src="https://apps.elfsight.com/p/platform.js" defer></script>
-          <div class="elfsight-app-404c7b0b-1598-4e06-bf9e-b878ca95fe83"></div>
-        </div>
-      </div>
-    </div>
-  </div>
+				<div class="row mt-2">
+					<div class="col-sm align-self-center">
+						<a href="{% url 'website:collections' %}"><h5><u>Our Eyewear</u></h5></a>
+						<p class="ml-2 text-left"><small>Glasses say so much about your personality and personal style. At Look Eye
+							Care, we are happy to work with you in selecting frames that complement your features. </small></p>
+					</div>
+					<div class="col-sm">
+						<img class="img-fluid rounded mr-2" src="{% static 'img/store_logo/Lenses.webp' %}">
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-4">
+				<div class="row">
+					<script src="https://apps.elfsight.com/p/platform.js" defer></script>
+					<div class="elfsight-app-404c7b0b-1598-4e06-bf9e-b878ca95fe83"></div>
+				</div>
+			</div>
+		</div>
+	</div>
 
 
 {% endblock home %}
